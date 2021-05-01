@@ -3,6 +3,7 @@ package com.sample;
 public class Settings {
 int time;
 int dimension;
+boolean gameOver;
 
 int limitRowUp;
 int limitRowDown;
@@ -18,6 +19,7 @@ public Settings(int time, int dimension) {
 	this.limitColLeft = 0;
 	this.limitRowUp = 0;
 	this.limitRowDown = dimension-1;
+	this.gameOver = false;
 }
 
 public int getTime() {
@@ -68,12 +70,23 @@ public void setLimitColDown(int limitColLeft) {
 	this.limitColLeft = limitColLeft;
 }
 
+
+
+public boolean getGameOver() {
+	return gameOver;
+}
+
+public void setGameOver(boolean gameOver) {
+	this.gameOver = gameOver;
+}
+
 public void decreaseLimit() {
 	this.limitColLeft++;
 	this.limitColRight--;
 	this.limitRowDown--;
 	this.limitRowUp++;
 }
+
 
 @Override
 public String toString() {

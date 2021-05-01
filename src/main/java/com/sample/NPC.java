@@ -4,7 +4,7 @@ public class NPC extends LocatedOnMap{
 
 
 	public NPC(String simbol, int col, int row) {
-		super(simbol, col, row);
+		super(simbol, col, row, 1);
 	}
 	@Override
 	public String toString() {

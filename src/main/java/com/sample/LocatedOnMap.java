@@ -4,11 +4,13 @@ public abstract class LocatedOnMap {
 	String simbol;
 	int col;
 	int row;
+	int removable;
 	
-	public LocatedOnMap(String simbol, int col, int row){
+	public LocatedOnMap(String simbol, int col, int row, int removable){
 		this.simbol = simbol;
 		this.col = col;
 		this.row = row;
+		this.removable = removable;
 	}
 	
 	public String getSimbol() {
@@ -34,4 +36,13 @@ public abstract class LocatedOnMap {
 	public void setRow(int row) {
 		this.row = row;
 	}
+
+	public int getRemovable() {
+		return removable;
+	}
+
+	public void setRemovable(int removable) {
+		this.removable = removable;
+	}
+	
 }

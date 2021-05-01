@@ -35,9 +35,8 @@ public class Gui {
 	
 	
 
-	public void printMap(Collection<LocatedOnMap> mapBeing, Collection<Settings> settings) {
+	public void printMap(Collection<LocatedOnMap> mapBeing, Settings setting) {
 		
-		Settings setting = settings.iterator().next();
 		int dimension = setting.getDimension();
 		int time = setting.getTime();
 		

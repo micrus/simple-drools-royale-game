@@ -38,9 +38,10 @@ public class DroolsTest {
             
             
             //=====================ACT=================================
-         
-            while (true) {
-                Collection<Settings> settings = (Collection<Settings>) kSession.getObjects(new ClassObjectFilter(Settings.class));
+            boolean run = true;
+            while (run ) {
+                
+            	Settings settings =  (Settings) kSession.getObjects(new ClassObjectFilter(Settings.class)).iterator().next();
                 Collection<LocatedOnMap> mapBeing = (Collection<LocatedOnMap>) kSession.getObjects(new ClassObjectFilter(LocatedOnMap.class));
                 gui.printMap(mapBeing, settings);
                 
@@ -48,7 +49,14 @@ public class DroolsTest {
 
                 kSession.insert(action);
                 kSession.fireAllRules();
-            }            
+                run = !settings.getGameOver();
+            }    
+            
+            //The game is finished
+        	Settings settings =  (Settings) kSession.getObjects(new ClassObjectFilter(Settings.class)).iterator().next();
+            Collection<LocatedOnMap> mapBeing = (Collection<LocatedOnMap>) kSession.getObjects(new ClassObjectFilter(LocatedOnMap.class));
+            gui.printMap(mapBeing, settings);
+            System.out.println("Game Over!");
 
             
         } catch (Throwable t) {
