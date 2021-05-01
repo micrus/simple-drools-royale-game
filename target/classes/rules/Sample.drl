@@ -1,0 +1,267 @@
+package com.sample
+ 
+ /*
+ ====== SET DI REGOLE PER GESTIRE IL MOVIMENTO DEL PERSONAGGIO
+ */
+ 
+ 
+ //Può muoversi a destra
+ rule "MOVE RIGHT"
+    when
+	    setting : Settings( )
+		action : PlayerAction( action == Moves.GO_RIGHT && state == MovesState.PERFORMING ) and
+		hero : Hero ( row < setting.getDimension() - 1 ) and
+		not Wall (col == hero.getCol() && row == hero.getRow() +1 )and
+		not NPC (col == hero.getCol() && row == hero.getRow() +1 )
+	then
+       System.out.println("Move Right!");
+       hero.setRow(hero.getRow()+1);
+       action.setState(MovesState.FINISHED);
+       update( action );
+       update( hero );
+ end
+ 
+  //Non può muoversi perchè ha un muro a destra
+  rule "CANNOT MOVE RIGHT 1"
+    when
+	    setting : Settings( )
+		action : PlayerAction( action == Moves.GO_RIGHT && state == MovesState.PERFORMING ) and
+		hero : Hero ( ) and
+		(Wall (col == hero.getCol() && row == hero.getRow() +1 ) or
+		NPC (col == hero.getCol() && row == hero.getRow() +1 ))
+	then
+       System.out.println("Cannote move Right!");
+       action.setState(MovesState.FINISHED);
+       update( action );
+ end
+  
+   //Non può muoversi perchè è ai bordi
+   rule "CANNOT MOVE RIGHT 2"
+    when
+	    setting : Settings( )
+		action : PlayerAction( action == Moves.GO_RIGHT && state == MovesState.PERFORMING ) and
+		hero : Hero ( row >= setting.getDimension() - 1 )
+	then
+       System.out.println("Cannot move Right!");
+       action.setState(MovesState.FINISHED);
+       update( action );
+ end
+  
+
+ rule "MOVE DOWN"
+    when
+	    setting : Settings( )
+		action : PlayerAction( action == Moves.GO_DOWN && state == MovesState.PERFORMING ) and
+		hero : Hero ( col < setting.getDimension() - 1 )and 
+		not Wall (col == hero.getCol()+1 && row == hero.getRow() )and 
+		not NPC (col == hero.getCol()+1 && row == hero.getRow() )
+		
+    then
+       System.out.println("Move down!");
+       hero.setCol(hero.getCol()+1);
+       action.setState(MovesState.FINISHED);
+       update( action );
+       update( hero );
+ end
+ 
+ rule "CANNOT MOVE DOWN 1"
+    when
+	    setting : Settings( )
+		action : PlayerAction( action == Moves.GO_DOWN && state == MovesState.PERFORMING ) and
+		hero : Hero ( col >= setting.getDimension() - 1 )
+		
+    then
+       System.out.println("Cannot Move down!");
+       action.setState(MovesState.FINISHED);
+       update( action );
+ end
+ 
+  rule "CANNOT MOVE DOWN 2"
+    when
+	    setting : Settings( )
+	    hero : Hero ( )
+		action : PlayerAction( action == Moves.GO_DOWN && state == MovesState.PERFORMING ) and
+		(Wall ( col == hero.getCol()+1 && row == hero.getRow() ) or
+		NPC (col == hero.getCol()+1 && row == hero.getRow()) )
+		
+    then
+       System.out.println("Cannot Move down!");
+       action.setState(MovesState.FINISHED);
+       update( action );
+ end
+ 
+ 
+  rule "MOVE UP"
+    when
+		action : PlayerAction( action == Moves.GO_UP && state == MovesState.PERFORMING ) and
+		hero : Hero ( col > 0 ) and
+		not Wall (col == hero.getCol()-1 && row == hero.getRow())and
+		not NPC (col == hero.getCol()-1 && row == hero.getRow())
+		
+    then
+       System.out.println("Move up!");
+       hero.setCol(hero.getCol()-1);
+       action.setState(MovesState.FINISHED);
+       update( action );
+       update( hero );
+ end
+ 
+   rule "CANNOT MOVE UP 1"
+    when
+		action : PlayerAction( action == Moves.GO_UP && state == MovesState.PERFORMING ) and
+		hero : Hero ( col <= 0 ) 
+		
+    then
+       System.out.println("Cannot Move up!");
+       action.setState(MovesState.FINISHED);
+       update( action );
+ end
+ 
+   rule "CANNOT MOVE UP 2"
+    when
+		action : PlayerAction( action == Moves.GO_UP && state == MovesState.PERFORMING ) and
+		hero : Hero ( ) and
+	    (Wall (col == hero.getCol()-1 && row == hero.getRow()) or
+	    NPC (col == hero.getCol()-1 && row == hero.getRow()))
+		
+    then
+       System.out.println("Cannot Move up!");
+       action.setState(MovesState.FINISHED);
+       update( action );
+ end
+ 
+ 
+   rule "MOVE LEFT"
+    when
+		action : PlayerAction( action == Moves.GO_LEFT && state == MovesState.PERFORMING ) and
+		hero : Hero ( row > 0 ) and 
+		not Wall (col == hero.getCol() && row == hero.getRow()-1) and
+		not NPC (col == hero.getCol() && row == hero.getRow()-1)
+		
+    then
+       System.out.println("Move left!");
+       hero.setRow(hero.getRow()-1);
+       action.setState(MovesState.FINISHED);
+       update( action );
+       update( hero );
+ end
+ 
+   rule "CANNOT MOVE LEFT 1"
+    when
+		action : PlayerAction( action == Moves.GO_LEFT && state == MovesState.PERFORMING ) and
+		hero : Hero ( row <= 0 ) 
+		
+    then
+       System.out.println("Cannot Move left!");
+       action.setState(MovesState.FINISHED);
+       update( action );
+ end
+ 
+    rule "CANNOT MOVE LEFT 2"
+    when
+		action : PlayerAction( action == Moves.GO_LEFT && state == MovesState.PERFORMING ) and
+		hero : Hero (  ) and 
+		(Wall (col == hero.getCol() && row == hero.getRow()-1) or
+		NPC (col == hero.getCol() && row == hero.getRow()-1))
+		
+    then
+       System.out.println("Cannot Move left!");
+       action.setState(MovesState.FINISHED);
+       update( action );
+ end
+ 
+ 
+
+
+
+/**
+=========SET DI REGOLE PER IL RIMPICCIOLIMENTO DEL CAMPO
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Remove each action that have been accomplished
+ rule "REMOVE ACTION"
+    when
+    	setting : Settings( ) and
+		action : PlayerAction(state == MovesState.FINISHED ) 
+    then
+ 	   retract( action );
+ end
+ 
+ rule "TURN" salience 100
+ 	when 
+ 		setting : Settings( ) and
+ 		not PlayerAction ( )
+ 	then
+ 		setting.setTime(setting.getTime() + 1);
+ 		update (setting)
+ end
+ 
+ // Rule that handle the shrinking of the map
+  rule "REMOVE PG OF THE BORDER" salience 10
+    when
+    	setting : Settings( (time % 10) == 0 ) and
+		npc : LocatedOnMap ( (col in (setting.getLimitColLeft() , setting.getLimitColRight())) || (row in (setting.getLimitRowUp() , setting.getLimitRowDown())) )  
+    then
+		retract (npc);
+ end
+ 
+   rule "EFFECTIVELY REMOVE PORTIONS OF MAP" salience 10 
+    when
+    	setting: Settings( (time % 10) == 0 ) and
+		not LocatedOnMap ( (col in (setting.getLimitColLeft() , setting.getLimitColRight())) || (row in (setting.getLimitRowUp() , setting.getLimitRowDown())) )  
+    then
+	
+		
+		for (int i = setting.getLimitColLeft(); i<=setting.getLimitColRight(); i++){
+			
+			insert ( new Wall("#", i, setting.getLimitRowUp()) );
+			insert ( new Wall("#", i, setting.getLimitRowDown()) );
+			
+		}
+		
+		for (int i = setting.getLimitRowUp() + 1; i<=setting.getLimitRowDown() -1; i++){
+			
+			insert ( new Wall("#", setting.getLimitColLeft(), i) );
+			insert ( new Wall("#", setting.getLimitColRight(), i) );
+			
+		}
+		
+		setting.decreaseLimit();
+		setting.setTime( setting.getTime() + 1);
+		update ( setting );
+ end
+ 
+ /*
+ 
+ 
+ 
+ 
+ 
+ Cose da fare sicuramente:
+ 	
+ 	
+ Prossimo passo:
+
+Piu o meno funziona! Ora bisogna distinguere pg e npg dai muri, e quindi fare la rimozione solo di questi! Magari un interfaccia "removable" 
+così guardiamo già avanti agli alberi ed alle altre cose ;-)
+
+ 
+ Crea una variabile su settings. Ogni volta che non c'è un hero questa variabile va a false. Game Over.
+ Prendi l'input e invece che ciclare all'infinito metti quello come guard
+ 
+ */
+ 
+ 
