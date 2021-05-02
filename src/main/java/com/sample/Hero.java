@@ -8,8 +8,11 @@ public Hero(String simbol, int col, int row, Statistic stat) {
 
 @Override
 public String toString() {
-	return "Hero [simbol=" + simbol + ", col=" + col + ", row=" + row + "]";
+	return "Hero [baseStat=" + baseStat + ", actualStat=" + actualStat + ", simbol=" + simbol + ", col=" + col
+			+ ", row=" + row + ", removable=" + removable + "]";
 }
+
+
 
 
 }

@@ -1,24 +1,36 @@
 package com.sample;
 
-public class Statistic {
-	int life;
-	int atk;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Statistic implements Cloneable{
+	private Map<StatAbility, Integer> stat;
+	
 	public Statistic(int life, int atk) {
 		super();
-		this.life = life;
-		this.atk = atk;
+		this.stat = new HashMap<StatAbility, Integer>();
+		stat.put(StatAbility.ATK, atk);
+		stat.put(StatAbility.LIFE, life);
 	}
-	public int getLife() {
-		return life;
+	
+	public Statistic(Statistic stats) {
+		super();
+		this.stat = new HashMap<StatAbility, Integer>();
+		stat.put(StatAbility.ATK, stats.getStat(StatAbility.ATK));
+		stat.put(StatAbility.LIFE, stats.getStat(StatAbility.LIFE));
 	}
-	public void setLife(int life) {
-		this.life = life;
+
+	public int getStat(StatAbility ability) {
+		return this.stat.get(ability);
 	}
-	public int getAtk() {
-		return atk;
+	
+	public void setStat(StatAbility ability, int newValue) {
+		this.stat.put(ability, newValue);
 	}
-	public void setAtk(int atk) {
-		this.atk = atk;
+
+	@Override
+	public String toString() {
+		return "Statistic [stat=" + stat + "]";
 	}
 	
 	
