@@ -46,7 +46,6 @@ public class Gui {
 		mapBeing.forEach(mapper -> {map[mapper.col][mapper.row] = "[ "+mapper.simbol+" ]";});
 		
 		System.out.println("Time: "+time%10);
-		System.out.println("Limits: cl["+setting.getLimitColLeft()+"], cr["+setting.getLimitColRight()+"], ru["+setting.getLimitRowUp()+"], rd["+setting.getLimitRowDown()+"]");
 		printToConsole(map);
 	}
 	
@@ -62,7 +61,16 @@ public class Gui {
 		return map;
 	}
 	
-	
+	public void printHelp() {
+		System.out.println("Invalid command! Below the list of all the possible command that can be performed.");
+		System.out.println("Move:");
+		System.out.println("\t -a move left");
+		System.out.println("\t -w move up");
+		System.out.println("\t -d move right");
+		System.out.println("\t -s move down");
+		System.out.println();
+		System.out.println();
+	}
 	
 	// Stampano una mappa su console
 	private void printToConsole(String[][] map) {

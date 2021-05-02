@@ -24,10 +24,10 @@ public class DroolsTest {
         	//=====================SETUP ==============================
         	Gui gui = new Gui();
         	Settings setting = new Settings(0, 5);
-        	Hero hero = new Hero("X", 2, 2);
+        	Hero hero = new Hero("X", 2, 2, new Statistic (25, 10));
         	//Wall wall = new Wall("#",3,3);
-        	NPC npc1 = new NPC("NPC",0,1);
-        	NPC npc2 = new NPC("NPC",4,4);
+        	NPC npc1 = new NPC("NPC",0,1, new Statistic(25, 10));
+        	NPC npc2 = new NPC("NPC",3,3, new Statistic(25, 10));
 
         	kSession.insert(hero);
         	//kSession.insert(wall);
@@ -46,9 +46,12 @@ public class DroolsTest {
                 gui.printMap(mapBeing, settings);
                 
             	PlayerAction action= gui.getActionFromConsole();
-
-                kSession.insert(action);
-                kSession.fireAllRules();
+            	if(action != null) {
+	                kSession.insert(action);
+	                kSession.fireAllRules();
+            	}else {
+            		gui.printHelp();
+            	}
                 run = !settings.getGameOver();
             }    
             

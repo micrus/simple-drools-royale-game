@@ -180,20 +180,11 @@ package com.sample
 
 
 
+
+
 /**
-=========SET DI REGOLE PER IL RIMPICCIOLIMENTO DEL CAMPO
+SET DI REGOLE PER I TURNI E LA RIMOZIONE DELLE AZIONI
 */
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -215,10 +206,19 @@ package com.sample
  		update (setting)
  end
  
+ 
+ 
+ 
+/**
+=========SET DI REGOLE PER IL RIMPICCIOLIMENTO DEL CAMPO
+*/
+
+
+ 
  // Rule that handle the shrinking of the map
   rule "REMOVE PG OF THE BORDER" salience 10
     when
-    	setting : Settings( (time % 10) == 0 && gameOver == false) and
+    	setting : Settings( time!=0 && (time % 10) == 0 && gameOver == false) and
 		npc : LocatedOnMap ( ((col in (setting.getLimitColLeft() , setting.getLimitColRight())) || (row in (setting.getLimitRowUp() , setting.getLimitRowDown())))&& removable == 1 )  
     then
 		retract (npc);
@@ -226,7 +226,7 @@ package com.sample
  
    rule "EFFECTIVELY REMOVE PORTIONS OF MAP" salience 10 
     when
-    	setting: Settings( (time % 10) == 0 && gameOver == false) and
+    	setting: Settings( time!= 0 && (time % 10) == 0 && gameOver == false) and
 		not LocatedOnMap ( ((col in (setting.getLimitColLeft() , setting.getLimitColRight())) || (row in (setting.getLimitRowUp() , setting.getLimitRowDown()))) && removable == 1 )  
     then
 	
@@ -251,6 +251,11 @@ package com.sample
  end
  
  
+ 
+ 
+ /**
+ SET DI REGOLE PER LA VITTORIA O LA SCONFITTA
+ */
  
  rule "LOSE GAME BECAUSE YOU DIE"
  	when 
@@ -281,13 +286,8 @@ package com.sample
  
  Cose da fare sicuramente:
  	
- 	
- Prossimo passo:
-
- -Sistemare i limiti del rimpicciolimento campo 
+ 	Implementare crafting e semplice battaglia 
  
- Crea una variabile su settings. Ogni volta che non c'è un hero questa variabile va a false. Game Over.
- Prendi l'input e invece che ciclare all'infinito metti quello come guard
  
  */
  
