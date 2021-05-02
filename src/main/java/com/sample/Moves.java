@@ -1,10 +1,14 @@
 package com.sample;
 
 public enum Moves {
-GO_LEFT,
 GO_RIGHT,
+GO_LEFT,
 GO_UP,
-SHRINK,
-GO_DOWN;
+GO_DOWN,
+
+ATTACK_RIGHT,
+ATTACK_LEFT,
+ATTACK_UP,
+ATTACK_DOWN;
 
 }

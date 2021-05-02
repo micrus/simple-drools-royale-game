@@ -12,7 +12,7 @@ public class Gui {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		PlayerAction action = null;
 
-		System.out.println("What do you want to do? (a,s,d,w)");
+		System.out.println("What do you want to do?");
 		
 		String act = reader.readLine();
 		switch(act) {
@@ -27,6 +27,18 @@ public class Gui {
 			break;
 		case "w":
 			action = new PlayerAction(Moves.GO_UP);
+			break;
+		case "fd":
+			action = new PlayerAction(Moves.ATTACK_RIGHT);
+			break;
+		case "fa":
+			action = new PlayerAction(Moves.ATTACK_LEFT);
+			break;
+		case "fs":
+			action = new PlayerAction(Moves.ATTACK_DOWN);
+			break;
+		case "fw":
+			action = new PlayerAction(Moves.ATTACK_UP);
 			break;
 		}
 		

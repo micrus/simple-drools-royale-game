@@ -28,7 +28,6 @@ public abstract class Character extends LocatedOnMap {
 	}
 
 	public void increment(StatAbility ability, int increment) {
-		System.out.println(baseStat);
 
 		int newValue = actualStat.getStat(ability) + increment;
 		
@@ -38,7 +37,10 @@ public abstract class Character extends LocatedOnMap {
 			actualStat.setStat(ability, baseStat.getStat(ability));
 		}
 		
-
+	}
+	
+	public int getStat(StatAbility ability) {
+		return this.actualStat.getStat(ability);
 	}
 
 }

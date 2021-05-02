@@ -7,9 +7,11 @@ public class NPC extends Character{
 		super(simbol, col, row, stat);
 		
 	}
+
 	@Override
 	public String toString() {
-		return "NPC [simbol=" + simbol + ", col=" + col + ", row=" + row + "]";
+		return "NPC [baseStat=" + baseStat + ", actualStat=" + actualStat + ", simbol=" + simbol + ", col=" + col
+				+ ", row=" + row + ", removable=" + removable + "]";
 	}
 
 }

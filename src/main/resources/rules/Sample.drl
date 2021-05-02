@@ -251,7 +251,135 @@ SET DI REGOLE PER I TURNI E LA RIMOZIONE DELLE AZIONI
  end
  
  
+ // REGOLE PER IL COMBATTIMENTO
  
+    rule "ATTACK RIGHT"
+    when
+    	Settings( gameOver == false )
+		action : PlayerAction( action == Moves.ATTACK_RIGHT && state == MovesState.PERFORMING ) and
+		hero : Hero () and 
+		npc: NPC (col == hero.getCol() && row == hero.getRow()+1)
+		
+    then
+       System.out.println("Attacking enemy!");
+       npc.increment(StatAbility.LIFE, -(hero.getStat(StatAbility.ATK)));
+       action.setState(MovesState.FINISHED);
+       
+       update ( npc );       
+       update( action );
+
+ end
+ 
+     rule "ATTACK RIGHT BUT NO ENEMY"
+    when
+    	Settings( gameOver == false )
+		action : PlayerAction( action == Moves.ATTACK_RIGHT && state == MovesState.PERFORMING ) and
+		hero : Hero () and 
+		not NPC (col == hero.getCol() && row == hero.getRow()+1)
+		
+    then
+       System.out.println("Everyone fights their inner demons ... but there is no need to attack the wind!");
+       action.setState(MovesState.FINISHED);
+       update( action );
+
+ end
+ 
+   rule "ATTACK LEFT"
+    when
+    	Settings( gameOver == false )
+		action : PlayerAction( action == Moves.ATTACK_LEFT && state == MovesState.PERFORMING ) and
+		hero : Hero () and 
+		npc: NPC (col == hero.getCol() && row == hero.getRow()-1)
+		
+    then
+       System.out.println("Attacking enemy!");
+       npc.increment(StatAbility.LIFE, -(hero.getStat(StatAbility.ATK)));
+       action.setState(MovesState.FINISHED);
+       update ( npc );       
+       update( action );
+
+ end
+ 
+     rule "ATTACK LEFT BUT NO ENEMY"
+    when
+    	Settings( gameOver == false )
+		action : PlayerAction( action == Moves.ATTACK_LEFT && state == MovesState.PERFORMING ) and
+		hero : Hero () and 
+		not NPC (col == hero.getCol() && row == hero.getRow()-1)
+		
+    then
+       System.out.println("Everyone fights their inner demons ... but there is no need to attack the wind!");
+       action.setState(MovesState.FINISHED);
+       update( action );
+
+ end
+ 
+    rule "ATTACK UP"
+    when
+    	Settings( gameOver == false )
+		action : PlayerAction( action == Moves.ATTACK_UP && state == MovesState.PERFORMING ) and
+		hero : Hero () and 
+		npc: NPC (col == hero.getCol()-1 && row == hero.getRow())
+		
+    then
+       System.out.println("Attacking enemy!");
+       npc.increment(StatAbility.LIFE, -(hero.getStat(StatAbility.ATK)));
+       action.setState(MovesState.FINISHED);
+       update ( npc );       
+       update( action );
+
+ end
+ 
+     rule "ATTACK UP BUT NO ENEMY"
+    when
+    	Settings( gameOver == false )
+		action : PlayerAction( action == Moves.ATTACK_UP && state == MovesState.PERFORMING ) and
+		hero : Hero () and 
+		not NPC (col == hero.getCol()-1 && row == hero.getRow())
+		
+    then
+       System.out.println("Everyone fights their inner demons ... but there is no need to attack the wind!");
+       action.setState(MovesState.FINISHED);
+       update( action );
+
+ end
+ 
+     rule "ATTACK DOWN"
+    when
+    	Settings( gameOver == false )
+		action : PlayerAction( action == Moves.ATTACK_DOWN && state == MovesState.PERFORMING ) and
+		hero : Hero () and 
+		npc: NPC (col == hero.getCol()+1 && row == hero.getRow())
+		
+    then
+       System.out.println("Attacking enemy!");
+       npc.increment(StatAbility.LIFE, -(hero.getStat(StatAbility.ATK)));
+       action.setState(MovesState.FINISHED);
+       update ( npc );       
+       update( action );
+
+ end
+ 
+     rule "ATTACK DOWN BUT NO ENEMY"
+    when
+    	Settings( gameOver == false )
+		action : PlayerAction( action == Moves.ATTACK_DOWN && state == MovesState.PERFORMING ) and
+		hero : Hero () and 
+		not NPC (col == hero.getCol()+1 && row == hero.getRow())
+		
+    then
+       System.out.println("Everyone fights their inner demons ... but there is no need to attack the wind!");
+       action.setState(MovesState.FINISHED);
+       update( action );
+
+ end
+ 
+ rule "REMOVE DIED PG"
+ 	when 
+ 		character: Character ( actualStat.getStat(StatAbility.LIFE)<=0 )
+ 	then 
+ 		retract (character);
+ end
  
  /**
  SET DI REGOLE PER LA VITTORIA O LA SCONFITTA
