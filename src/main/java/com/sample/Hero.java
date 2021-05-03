@@ -2,8 +2,8 @@ package com.sample;
 
 public class Hero extends Character{
 
-public Hero(String simbol, int col, int row, Statistic stat) {
-	super(simbol, col, row, stat);
+public Hero(int col, int row, Statistic stat) {
+	super("X", col, row, stat);
 }
 
 @Override

@@ -24,18 +24,25 @@ public class DroolsTest {
         	//=====================SETUP ==============================
         	Gui gui = new Gui();
         	Settings setting = new Settings(0, 5);
-        	Hero hero = new Hero("X", 2, 2, new Statistic (25, 10));
+        	Hero hero = new Hero(2, 2, new Statistic (25, 10));
 
         	
         	//Wall wall = new Wall("#",3,3);
-        	NPC npc1 = new NPC("NPC",0,1, new Statistic(25, 10));
-        	NPC npc2 = new NPC("NPC",3,3, new Statistic(25, 10));
+        	NPC npc1 = new NPC(0,1, new Statistic(25, 10));
+        	NPC npc2 = new NPC(3,3, new Statistic(25, 10));
+
+        	DraftObject deadWood = new DraftObject(1,2,StatAbility.LIFE, -15, 2);
+        	DraftObject lifeWood = new DraftObject(3,1,StatAbility.LIFE, 5, 4);
 
         	kSession.insert(hero);
         	//kSession.insert(wall);
         	kSession.insert(npc1);
         	kSession.insert(npc2);
+        	
+        	kSession.insert(lifeWood);
+        	kSession.insert(deadWood);
 
+        	
             kSession.insert(setting);
             
             

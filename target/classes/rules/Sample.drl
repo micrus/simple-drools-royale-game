@@ -405,6 +405,58 @@ SET DI REGOLE PER I TURNI E LA RIMOZIONE DELLE AZIONI
  end
  
  
+ /*
+ 
+ PARTE RELATIVA AL DRAFTING
+  
+ */
+ 
+ rule "DRAFT"
+    when
+    	Settings( gameOver == false )
+		action : PlayerAction( action == Moves.DRAFT && state == MovesState.PERFORMING ) and
+		hero : Hero () and 
+		draft: DraftObject (col == hero.getCol() && row == hero.getRow())
+		
+    then
+       System.out.println("Drafting...");
+       hero.increment( draft.getStatToIncrease(), draft.getBonus());
+       draft.setAvaiability(draft.getAvaiability() - 1); 
+       action.setState(MovesState.FINISHED);
+       
+       System.out.println("New stats: "+hero.getActualStat().toString() );
+       update ( hero );
+       update ( draft );       
+       update( action );
+
+ end
+ 
+       rule "REMOVE DRAFT"
+       salience 10
+    when
+		
+		draft: DraftObject ( avaiability <= 0 )
+		
+    then
+    	
+    	retract( draft );
+
+ 	end
+ 
+  
+	rule "DRAFT WITHOUT OBJECT"
+    when
+    	Settings( gameOver == false )
+		action : PlayerAction( action == Moves.DRAFT && state == MovesState.PERFORMING ) and
+		hero : Hero () and 
+		not DraftObject (col == hero.getCol() && row == hero.getRow())
+		
+    then
+       System.out.println("Some might say that 'he who seeks finds', but this time you only found mud");
+       action.setState(MovesState.FINISHED);     
+       update( action );
+
+ end
  
  /*
  
@@ -414,7 +466,8 @@ SET DI REGOLE PER I TURNI E LA RIMOZIONE DELLE AZIONI
  
  Cose da fare sicuramente:
  	
- 	Implementare crafting e semplice battaglia 
+ 	Implementare crafting
+ 	Implementare IA
  
  
  */

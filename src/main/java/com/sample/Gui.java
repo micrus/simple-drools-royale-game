@@ -28,6 +28,7 @@ public class Gui {
 		case "w":
 			action = new PlayerAction(Moves.GO_UP);
 			break;
+
 		case "fd":
 			action = new PlayerAction(Moves.ATTACK_RIGHT);
 			break;
@@ -39,6 +40,10 @@ public class Gui {
 			break;
 		case "fw":
 			action = new PlayerAction(Moves.ATTACK_UP);
+			break;
+
+		case "dr":
+			action = new PlayerAction(Moves.DRAFT);
 			break;
 		}
 		
@@ -80,6 +85,13 @@ public class Gui {
 		System.out.println("\t -w move up");
 		System.out.println("\t -d move right");
 		System.out.println("\t -s move down");
+		System.out.println();
+		System.out.println("\t -fa attack left");
+		System.out.println("\t -fw attack up");
+		System.out.println("\t -fd attack right");
+		System.out.println("\t -fs attack down");
+		System.out.println();
+		System.out.println("\t -dr draft");
 		System.out.println();
 		System.out.println();
 	}
