@@ -57,6 +57,7 @@ public class DroolsTest {
             	PlayerAction action= gui.getActionFromConsole();
             	if(action != null) {
 	                kSession.insert(action);
+	                kSession.insert(new Turn(TurnState.INIT));
 	                kSession.fireAllRules();
             	}else {
             		gui.printHelp();

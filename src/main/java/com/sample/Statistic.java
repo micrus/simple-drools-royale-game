@@ -3,7 +3,7 @@ package com.sample;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Statistic implements Cloneable{
+public class Statistic{
 	private Map<StatAbility, Integer> stat;
 	
 	public Statistic(int life, int atk) {

@@ -4,11 +4,13 @@ public abstract class Character extends LocatedOnMap {
 
 	Statistic baseStat;
 	Statistic actualStat;
+	Status status;
 
 	public Character(String simbol, int col, int row, Statistic stat) {
 		super(simbol, col, row, 1);
 		this.baseStat = stat;
 		this.actualStat = new Statistic(stat);
+		this.status = Status.NOT_MOVED;
 	}
 
 	public Statistic getBaseStat() {
@@ -43,4 +45,14 @@ public abstract class Character extends LocatedOnMap {
 		return this.actualStat.getStat(ability);
 	}
 
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	
+	
 }
