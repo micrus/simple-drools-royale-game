@@ -20,10 +20,15 @@
 - Struttura per statistiche, ed oggetti da draft
 - Meccanismo di bonus-malus ad ogni draft 
 
+- NPG possono riattaccare
+- NPG possono fare il craft
+
+- Refactoring
+
 ## TODO 
 
-- Implementare mosse per NPG
-- (?) aggiungere possibilità di mettere trappole (dovrebbe essere molto semplice per come è stato strutturato il codice dei drafting object
+- Finire IA NPG
+- Aggiungere possibilità di mettere trappole (dovrebbe essere molto semplice per come è stato strutturato il codice dei drafting object
 
-- Pacchettizzare e refactoring
+- Pacchettizzare 
 - Implementare GUI 
