@@ -1,17 +1,18 @@
 package com.sample;
 
-public class DraftObject extends LocatedOnMap{
+public class CraftObject extends LocatedOnMap{
 
 	StatAbility statToIncrease;
 	int bonus;
 	int avaiability;
 	
-	public DraftObject(int col, int row, StatAbility stat, int bonus, int avaiability) {
-		super("°", col, row, 1);
+	public CraftObject(int col, int row, StatAbility stat, int bonus, int avaiability) {
+		super("°", col, row, 1, 1);
 		this.statToIncrease = stat;
 		this.bonus = bonus;
 		this.avaiability = avaiability;
 	}
+
 
 	public StatAbility getStatToIncrease() {
 		return statToIncrease;

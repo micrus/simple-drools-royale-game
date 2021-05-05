@@ -1,22 +1,12 @@
 package com.sample
 
+/*
+RULES ARE INSERTED ORDERED BT DECREASING PRIORITY
+*/
 
- rule "NO MOVE"
- salience npc.getStat(StatAbility.SPEED) * 100
- 
-    when
-    	Settings( gameOver == false )
-		npc : NPC( status == Status.NOT_MOVED)
-		
-    then
-       System.out.println("npg don't move ");
-       npc.setStatus(Status.MOVED);
-       update(npc);
-
- end
  
 rule "NPC ATTACK RIGHT"
-     salience npc.getStat(StatAbility.SPEED) * 100 + 50
+     salience npc.getStat(StatAbility.SPEED) * 100 + 70
     
     when
     	Settings( gameOver == false )
@@ -33,7 +23,7 @@ rule "NPC ATTACK RIGHT"
  end
 
  rule "NPC ATTACK LEFT"
-     salience npc.getStat(StatAbility.SPEED) * 100 + 50
+     salience npc.getStat(StatAbility.SPEED) * 100 + 70
     
     when
     	Settings( gameOver == false )
@@ -51,7 +41,7 @@ rule "NPC ATTACK RIGHT"
  
  
  rule "NPC ATTACK UP"
-     salience npc.getStat(StatAbility.SPEED) * 100 + 50
+     salience npc.getStat(StatAbility.SPEED) * 100 + 70
     
     when
     	Settings( gameOver == false )
@@ -68,7 +58,7 @@ rule "NPC ATTACK RIGHT"
  end
  
   rule "NPC ATTACK DOWN"
-     salience npc.getStat(StatAbility.SPEED) * 100 + 50
+     salience npc.getStat(StatAbility.SPEED) * 100 + 70
     
     when
     	Settings( gameOver == false )
@@ -76,11 +66,50 @@ rule "NPC ATTACK RIGHT"
 		character : Character ( col == npc.getCol()+1 && row == npc.getRow() )
 		
     then
-       System.out.print("NPC is Attacking character");
+       System.out.println("NPC is Attacking character");
        character.increment(StatAbility.LIFE, -(npc.getStat(StatAbility.ATK)));
        npc.setStatus(Status.MOVED);
 	   update ( character );       
        update ( npc );       
+
+ end
+ 
+ 
+ rule "NPC CRAFT"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 50
+    when
+    	Settings( gameOver == false )
+		npc: NPC ( status == Status.NOT_MOVED )
+		draft: CraftObject (col == npc.getCol() && row == npc.getRow())
+		
+    then
+       System.out.println("Npc crafting...");
+       npc.increment( draft.getStatToIncrease(), draft.getBonus());
+       draft.setAvaiability(draft.getAvaiability() - 1); 
+       
+       System.out.println("New stats: "+npc.getActualStat().toString() );
+       
+       npc.setStatus(Status.MOVED);
+       update ( npc );
+       update ( draft );       
+
+ end
+ 
+
+
+
+ 
+  rule "NO MOVE"
+ salience npc.getStat(StatAbility.SPEED) * 100
+ 
+    when
+    	Settings( gameOver == false )
+		npc : NPC( status == Status.NOT_MOVED)
+		
+    then
+       System.out.println("npg don't move ");
+       npc.setStatus(Status.MOVED);
+       update(npc);
 
  end
  

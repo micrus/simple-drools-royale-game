@@ -7,7 +7,7 @@ public abstract class Character extends LocatedOnMap {
 	Status status;
 
 	public Character(String simbol, int col, int row, Statistic stat) {
-		super(simbol, col, row, 1);
+		super(simbol, col, row, 1, 0);
 		this.baseStat = stat;
 		this.actualStat = new Statistic(stat);
 		this.status = Status.NOT_MOVED;

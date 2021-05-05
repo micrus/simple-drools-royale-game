@@ -3,7 +3,7 @@ package com.sample;
 public class Wall extends LocatedOnMap {
 
 	public Wall(int col, int row) {
-		super("#", col, row, 0);
+		super("#", col, row, 0, 0);
 	}
 
 	@Override

@@ -42,8 +42,8 @@ public class GuiConsole implements Gui{
 			action = new PlayerAction(Moves.ATTACK_UP);
 			break;
 
-		case "dr":
-			action = new PlayerAction(Moves.DRAFT);
+		case "cr":
+			action = new PlayerAction(Moves.CRAFT);
 			break;
 		}
 		

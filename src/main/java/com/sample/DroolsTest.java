@@ -24,15 +24,15 @@ public class DroolsTest {
         	//=====================SETUP ==============================
         	Gui gui = new GuiConsole();
         	Settings setting = new Settings(0, 5);
-        	Hero hero = new Hero(2, 2, new Statistic (25, 2, 15));
+        	Hero hero = new Hero(2, 2, new Statistic (250, 2, 15));
 
         	
         	//Wall wall = new Wall("#",3,3);
         	NPC npc1 = new NPC(0,1, new Statistic(10, 10, 10));
         	NPC npc2 = new NPC(3,3, new Statistic(20, 20, 20));
 
-        	DraftObject deadWood = new DraftObject(1,2,StatAbility.LIFE, -15, 2);
-        	DraftObject lifeWood = new DraftObject(3,1,StatAbility.LIFE, 5, 4);
+        	CraftObject deadWood = new CraftObject(1,2,StatAbility.LIFE, -15, 2);
+        	CraftObject lifeWood = new CraftObject(3,1,StatAbility.LIFE, 5, 4);
 
         	kSession.insert(hero);
         	//kSession.insert(wall);
@@ -69,7 +69,6 @@ public class DroolsTest {
         	Settings settings =  (Settings) kSession.getObjects(new ClassObjectFilter(Settings.class)).iterator().next();
             Collection<LocatedOnMap> mapBeing = (Collection<LocatedOnMap>) kSession.getObjects(new ClassObjectFilter(LocatedOnMap.class));
             gui.showMap(mapBeing, settings);
-            System.out.println("Game Over!");
 
             
         } catch (Throwable t) {
