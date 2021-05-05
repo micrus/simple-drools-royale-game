@@ -14,7 +14,7 @@ rule "NPC ATTACK RIGHT"
 		character : Character ( col == npc.getCol() && row == npc.getRow()+1 )
 		
     then
-       System.out.print("NPC is Attacking character");
+       System.out.println("NPC is Attacking character");
        character.increment(StatAbility.LIFE, -(npc.getStat(StatAbility.ATK)));
        npc.setStatus(Status.MOVED);
 	   update ( character );       
@@ -49,7 +49,7 @@ rule "NPC ATTACK RIGHT"
 		character : Character ( col == npc.getCol()-1 && row == npc.getRow() )
 		
     then
-       System.out.print("NPC is Attacking character");
+       System.out.println("NPC is Attacking character");
        character.increment(StatAbility.LIFE, -(npc.getStat(StatAbility.ATK)));
        npc.setStatus(Status.MOVED);
 	   update ( character );       

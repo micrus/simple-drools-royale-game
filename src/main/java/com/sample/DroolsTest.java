@@ -31,7 +31,7 @@ public class DroolsTest {
         	NPC npc1 = new NPC(0,1, new Statistic(10, 10, 10));
         	NPC npc2 = new NPC(3,3, new Statistic(20, 20, 20));
 
-        	CraftObject deadWood = new CraftObject(1,2,StatAbility.LIFE, -15, 2);
+        	CraftObject deadWood = new CraftObject(3,3,StatAbility.LIFE, -9, 2);
         	CraftObject lifeWood = new CraftObject(3,1,StatAbility.LIFE, 5, 4);
 
         	kSession.insert(hero);
