@@ -1,32 +1,7 @@
+//created on: 5 mag 2021
 package com.sample
- 
- /*
- ====== SET DI REGOLE PER GESTIRE IL MOVIMENTO DEL PERSONAGGIO
- */
- 
- //Start turn
- rule "Start turn: init character"
- salience 200000
- 	when 	
-		Turn (status == TurnState.INIT)
- 		character: Character ( status == Status.MOVED )
- 	then 
- 		character.setStatus(Status.NOT_MOVED);
- 		update (character);
- end
- 
-  rule "Start turn: performing"
-  salience 200000
- 	when 	
-		turn: Turn (status == TurnState.INIT)
- 		not Character ( status == Status.MOVED )
- 	then 
- 		turn.setStatus(TurnState.PERFORMING);
- 		update (turn);
- end
- 
- 		
- 
+
+
  //Può muoversi a destra
  rule "MOVE RIGHT"
  salience hero.getStat(StatAbility.SPEED) * 100
@@ -38,7 +13,7 @@ package com.sample
 		not NPC (col == hero.getCol() && row == hero.getRow() +1 )
 	then
        System.out.println("Move Right!");
-       hero.setRow(hero.getRow()+1);
+       hero.moveRight();
 	   hero.setStatus(Status.MOVED);
        retract( action );
        update( hero );
@@ -90,7 +65,7 @@ package com.sample
 		
     then
        System.out.println("Move down!");
-       hero.setCol(hero.getCol()+1);
+       hero.moveDown();
        hero.setStatus(Status.MOVED);
        retract( action );
        update( hero );
@@ -141,7 +116,7 @@ package com.sample
 		
     then
        System.out.println("Move up!");
-       hero.setCol(hero.getCol()-1);
+       hero.moveUp();
        hero.setStatus(Status.MOVED);
        retract( action );
        update( hero );
@@ -189,7 +164,7 @@ package com.sample
 		
     then
        System.out.println("Move left!");
-       hero.setRow(hero.getRow()-1);
+       hero.moveLeft();
        hero.setStatus(Status.MOVED);
        retract( action );
        update( hero );
@@ -229,52 +204,11 @@ package com.sample
  
  
 
-
-
-
-
  
  
-/**
-=========SET DI REGOLE PER IL RIMPICCIOLIMENTO DEL CAMPO
-*/
-
-
  
- // Rule that handle the shrinking of the map
-  rule "REMOVE PG OF THE BORDER" salience 10
-    when
-    	setting : Settings( time!=0 && (time % 10) == 0 && gameOver == false) and
-		lom : LocatedOnMap ( ((col in (setting.getLimitColLeft() , setting.getLimitColRight())) || (row in (setting.getLimitRowUp() , setting.getLimitRowDown())))&& removable == 1 )  
-    then
-		retract (lom);
- end
  
-   rule "EFFECTIVELY REMOVE PORTIONS OF MAP" salience 10 
-    when
-    	setting: Settings( time!= 0 && (time % 10) == 0 && gameOver == false) and
-		not LocatedOnMap ( ((col in (setting.getLimitColLeft() , setting.getLimitColRight())) || (row in (setting.getLimitRowUp() , setting.getLimitRowDown()))) && removable == 1 )  
-    then
-	
-		
-		for (int i = setting.getLimitColLeft(); i<=setting.getLimitColRight(); i++){
-			
-			insert ( new Wall(i, setting.getLimitRowUp()) );
-			insert ( new Wall(i, setting.getLimitRowDown()) );
-			
-		}
-		
-		for (int i = setting.getLimitRowUp() + 1; i<=setting.getLimitRowDown() -1; i++){
-			
-			insert ( new Wall(setting.getLimitColLeft(), i) );
-			insert ( new Wall(setting.getLimitColRight(), i) );
-			
-		}
-		
-		setting.decreaseLimit();
-		setting.setTime( setting.getTime() + 1);
-		update ( setting );
- end
+ 
  
  
  // REGOLE PER IL COMBATTIMENTO
@@ -429,28 +363,6 @@ package com.sample
  		retract (character);
  end
  
- /**
- SET DI REGOLE PER LA VITTORIA O LA SCONFITTA
- */
- 
- rule "LOSE GAME BECAUSE YOU DIE"
- 	when 
- 		setting: Settings( gameOver == false ) and
- 		not Hero( )
- 	then 
- 		setting.setGameOver(true);
- 		update (setting);
- end
- 
- rule "WIN GAME BECAUSE YOU ARE THE ONLY ONE"
- 	when 
- 		setting: Settings( gameOver == false ) and
- 		Hero( ) and
- 		not NPC( )
- 	then 
- 		setting.setGameOver(true);
- 		update (setting);
- end
  
  
  /*
@@ -509,65 +421,4 @@ salience hero.getStat(StatAbility.SPEED) * 100
        update(hero);
 
  end
- 
- 
-/**
-SET DI REGOLE PER I TURNI E LA RIMOZIONE DELLE AZIONI
-*/
-
-
-
-//Remove each action that have been accomplished
-
- 
- rule "END TURN" 
- 	when 
- 		setting: Settings( ) and
- 		turn : Turn ( status == TurnState.PERFORMING) and
- 		not Character ( status == Status.NOT_MOVED )
- 	then
- 		setting.setTime(setting.getTime() + 1);
- 		update (setting);
- 		retract(turn);
- end
- 
- 
- 
- 
- /*
- 
- =========================================[PARTE RELATIVA ALLE MOSSE DEGLI NPC]============================================
- 
- */
- 
- 
- rule "MOVE NPG"
- salience npc.getStat(StatAbility.SPEED) * 100
- 
-    when
-    	Settings( gameOver == false )
-		npc : NPC( status == Status.NOT_MOVED)
-		
-    then
-       System.out.println("npg move! " + npc.toString() );
-       npc.setStatus(Status.MOVED);
-       update(npc);
-
- end
- 
- 
- 
- /*
- 
- 
- 
- 
- 
- Cose da fare sicuramente:
- 	
- 	Implementare IA
- 
- 
- */
- 
  

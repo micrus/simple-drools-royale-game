@@ -12,22 +12,7 @@ public abstract class Character extends LocatedOnMap {
 		this.actualStat = new Statistic(stat);
 		this.status = Status.NOT_MOVED;
 	}
-
-	public Statistic getBaseStat() {
-		return baseStat;
-	}
-
-	public void setBaseStat(Statistic baseStat) {
-		this.baseStat = baseStat;
-	}
-
-	public Statistic getActualStat() {
-		return actualStat;
-	}
-
-	public void setActualStat(Statistic actualStat) {
-		this.actualStat = actualStat;
-	}
+	
 
 	public void increment(StatAbility ability, int increment) {
 
@@ -43,6 +28,41 @@ public abstract class Character extends LocatedOnMap {
 	
 	public int getStat(StatAbility ability) {
 		return this.actualStat.getStat(ability);
+	}
+	
+	public void moveLeft() {
+		this.row--;
+	}
+	
+	public void moveRight() {
+		this.row++;
+	}
+	
+	public void moveUp() {
+		this.col--;
+	}
+	public void moveDown() {
+		this.col++;
+	}
+	
+	
+	
+	
+
+	public Statistic getBaseStat() {
+		return baseStat;
+	}
+
+	public void setBaseStat(Statistic baseStat) {
+		this.baseStat = baseStat;
+	}
+
+	public Statistic getActualStat() {
+		return actualStat;
+	}
+
+	public void setActualStat(Statistic actualStat) {
+		this.actualStat = actualStat;
 	}
 
 	public Status getStatus() {

@@ -22,7 +22,7 @@ public class DroolsTest {
 
 
         	//=====================SETUP ==============================
-        	Gui gui = new Gui();
+        	Gui gui = new GuiConsole();
         	Settings setting = new Settings(0, 5);
         	Hero hero = new Hero(2, 2, new Statistic (25, 2, 15));
 
@@ -52,15 +52,15 @@ public class DroolsTest {
                 
             	Settings settings =  (Settings) kSession.getObjects(new ClassObjectFilter(Settings.class)).iterator().next();
                 Collection<LocatedOnMap> mapBeing = (Collection<LocatedOnMap>) kSession.getObjects(new ClassObjectFilter(LocatedOnMap.class));
-                gui.printMap(mapBeing, settings);
+                gui.showMap(mapBeing, settings);
                 
-            	PlayerAction action= gui.getActionFromConsole();
+            	PlayerAction action= gui.getAction();
             	if(action != null) {
 	                kSession.insert(action);
 	                kSession.insert(new Turn(TurnState.INIT));
 	                kSession.fireAllRules();
             	}else {
-            		gui.printHelp();
+            		gui.showHelp();
             	}
                 run = !settings.getGameOver();
             }    
@@ -68,7 +68,7 @@ public class DroolsTest {
             //The game is finished
         	Settings settings =  (Settings) kSession.getObjects(new ClassObjectFilter(Settings.class)).iterator().next();
             Collection<LocatedOnMap> mapBeing = (Collection<LocatedOnMap>) kSession.getObjects(new ClassObjectFilter(LocatedOnMap.class));
-            gui.printMap(mapBeing, settings);
+            gui.showMap(mapBeing, settings);
             System.out.println("Game Over!");
 
             
