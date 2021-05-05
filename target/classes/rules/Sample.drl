@@ -29,6 +29,7 @@ package com.sample
  
  //Può muoversi a destra
  rule "MOVE RIGHT"
+ salience hero.getStat(StatAbility.SPEED) * 100
     when
 	    setting : Settings( gameOver == false )
 		action : PlayerAction( action == Moves.GO_RIGHT ) and
@@ -45,6 +46,8 @@ package com.sample
  
   //Non può muoversi perchè ha un muro a destra
   rule "CANNOT MOVE RIGHT 1"
+  salience hero.getStat(StatAbility.SPEED) * 100
+  
     when
 	    setting : Settings( gameOver == false )
 		action : PlayerAction( action == Moves.GO_RIGHT ) and
@@ -60,6 +63,8 @@ package com.sample
   
    //Non può muoversi perchè è ai bordi
    rule "CANNOT MOVE RIGHT 2"
+   salience hero.getStat(StatAbility.SPEED) * 100
+   
     when
 	    setting : Settings( gameOver == false )
 		action : PlayerAction( action == Moves.GO_RIGHT ) and
@@ -74,6 +79,8 @@ package com.sample
   
 
  rule "MOVE DOWN"
+ salience hero.getStat(StatAbility.SPEED) * 100
+ 
     when
 	    setting : Settings( gameOver == false )
 		action : PlayerAction( action == Moves.GO_DOWN ) and
@@ -90,6 +97,8 @@ package com.sample
  end
  
  rule "CANNOT MOVE DOWN 1"
+ salience hero.getStat(StatAbility.SPEED) * 100
+ 
     when
 	    setting : Settings(gameOver == false )
 		action : PlayerAction( action == Moves.GO_DOWN ) and
@@ -103,6 +112,8 @@ package com.sample
  end
  
   rule "CANNOT MOVE DOWN 2"
+  salience hero.getStat(StatAbility.SPEED) * 100
+  
     when
 	    setting : Settings( gameOver == false )
 	    hero : Hero ( )
@@ -119,6 +130,8 @@ package com.sample
  
  
   rule "MOVE UP"
+  salience hero.getStat(StatAbility.SPEED) * 100
+  
     when
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.GO_UP ) and
@@ -135,6 +148,7 @@ package com.sample
  end
  
    rule "CANNOT MOVE UP 1"
+   salience hero.getStat(StatAbility.SPEED) * 100
     when
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.GO_UP ) and
@@ -148,6 +162,7 @@ package com.sample
  end
  
    rule "CANNOT MOVE UP 2"
+   salience hero.getStat(StatAbility.SPEED) * 100
     when
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.GO_UP) and
@@ -164,6 +179,7 @@ package com.sample
  
  
    rule "MOVE LEFT"
+   salience hero.getStat(StatAbility.SPEED) * 100
     when
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.GO_LEFT ) and
@@ -180,6 +196,8 @@ package com.sample
  end
  
    rule "CANNOT MOVE LEFT 1"
+   salience hero.getStat(StatAbility.SPEED) * 100
+   
     when
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.GO_LEFT ) and
@@ -193,6 +211,8 @@ package com.sample
  end
  
     rule "CANNOT MOVE LEFT 2"
+    salience hero.getStat(StatAbility.SPEED) * 100
+    
     when
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.GO_LEFT ) and
@@ -260,6 +280,8 @@ package com.sample
  // REGOLE PER IL COMBATTIMENTO
  
     rule "ATTACK RIGHT"
+    salience hero.getStat(StatAbility.SPEED) * 100
+    
     when
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.ATTACK_RIGHT) and
@@ -277,6 +299,8 @@ package com.sample
  end
  
      rule "ATTACK RIGHT BUT NO ENEMY"
+     salience hero.getStat(StatAbility.SPEED) * 100
+     
     when
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.ATTACK_RIGHT ) and
@@ -292,6 +316,8 @@ package com.sample
  end
  
    rule "ATTACK LEFT"
+   salience hero.getStat(StatAbility.SPEED) * 100
+   
     when
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.ATTACK_LEFT) and
@@ -309,6 +335,8 @@ package com.sample
  end
  
      rule "ATTACK LEFT BUT NO ENEMY"
+     salience hero.getStat(StatAbility.SPEED) * 100
+     
     when
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.ATTACK_LEFT ) and
@@ -324,6 +352,8 @@ package com.sample
  end
  
     rule "ATTACK UP"
+    salience hero.getStat(StatAbility.SPEED) * 100
+    
     when
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.ATTACK_UP ) and
@@ -341,6 +371,8 @@ package com.sample
  end
  
      rule "ATTACK UP BUT NO ENEMY"
+     salience hero.getStat(StatAbility.SPEED) * 100
+     
     when
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.ATTACK_UP ) and
@@ -355,6 +387,8 @@ package com.sample
  end
  
      rule "ATTACK DOWN"
+     salience hero.getStat(StatAbility.SPEED) * 100
+     
     when
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.ATTACK_DOWN ) and
@@ -372,6 +406,8 @@ package com.sample
  end
  
      rule "ATTACK DOWN BUT NO ENEMY"
+     salience hero.getStat(StatAbility.SPEED) * 100
+     
     when
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.ATTACK_DOWN) and
@@ -386,7 +422,7 @@ package com.sample
 
  end
  
- rule "REMOVE DIED PG"
+ rule "REMOVE DIED PG" 
  	when 
  		character: Character ( actualStat.getStat(StatAbility.LIFE)<=0 )
  	then 
@@ -424,6 +460,7 @@ package com.sample
  */
  
  rule "DRAFT"
+ salience hero.getStat(StatAbility.SPEED) * 100
     when
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.DRAFT ) and
@@ -444,8 +481,8 @@ package com.sample
 
  end
  
-       rule "REMOVE DRAFT"
-       salience 10
+rule "REMOVE DRAFT"
+salience 100000
     when
 		
 		draft: DraftObject ( avaiability <= 0 )
@@ -458,6 +495,7 @@ package com.sample
  
   
 rule "DRAFT WITHOUT OBJECT"
+salience hero.getStat(StatAbility.SPEED) * 100
     when
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.DRAFT ) and
@@ -504,12 +542,14 @@ SET DI REGOLE PER I TURNI E LA RIMOZIONE DELLE AZIONI
  
  
  rule "MOVE NPG"
+ salience npc.getStat(StatAbility.SPEED) * 100
+ 
     when
     	Settings( gameOver == false )
 		npc : NPC( status == Status.NOT_MOVED)
 		
     then
-       System.out.println("npg move!");
+       System.out.println("npg move! " + npc.toString() );
        npc.setStatus(Status.MOVED);
        update(npc);
 

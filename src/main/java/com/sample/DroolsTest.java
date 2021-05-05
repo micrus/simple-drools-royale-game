@@ -24,12 +24,12 @@ public class DroolsTest {
         	//=====================SETUP ==============================
         	Gui gui = new Gui();
         	Settings setting = new Settings(0, 5);
-        	Hero hero = new Hero(2, 2, new Statistic (25, 10));
+        	Hero hero = new Hero(2, 2, new Statistic (25, 2, 15));
 
         	
         	//Wall wall = new Wall("#",3,3);
-        	NPC npc1 = new NPC(0,1, new Statistic(25, 10));
-        	NPC npc2 = new NPC(3,3, new Statistic(25, 10));
+        	NPC npc1 = new NPC(0,1, new Statistic(10, 10, 10));
+        	NPC npc2 = new NPC(3,3, new Statistic(20, 20, 20));
 
         	DraftObject deadWood = new DraftObject(1,2,StatAbility.LIFE, -15, 2);
         	DraftObject lifeWood = new DraftObject(3,1,StatAbility.LIFE, 5, 4);
