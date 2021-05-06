@@ -98,8 +98,129 @@ rule "NPC ATTACK RIGHT"
 
 
 
+ rule "NPC MOVE RIGHT TOWARD CHARACTER"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 30
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row < setting.getDimension() - 1 ) 
+		character : Character (col == npc.getCol() && row > npc.getRow() && row < npc.getRow()+npc.getStat(StatAbility.VIEW ) ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol() && (row == npc.getRow() +1) )
+	
+	then
+       System.out.println("NPC move right toward character!");
+       npc.moveRight();
+	   npc.setStatus(Status.MOVED);
+       update( npc );
+ end
  
-  rule "NO MOVE"
+  rule "NPC MOVE LEFT TOWARD CHARACTER"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 30
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row > 0 ) 
+		character : Character (col == npc.getCol() && row >(npc.getRow()-npc.getStat(StatAbility.VIEW)) && row < npc.getRow() ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol() && (row == npc.getRow() -1) )
+	
+	then
+       System.out.println("NPC move left toward character!");
+       npc.moveLeft();
+	   npc.setStatus(Status.MOVED);
+       update( npc );
+ end
+ 
+ rule "NPC MOVE DOWN TOWARD CHARACTER"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 30
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col < setting.getDimension() - 1 ) 
+		character : Character (row == npc.getRow()  && col > npc.getCol() && col < npc.getCol()+npc.getStat(StatAbility.VIEW ) )
+		not LocatedOnMap (steppable==0 && col == npc.getCol()+1 && row == npc.getRow()  )
+	
+	then
+       System.out.println("NPC move down toward character!");
+       npc.moveDown();
+	   npc.setStatus(Status.MOVED);
+       update( npc );
+ end
+ 
+ rule "NPC MOVE UP TOWARD CHARACTER"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 30
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col > 0 ) 
+		character : Character (row == npc.getRow() && col >(npc.getCol()-npc.getStat(StatAbility.VIEW)) && col < npc.getCol() ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()-1 && row == npc.getRow() )
+	
+	then
+       System.out.println("NPC move left toward character!");
+       npc.moveLeft();
+	   npc.setStatus(Status.MOVED);
+       update( npc );
+ end
+ 
+ 
+ 
+ 
+ 
+ rule "NPC MOVE RIGHT"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 10
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol() && (row == npc.getRow() +1) )
+	
+	then
+       System.out.println("NPC move right!");
+       npc.moveRight();
+	   npc.setStatus(Status.MOVED);
+       update( npc );
+ end
+ 
+ 
+ rule "NPC MOVE LEFT"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 10
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row > 0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol() && (row == npc.getRow() -1) )
+	
+	then
+       System.out.println("NPC move left!");
+       npc.moveLeft();
+	   npc.setStatus(Status.MOVED);
+       update( npc );
+ end
+ 
+ 
+ rule "NPC MOVE UP"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 10
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED  && col < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && (col == npc.getCol()-1) && row == npc.getRow() )
+	
+	then
+       System.out.println("NPC move up!");
+       npc.moveUp();
+	   npc.setStatus(Status.MOVED);
+       update( npc );
+ end
+ 
+  rule "NPC MOVE DOWN"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 10
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC (status == Status.NOT_MOVED && col > 0 ) 
+		not LocatedOnMap (steppable==0 && (col == npc.getCol()+1) && row == npc.getRow() )
+	
+	then
+       System.out.println("NPC move down!");
+       npc.moveDown();
+	   npc.setStatus(Status.MOVED);
+       update( npc );
+ end
+ 
+ rule "NO MOVE"
  salience npc.getStat(StatAbility.SPEED) * 100
  
     when

@@ -22,13 +22,18 @@
 
 - NPG possono riattaccare
 - NPG possono fare il craft
+- NPG se hanno un character nel raggio di visione gli vanno in contro
+- NPG se non hanno niente nel raggio di visione si muovono in una direzione a caso
+- NPG se sono circondati da muri stanno fermi
 
 - Refactoring
 
 ## TODO 
 
+- Dividerci i compiti
 - Finire IA NPG
 - Aggiungere possibilità di mettere trappole (dovrebbe essere molto semplice per come è stato strutturato il codice dei drafting object
 
 - Pacchettizzare 
 - Implementare GUI 
+
