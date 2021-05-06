@@ -80,18 +80,18 @@ rule "NPC ATTACK RIGHT"
     when
     	Settings( gameOver == false )
 		npc: NPC ( status == Status.NOT_MOVED )
-		draft: CraftObject (col == npc.getCol() && row == npc.getRow())
+		craft: CraftObject (col == npc.getCol() && row == npc.getRow())
 		
     then
        System.out.println("Npc crafting...");
-       npc.increment( draft.getStatToIncrease(), draft.getBonus());
-       draft.setAvaiability(draft.getAvaiability() - 1); 
+       npc.increment( craft.getStatToIncrease(), craft.getBonus());
+       craft.setAvaiability(craft.getAvaiability() - 1); 
        
        System.out.println("New stats: "+npc.getActualStat().toString() );
        
        npc.setStatus(Status.MOVED);
        update ( npc );
-       update ( draft );       
+       update ( craft );       
 
  end
  

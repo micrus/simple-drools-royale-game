@@ -30,10 +30,25 @@
 
 ## TODO 
 
-- Dividerci i compiti
+- Dividerci i compiti:
+-- Dima -> Gui
+
+
 - Finire IA NPG
-- Aggiungere possibilità di mettere trappole (dovrebbe essere molto semplice per come è stato strutturato il codice dei drafting object
 
 - Pacchettizzare 
 - Implementare GUI 
+
+
+- Trappole 
+
+Statistiche:
+-- Fortuna (-1)
+
+--attacco -> oggetto 
+--difesa -> elusione 
+--randomiciziamo il tutto random(1-10)+atk
+
+regole d&d
+
 

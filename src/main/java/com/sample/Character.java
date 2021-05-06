@@ -73,6 +73,14 @@ public abstract class Character extends LocatedOnMap {
 		this.status = status;
 	}
 
+	// getDamage(){
+	// laciodado + modificatori} -> quanti danni faccio
 	
+	// takeDamage(int damage)
+	// {lacio dado elusione se lo supero danno 0 altrimenti calcolo danno effettivo}-> quanti danni prendo effettivi	
 	
+	/*
+	 * A attacca B
+	 * A tira dado per colpire -> getDamage
+	 */
 }
