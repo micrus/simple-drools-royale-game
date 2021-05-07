@@ -45,6 +45,9 @@ public class GuiConsole implements Gui{
 		case "cr":
 			action = new PlayerAction(Moves.CRAFT);
 			break;
+		case "tr":
+			action = new PlayerAction(Moves.PUT_TRAP);
+			break;
 		}
 		
 		return action;

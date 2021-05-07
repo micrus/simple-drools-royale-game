@@ -1,4 +1,5 @@
 package com.sample
+import java.util.concurrent.ThreadLocalRandom;
 
 
 rule "MOVE RIGHT"
@@ -469,4 +470,24 @@ salience hero.getStat(StatAbility.SPEED) * 100
        update(hero);
 
  end
+ 
+  rule "PUT TRAP"
+ salience hero.getStat(StatAbility.SPEED) * 100
+    when
+    	Settings( gameOver == false )
+		action : PlayerAction( action == Moves.PUT_TRAP ) 
+		hero : Hero () 
+		not craft: CraftObject (col == hero.getCol() && row == hero.getRow())
+		
+    then
+       System.out.println("Putting trap...");
+       int randomMalus = ThreadLocalRandom.current().nextInt(0, hero.getStat(StatAbility.SHREWDNESS) + 1);
+       insert (new CraftObject(hero.getCol() , hero.getRow() ,StatAbility.LIFE, -randomMalus, 1) );
+       hero.setStatus(Status.MOVED);
+       retract( action );
+       update ( hero );
+
+ end
+ 
+ 
  

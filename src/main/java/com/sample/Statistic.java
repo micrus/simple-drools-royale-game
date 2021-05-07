@@ -6,13 +6,15 @@ import java.util.Map;
 public class Statistic{
 	private Map<StatAbility, Integer> stat;
 	
-	public Statistic(int life, int atk, int speed, int view) {
+	public Statistic(int life, int atk, int speed, int view, int shrewdness) {
 		super();
 		this.stat = new HashMap<StatAbility, Integer>();
 		stat.put(StatAbility.ATK, atk);
 		stat.put(StatAbility.LIFE, life);
 		stat.put(StatAbility.SPEED, speed);
 		stat.put(StatAbility.VIEW, view);
+		stat.put(StatAbility.SHREWDNESS, shrewdness);
+
 
 
 	}
@@ -24,6 +26,8 @@ public class Statistic{
 		stat.put(StatAbility.LIFE, stats.getStat(StatAbility.LIFE));
 		stat.put(StatAbility.SPEED, stats.getStat(StatAbility.SPEED));
 		stat.put(StatAbility.VIEW, stats.getStat(StatAbility.VIEW));
+		stat.put(StatAbility.SHREWDNESS, stats.getStat(StatAbility.SHREWDNESS));
+
 
 
 	}

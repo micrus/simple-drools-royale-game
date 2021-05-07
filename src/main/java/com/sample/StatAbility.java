@@ -4,5 +4,6 @@ public enum StatAbility {
 	ATK,
 	LIFE,
 	SPEED,
-	VIEW;
+	VIEW,
+	SHREWDNESS;
 }

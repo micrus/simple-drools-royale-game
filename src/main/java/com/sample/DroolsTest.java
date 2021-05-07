@@ -24,12 +24,12 @@ public class DroolsTest {
         	//=====================SETUP ==============================
         	Gui gui = new GuiConsole();
         	Settings setting = new Settings(0, 5);
-        	Hero hero = new Hero(2, 2, new Statistic (30, 5, 15,0));
+        	Hero hero = new Hero(2, 2, new Statistic (30, 5, 15,0, 10));
 
         	
         	//Wall wall = new Wall("#",3,3);
-        	NPC npc1 = new NPC(0,1, new Statistic(20, 10, 10, 5));
-        	NPC npc2 = new NPC(3,3, new Statistic(20, 20, 20, 5));
+        	NPC npc1 = new NPC(0,1, new Statistic(20, 10, 10, 5, 10));
+        	NPC npc2 = new NPC(3,3, new Statistic(20, 20, 20, 5, 10));
 
         	
         	

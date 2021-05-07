@@ -51,4 +51,8 @@ Statistiche:
 
 regole d&d
 
+Attaccante: statistiche utili sono attacco e destrezza, attacco rappresenta il danno, la destrezza sarà un valore randomico da 0-Destrezza che andrà ad aggiungersi al danno 
+
+Difesa: statistiche utili sono elusione e difesa. L'elusione rappresenta un valore randomico che sommato alla difesa ci dirà se un attacco è stato schivato o meno. 
+
 
