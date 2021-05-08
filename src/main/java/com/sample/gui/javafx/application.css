@@ -1,0 +1,7 @@
+.cell {
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+textarea {
+	-fx-font-size: 4em;
+}
