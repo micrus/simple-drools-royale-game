@@ -8,45 +8,58 @@ import java.util.Collection;
 public class GuiConsole implements Gui{
 	
 	
-	public PlayerAction getAction() throws IOException {
+	public Moves getAction() throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		PlayerAction action = null;
+		Moves action = Moves.BAD_MOVE;
 
 		System.out.println("What do you want to do?");
 		
 		String act = reader.readLine();
 		switch(act) {
 		case "a":
-			action = new PlayerAction(Moves.GO_LEFT);
+			action = Moves.GO_LEFT;
 			break;
 		case "s":
-			action = new PlayerAction(Moves.GO_DOWN);
+			action = Moves.GO_DOWN;
 			break;
 		case "d":
-			action = new PlayerAction(Moves.GO_RIGHT);
+			action = Moves.GO_RIGHT;
 			break;
 		case "w":
-			action = new PlayerAction(Moves.GO_UP);
+			action = Moves.GO_UP;
+			break;
+			
+		case "wa":
+			action = Moves.GO_UP_LEFT;
+			break;
+		case "wd":
+			action = Moves.GO_UP_RIGHT;
+			break;
+		case "sa":
+			action = Moves.GO_DOWN_LEFT;
+			break;
+		case "sd":
+			action = Moves.GO_DOWN_RIGHT;
 			break;
 
 		case "fd":
-			action = new PlayerAction(Moves.ATTACK_RIGHT);
+			action = Moves.ATTACK_RIGHT;
 			break;
 		case "fa":
-			action = new PlayerAction(Moves.ATTACK_LEFT);
+			action = Moves.ATTACK_LEFT;
 			break;
 		case "fs":
-			action = new PlayerAction(Moves.ATTACK_DOWN);
+			action = Moves.ATTACK_DOWN;
 			break;
 		case "fw":
-			action = new PlayerAction(Moves.ATTACK_UP);
+			action = Moves.ATTACK_UP;
 			break;
 
 		case "cr":
-			action = new PlayerAction(Moves.CRAFT);
+			action = Moves.CRAFT;
 			break;
 		case "tr":
-			action = new PlayerAction(Moves.PUT_TRAP);
+			action = Moves.PUT_TRAP;
 			break;
 		}
 		

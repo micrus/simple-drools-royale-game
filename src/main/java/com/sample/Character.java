@@ -44,7 +44,22 @@ public abstract class Character extends LocatedOnMap {
 	public void moveDown() {
 		this.col++;
 	}
-	
+	public void moveDownRight() {
+		this.col++;
+		this.row++;
+	}
+	public void moveDownLeft() {
+		this.col++;
+		this.row--;
+	}
+	public void moveUpRight() {
+		this.col--;
+		this.row++;
+	}
+	public void moveUpLeft() {
+		this.col--;
+		this.row--;
+	}
 	
 	
 	

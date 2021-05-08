@@ -1,10 +1,105 @@
 package com.sample
 
+ rule "NPC MOVE RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol() && (row == npc.getRow() +1) )
+	
+	then
+	
+       insert (new PlayerAction(Moves.GO_RIGHT, npc));
+ end
+
+ rule "NPC MOVE LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row > 0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol() && (row == npc.getRow() -1) )
+	
+	then
+	
+       insert (new PlayerAction(Moves.GO_LEFT, npc));
+ end
+ 
+ rule "NPC MOVE UP"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col > 0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()-1 && (row == npc.getRow()) )
+	
+	then
+	
+       insert (new PlayerAction(Moves.GO_UP, npc));
+ end
+
+ rule "NPC MOVE DOWN"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()+1 && (row == npc.getRow()) )
+	
+	then
+	
+       insert (new PlayerAction(Moves.GO_DOWN, npc));
+ end
+ 
+  rule "NPC MOVE DOWN RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col < setting.getDimension() - 1 && row < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()+1 && row == npc.getRow()+1 )
+	
+	then
+	
+       insert (new PlayerAction(Moves.GO_DOWN_RIGHT, npc));
+ end
+
+  rule "NPC MOVE DOWN LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col < setting.getDimension() - 1 && row >0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()+1 && row == npc.getRow()-1 )
+	
+	then
+	
+       insert (new PlayerAction(Moves.GO_DOWN_LEFT, npc));
+ end
+ 
+ rule "NPC MOVE UP RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col >0 && row < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()-1 && row == npc.getRow()+1 )
+	
+	then
+	
+       insert (new PlayerAction(Moves.GO_UP_RIGHT, npc));
+ end
+ 
+ rule "NPC MOVE UP LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col >0 && row >0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()-1 && row == npc.getRow()-1 )
+	
+	then
+	
+       insert (new PlayerAction(Moves.GO_UP_LEFT, npc));
+ end
 /*
 RULES ARE INSERTED ORDERED BT DECREASING PRIORITY
 */
 
- 
+ /*
 rule "NPC ATTACK RIGHT"
      salience npc.getStat(StatAbility.SPEED) * 100 + 70
     
@@ -163,13 +258,14 @@ rule "NPC ATTACK RIGHT"
  
  
  rule "NPC MOVE RIGHT"
- salience npc.getStat(StatAbility.SPEED) * 100 + 10
+ salience npc.getStat(StatAbility.SPEED) * 100 + 10 
     when
 	    setting : Settings( gameOver == false )
 		npc : NPC ( status == Status.NOT_MOVED && row < setting.getDimension() - 1 ) 
 		not LocatedOnMap (steppable==0 && col == npc.getCol() && (row == npc.getRow() +1) )
 	
 	then
+	
        System.out.println("NPC move right!");
        npc.moveRight();
 	   npc.setStatus(Status.MOVED);
@@ -233,4 +329,10 @@ rule "NPC ATTACK RIGHT"
        update(npc);
 
  end
+ 
+ 
+ 
+ 
+ 
+ */
  

@@ -28,13 +28,11 @@ public class DroolsTest {
 
         	
         	//Wall wall = new Wall("#",3,3);
-        	NPC npc1 = new NPC(0,1, new Statistic(20, 10, 10, 5, 10));
-        	NPC npc2 = new NPC(3,3, new Statistic(20, 20, 20, 5, 10));
+        	NPC npc1 = new NPC("PGS",0,1, new Statistic(20, 10, 10, 5, 10));
+        	NPC npc2 = new NPC("PGF",3,3, new Statistic(20, 20, 20, 5, 10));
 
         	
-        	
-        	int a = 0;
-        	a++;
+
         	CraftObject deadWood = new CraftObject(3,3,StatAbility.LIFE, -9, 2);
         	CraftObject lifeWood = new CraftObject(3,1,StatAbility.LIFE, 5, 4);
 
@@ -58,9 +56,9 @@ public class DroolsTest {
                 Collection<LocatedOnMap> mapBeing = (Collection<LocatedOnMap>) kSession.getObjects(new ClassObjectFilter(LocatedOnMap.class));
                 gui.showMap(mapBeing, settings);
                 
-            	PlayerAction action= gui.getAction();
-            	if(action != null) {
-	                kSession.insert(action);
+            	Moves action= gui.getAction();
+            	if(action != Moves.BAD_MOVE) {
+	                kSession.insert(new PlayerAction(action, hero));
 	                kSession.insert(new Turn(TurnState.INIT));
 	                kSession.fireAllRules();
             	}else {

@@ -3,8 +3,8 @@ package com.sample;
 public class NPC extends Character{
 
 
-	public NPC(int col, int row, Statistic stat) {
-		super("NPC", col, row, stat);
+	public NPC(String name, int col, int row, Statistic stat) {
+		super(name, col, row, stat);
 		
 	}
 

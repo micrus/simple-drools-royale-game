@@ -1,7 +1,149 @@
 package com.sample
 import java.util.concurrent.ThreadLocalRandom;
 
+rule "MOVE RIGHT"
+ salience action.getPriority()
+    when
+	    setting : Settings( gameOver == false )
+		action : PlayerAction( action == Moves.GO_RIGHT, whoMoves : whoMoves  ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED && row < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == character.getCol() && (row == character.getRow() +1) )
+	
+	then
+       System.out.println(character.getSimbol()+" move right!");
+       character.moveRight();
+	   character.setStatus(Status.MOVED);
+       update( character );
+ end
 
+rule "MOVE LEFT"
+ salience action.getPriority()
+    when
+	    setting : Settings( gameOver == false )
+		action : PlayerAction( action == Moves.GO_LEFT, whoMoves : whoMoves  ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED && row > 0 ) 
+		not LocatedOnMap (steppable==0 && col == character.getCol() && (row == character.getRow() -1) )
+	
+	then
+       System.out.println(character.getSimbol()+" move left!");
+       character.moveLeft();
+	   character.setStatus(Status.MOVED);
+       update( character );
+ end
+
+rule "MOVE UP"
+ salience action.getPriority()
+    when
+	    setting : Settings( gameOver == false )
+		action : PlayerAction( action == Moves.GO_UP, whoMoves : whoMoves  ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED && col > 0 ) 
+		not LocatedOnMap (steppable==0 && col == character.getCol()-1 && (row == character.getRow()) )
+	
+	then
+       System.out.println(character.getSimbol()+" move up!");
+       character.moveUp();
+	   character.setStatus(Status.MOVED);
+       update( character );
+ end
+ 
+rule "MOVE DOWN"
+ salience action.getPriority()
+    when
+	    setting : Settings( gameOver == false )
+		action : PlayerAction( action == Moves.GO_DOWN, whoMoves : whoMoves  ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED && col < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == character.getCol()+1 && (row == character.getRow()) )
+	
+	then
+       System.out.println(character.getSimbol()+" move down!");
+       character.moveDown();
+	   character.setStatus(Status.MOVED);
+       update( character );
+ end
+ 
+rule "MOVE DOWN-RIGHT"
+ salience action.getPriority()
+    when
+	    setting : Settings( gameOver == false )
+		action : PlayerAction( action == Moves.GO_DOWN_RIGHT, whoMoves : whoMoves  ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED && col < setting.getDimension() - 1 && row < setting.getDimension() - 1) 
+		not LocatedOnMap (steppable==0 && col == character.getCol()+1 && (row == character.getRow()+1) )
+		
+	
+	then
+       System.out.println(character.getSimbol()+" move down-right!");
+       character.moveDownRight();
+	   character.setStatus(Status.MOVED);
+       update( character );
+ end
+ 
+ rule "MOVE DOWN-LEFT"
+ salience action.getPriority()
+    when
+	    setting : Settings( gameOver == false )
+		action : PlayerAction( action == Moves.GO_DOWN_LEFT, whoMoves : whoMoves  ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED && col < setting.getDimension() - 1 && row > 0) 
+		not LocatedOnMap (steppable==0 && col == character.getCol()+1 && (row == character.getRow()-1) )
+		
+	
+	then
+       System.out.println(character.getSimbol()+" move down-left!");
+       character.moveDownLeft();
+	   character.setStatus(Status.MOVED);
+       update( character );
+ end
+
+rule "MOVE UP-RIGHT"
+ salience action.getPriority()
+    when
+	    setting : Settings( gameOver == false )
+		action : PlayerAction( action == Moves.GO_UP_RIGHT, whoMoves : whoMoves  ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED && col >0 && row < setting.getDimension() - 1) 
+		not LocatedOnMap (steppable==0 && col == character.getCol()-1 && (row == character.getRow()+1) )
+		
+	
+	then
+       System.out.println(character.getSimbol()+" move up-right!");
+       character.moveUpRight();
+	   character.setStatus(Status.MOVED);
+       update( character );
+ end
+ 
+ rule "MOVE UP-LEFT"
+ salience action.getPriority()
+    when
+	    setting : Settings( gameOver == false )
+		action : PlayerAction( action == Moves.GO_UP_LEFT, whoMoves : whoMoves  ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED && col >0 && row >0) 
+		not LocatedOnMap (steppable==0 && col == character.getCol()-1 && (row == character.getRow()-1) )
+		
+	
+	then
+       System.out.println(character.getSimbol()+" move up-left!");
+       character.moveUpLeft();
+	   character.setStatus(Status.MOVED);
+       update( character );
+ end
+
+
+rule "INVALID MOVE"
+	when 
+		hero : Hero (status == Status.NOT_MOVED)
+	then 
+		System.out.println("What are you doing? Fight instead of waisting time in useless action!");
+		hero.setStatus(Status.MOVED);
+		update (hero);
+end
+
+rule "RETRACT ACTION"
+when 
+    action:	PlayerAction()
+	not Character(status == Status.NOT_MOVED)
+then 
+	retract (action)
+end
+
+/*
 rule "MOVE RIGHT"
  salience hero.getStat(StatAbility.SPEED) * 100
     when
@@ -139,7 +281,7 @@ rule "CANNOT MOVE UP 1"
 salience hero.getStat(StatAbility.SPEED) * 100
     when
     	Settings( gameOver == false )
-		action : PlayerAction( action == Moves.GO_UP ) 
+		action : PlayerAction(action == Moves.GO_UP ) 
 		hero : Hero ( col <= 0 ) 
 		
     then
@@ -489,5 +631,5 @@ salience hero.getStat(StatAbility.SPEED) * 100
 
  end
  
- 
+ */
  
