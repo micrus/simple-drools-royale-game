@@ -24,12 +24,22 @@ public class DroolsTest {
         	//=====================SETUP ==============================
         	Gui gui = new GuiConsole();
         	Settings setting = new Settings(0, 5);
-        	Hero hero = new Hero(2, 2, new Statistic (30, 5, 15,0, 10));
+        	Hero hero = new Hero(4, 4, new Statistic (30, 5, 15,0, 10));
 
         	
         	//Wall wall = new Wall("#",3,3);
-        	NPC npc1 = new NPC("PGS",0,1, new Statistic(20, 10, 10, 5, 10));
-        	NPC npc2 = new NPC("PGF",3,3, new Statistic(20, 20, 20, 5, 10));
+        	NPC npc1 = new NPC("PGS",0,0, new Statistic(20, 10, 10, 2, 10));
+        	NPC npc3 = new NPC("PGS",0,4, new Statistic(20, 10, 10, 2, 10));
+        	NPC npc4 = new NPC("PGS",4,4, new Statistic(20, 10, 10, 2, 10));
+        	NPC npc5 = new NPC("PGS",4,0, new Statistic(20, 10, 10, 2, 10));
+        	NPC npc6 = new NPC("PGS",0,2, new Statistic(20, 10, 10, 2, 10));
+        	NPC npc7 = new NPC("PGS",2,0, new Statistic(20, 10, 10, 2, 10));
+        	NPC npc8 = new NPC("PGS",2,4, new Statistic(20, 10, 10, 2, 10));
+        	NPC npc9 = new NPC("PGS",4,2, new Statistic(20, 10, 10, 2, 10));
+
+
+
+        	//NPC npc2 = new NPC("PGF",0,0, new Statistic(20, 20, 20, 5, 10));
 
         	
 
@@ -39,7 +49,17 @@ public class DroolsTest {
         	kSession.insert(hero);
         	//kSession.insert(wall);
         	kSession.insert(npc1);
-        	kSession.insert(npc2);
+        	//kSession.insert(npc3);
+        	//kSession.insert(npc4);
+        	//kSession.insert(npc5);
+        	//kSession.insert(npc6);
+        	//kSession.insert(npc7);
+        	//kSession.insert(npc8);
+        	//kSession.insert(npc9);
+
+
+
+        	//kSession.insert(npc2);
         	
         	kSession.insert(lifeWood);
         	kSession.insert(deadWood);

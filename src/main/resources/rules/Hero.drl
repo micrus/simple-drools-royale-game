@@ -124,7 +124,44 @@ rule "MOVE UP-RIGHT"
 	   character.setStatus(Status.MOVED);
        update( character );
  end
+ 
+ 
+   rule "PUT TRAP"
+   salience action.getPriority()
+    when
+    	Settings( gameOver == false )
+		action : PlayerAction( action == Moves.PUT_TRAP, whoMoves : whoMoves ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED )
+		not craft: CraftObject (col == character.getCol() && row == character.getRow())
+		
+    then
+       System.out.println(character.getSimbol()+" is putting trap...");
+       int randomMalus = ThreadLocalRandom.current().nextInt(0, character.getStat(StatAbility.SHREWDNESS) + 1);
+       insert (new CraftObject(character.getCol() , character.getRow() ,StatAbility.LIFE, -randomMalus, 1) );
+       character.setStatus(Status.MOVED);
+       update ( character );
+ end
 
+
+ rule "CRAFT"
+ salience action.getPriority()
+    when
+    	Settings( gameOver == false )
+		action : PlayerAction( action == Moves.CRAFT, whoMoves : whoMoves ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED )
+		craft: CraftObject (col == character.getCol() && row == character.getRow())
+		
+    then
+       System.out.println(character.getSimbol()+" is crafting... "+craft.getStatToIncrease()+" increment of "+craft.getBonus());
+       character.increment(craft.getStatToIncrease(), craft.getBonus());
+       craft.setAvaiability(craft.getAvaiability() - 1); 
+              
+       character.setStatus(Status.MOVED);
+       update ( craft );        
+       update ( character );
+
+ end
+ 
 
 rule "INVALID MOVE"
 	when 
@@ -134,6 +171,15 @@ rule "INVALID MOVE"
 		hero.setStatus(Status.MOVED);
 		update (hero);
 end
+
+rule "REMOVE CRAFT"
+salience 100000
+    when	
+		craft: CraftObject ( avaiability <= 0 )	
+    then  	
+    	retract( craft );
+ 	end
+ 
 
 rule "RETRACT ACTION"
 when 
