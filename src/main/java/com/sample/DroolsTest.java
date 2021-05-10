@@ -24,32 +24,34 @@ public class DroolsTest {
         	//=====================SETUP ==============================
         	Gui gui = new GuiConsole();
         	Settings setting = new Settings(0, 5);
-        	Hero hero = new Hero(4, 4, new Statistic (30, 5, 15,0, 10));
-
         	
-        	//Wall wall = new Wall("#",3,3);
-        	NPC npc1 = new NPC("PGS",0,0, new Statistic(20, 10, 10, 2, 10));
-        	NPC npc3 = new NPC("PGS",0,4, new Statistic(20, 10, 10, 2, 10));
-        	NPC npc4 = new NPC("PGS",4,4, new Statistic(20, 10, 10, 2, 10));
-        	NPC npc5 = new NPC("PGS",4,0, new Statistic(20, 10, 10, 2, 10));
-        	NPC npc6 = new NPC("PGS",0,2, new Statistic(20, 10, 10, 2, 10));
-        	NPC npc7 = new NPC("PGS",2,0, new Statistic(20, 10, 10, 2, 10));
-        	NPC npc8 = new NPC("PGS",2,4, new Statistic(20, 10, 10, 2, 10));
-        	NPC npc9 = new NPC("PGS",4,2, new Statistic(20, 10, 10, 2, 10));
+        	Weapon sword = new Weapon("base sword", 10, 6);
+        	Statistic balanceStatSlow = new Statistic(100,10,10,10,10,10,3,10);
+        	Statistic balanceStatFast = new Statistic(100,10,10,10,10,20,3,10);
+
+        	Hero hero = new Hero(4, 4, sword, balanceStatFast);
 
 
+            NPC npc1 = new NPC("PG1",0,0, sword, balanceStatSlow);
+        	NPC npc3 = new NPC("PG2",0,3, sword, balanceStatSlow);
+        	NPC npc4 = new NPC("PG3",4,4, sword, balanceStatSlow);
+        	NPC npc5 = new NPC("PG4",4,0, sword, balanceStatSlow);
+        	NPC npc6 = new NPC("PG5",0,2, sword, balanceStatSlow);
+        	NPC npc7 = new NPC("PG6",2,0, sword, balanceStatSlow);
+        	NPC npc8 = new NPC("PG7",2,4, sword, balanceStatSlow);
+        	NPC npc9 = new NPC("PG8",4,2, sword, balanceStatSlow);
 
         	//NPC npc2 = new NPC("PGF",0,0, new Statistic(20, 20, 20, 5, 10));
 
         	
 
-        	CraftObject deadWood = new CraftObject(3,3,StatAbility.LIFE, -9, 2);
+        	//CraftObject deadWood = new CraftObject(3,3,StatAbility.LIFE, -9, 2);
         	CraftObject lifeWood = new CraftObject(3,1,StatAbility.LIFE, 5, 4);
 
         	kSession.insert(hero);
         	//kSession.insert(wall);
         	kSession.insert(npc1);
-        	//kSession.insert(npc3);
+        	kSession.insert(npc3);
         	//kSession.insert(npc4);
         	//kSession.insert(npc5);
         	//kSession.insert(npc6);
@@ -62,7 +64,7 @@ public class DroolsTest {
         	//kSession.insert(npc2);
         	
         	kSession.insert(lifeWood);
-        	kSession.insert(deadWood);
+        	//kSession.insert(deadWood);
 
         	
             kSession.insert(setting);

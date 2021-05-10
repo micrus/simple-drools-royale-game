@@ -232,6 +232,98 @@ rule "NPC MOVE RIGHT TOWARD CHARACTER"
        insert (new PlayerAction(Moves.GO_DOWN, npc, 20));
  end
  
+ //=============================NPC ATTACK HIGHEST PRIORITY==================================
+ 
+ rule "NPC ATTACK RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		character : Character ( col == npc.getCol() && row == npc.getRow()+1 )
+
+	then
+		System.out.println("insert attack right");
+       insert (new FightAction(npc, character, 70));
+ end
+ 
+ rule "NPC ATTACK LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		character : Character ( col == npc.getCol() && row == npc.getRow()-1 )
+
+	then
+		System.out.println("insert attack left");
+	
+       insert (new FightAction(npc, character, 70));
+ end
+ 
+ rule "NPC ATTACK UP"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		character : Character ( col == npc.getCol()+1 && row == npc.getRow() )
+
+	then
+       insert (new FightAction(npc, character, 70));
+ end
+ 
+ rule "NPC ATTACK DOWN"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		character : Character ( col == npc.getCol()-1 && row == npc.getRow() )
+
+	then
+       insert (new FightAction(npc, character, 70));
+ end
+ 
+ rule "NPC ATTACK DOWN-RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		character : Character ( col == npc.getCol()+1 && row == npc.getRow()+1 )
+
+	then
+       insert (new FightAction(npc, character, 70));
+ end
+ 
+ rule "NPC ATTACK DOWN-LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		character : Character ( col == npc.getCol()+1 && row == npc.getRow()-1 )
+
+	then
+       insert (new FightAction(npc, character, 70));
+ end
+ 
+ rule "NPC ATTACK UP RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		character : Character ( col == npc.getCol()-1 && row == npc.getRow()+1 )
+
+	then
+       insert (new FightAction(npc, character, 70));
+ end
+ 
+ rule "NPC ATTACK UP LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		character : Character ( col == npc.getCol()-1 && row == npc.getRow()-1 )
+
+	then
+       insert (new FightAction(npc, character, 70));
+ end
  /*
 rule "NPC ATTACK RIGHT"
      salience npc.getStat(StatAbility.SPEED) * 100 + 70

@@ -125,6 +125,7 @@ rule "MOVE UP-RIGHT"
        update( character );
  end
  
+ //==========================TRAP AND CRAFT================================
  
    rule "PUT TRAP"
    salience action.getPriority()
@@ -162,7 +163,50 @@ rule "MOVE UP-RIGHT"
 
  end
  
+ rule "REMOVE CRAFT"
+salience 100000
+    when	
+		craft: CraftObject ( avaiability <= 0 )	
+    then  	
+    	retract( craft );
+ 	end
+ 
+ //====================COMBACT RULES=============================
 
+rule "COMBACT: DEFENDER ELUDE ATTACK"
+salience action.getPriority()
+	when 
+	  	Settings( gameOver == false )
+		action : FightAction( this.offenderTryAttackValue()<=this.defenderTryEludeValue(), whoMoves : whoMoves ) 
+		offender : Character(this == whoMoves && status == Status.NOT_MOVED)
+	then
+		System.out.println(offender.getSimbol()+" tries to attack "+action.getDefender().getSimbol()+" but he eludes the attack!");
+		offender.setStatus(Status.MOVED);
+        update ( offender );
+end
+
+rule "COMBACT: DEFENDER TAKE THE ATTACK"
+salience action.getPriority()
+
+	when 
+	  	Settings( gameOver == false )
+		action : FightAction( this.offenderTryAttackValue()>this.defenderTryEludeValue(), whoMoves : whoMoves, defensor : defender ) 
+		offender : Character(this == whoMoves && status == Status.NOT_MOVED)
+		defender : Character(this == defensor)
+		
+	then
+		int damage = action.offenderDamageValue();
+        defender.increment(StatAbility.LIFE, -damage);
+        System.out.println(offender.getSimbol()+" inflict "+damage+" damage to "+action.getDefender().getSimbol()+"! His remaining life is: "+defender.getStat(StatAbility.LIFE));
+		offender.setStatus(Status.MOVED);
+        update( defender );
+        update ( offender );
+end
+
+
+
+
+//======================END RULES=================================
 rule "INVALID MOVE"
 	when 
 		hero : Hero (status == Status.NOT_MOVED)
@@ -172,14 +216,7 @@ rule "INVALID MOVE"
 		update (hero);
 end
 
-rule "REMOVE CRAFT"
-salience 100000
-    when	
-		craft: CraftObject ( avaiability <= 0 )	
-    then  	
-    	retract( craft );
- 	end
- 
+
 
 rule "RETRACT ACTION"
 when 

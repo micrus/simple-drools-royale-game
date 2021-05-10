@@ -5,12 +5,14 @@ public abstract class Character extends LocatedOnMap {
 	Statistic baseStat;
 	Statistic actualStat;
 	Status status;
+	Weapon weapon;
 
-	public Character(String simbol, int col, int row, Statistic stat) {
+	public Character(String simbol, int col, int row, Weapon weapon, Statistic stat) {
 		super(simbol, col, row, 1, 0);
 		this.baseStat = stat;
 		this.actualStat = new Statistic(stat);
 		this.status = Status.NOT_MOVED;
+		this.weapon = weapon;
 	}
 	
 
@@ -86,6 +88,16 @@ public abstract class Character extends LocatedOnMap {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+
+	public Weapon getWeapon() {
+		return weapon;
+	}
+
+
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
 	}
 
 	// getDamage(){

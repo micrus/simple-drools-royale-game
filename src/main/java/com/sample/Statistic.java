@@ -6,11 +6,14 @@ import java.util.Map;
 public class Statistic{
 	private Map<StatAbility, Integer> stat;
 	
-	public Statistic(int life, int atk, int speed, int view, int shrewdness) {
+	public Statistic(int life, int atk, int dex, int def, int elu, int speed, int view, int shrewdness) {
 		super();
 		this.stat = new HashMap<StatAbility, Integer>();
-		stat.put(StatAbility.ATK, atk);
 		stat.put(StatAbility.LIFE, life);
+		stat.put(StatAbility.ATTACK, atk);
+		stat.put(StatAbility.DEXTERITY, dex);
+		stat.put(StatAbility.DEFENCE, def);
+		stat.put(StatAbility.ELUSION, elu);
 		stat.put(StatAbility.SPEED, speed);
 		stat.put(StatAbility.VIEW, view);
 		stat.put(StatAbility.SHREWDNESS, shrewdness);
@@ -22,8 +25,11 @@ public class Statistic{
 	public Statistic(Statistic stats) {
 		super();
 		this.stat = new HashMap<StatAbility, Integer>();
-		stat.put(StatAbility.ATK, stats.getStat(StatAbility.ATK));
 		stat.put(StatAbility.LIFE, stats.getStat(StatAbility.LIFE));
+		stat.put(StatAbility.ATTACK, stats.getStat(StatAbility.ATTACK));
+		stat.put(StatAbility.DEXTERITY, stats.getStat(StatAbility.DEXTERITY));
+		stat.put(StatAbility.DEFENCE, stats.getStat(StatAbility.DEFENCE));
+		stat.put(StatAbility.ELUSION, stats.getStat(StatAbility.ELUSION));
 		stat.put(StatAbility.SPEED, stats.getStat(StatAbility.SPEED));
 		stat.put(StatAbility.VIEW, stats.getStat(StatAbility.VIEW));
 		stat.put(StatAbility.SHREWDNESS, stats.getStat(StatAbility.SHREWDNESS));
