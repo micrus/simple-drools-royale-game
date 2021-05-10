@@ -4,7 +4,7 @@ public class PlayerAction {
 
 	Moves action;
 	
-	PlayerAction(Moves action){
+	public PlayerAction(Moves action){
 		this.action = action;
 	}
 

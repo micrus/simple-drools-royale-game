@@ -2,12 +2,14 @@ package com.sample.gui.javafx;
 
 public class AppConfiguration {
 	
-	private static AppConfiguration instance;
+	private static volatile AppConfiguration instance;
 	private int rows;
     private int columns;
-    private double cellSize = 100;
+    private double cellSize = 50;
     private double width;
     private double height;
+    
+    private volatile Grid grid;
     
     public AppConfiguration() {
     }
@@ -43,6 +45,27 @@ public class AppConfiguration {
 
 	public double getHeight() {
 		return height;
+	}
+	
+	public void setGrid(Grid grid) {
+		System.out.println("SET GRID");
+		synchronized(this) {
+			notify();
+		}
+		this.grid = grid;
+	}
+	
+	public Grid getGrid() {
+		System.out.println("FETCH GRID");
+		synchronized(this) {
+			try {
+				wait();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return this.grid;
 	}
 
 }

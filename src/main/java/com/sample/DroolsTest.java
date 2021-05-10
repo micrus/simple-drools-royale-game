@@ -7,6 +7,8 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
+import com.sample.gui.javafx.GuiJavaFX;
+
 /**
  * This is a sample class to launch a rule.
  */
@@ -22,7 +24,7 @@ public class DroolsTest {
 
 
         	//=====================SETUP ==============================
-        	Gui gui = new GuiConsole();
+        	Gui gui = new GuiJavaFX();
         	Settings setting = new Settings(0, 5);
         	Hero hero = new Hero(2, 2, new Statistic (30, 5, 15,0));
 
@@ -53,7 +55,6 @@ public class DroolsTest {
             //=====================ACT=================================
             boolean run = true;
             while (run ) {
-                
             	Settings settings =  (Settings) kSession.getObjects(new ClassObjectFilter(Settings.class)).iterator().next();
                 Collection<LocatedOnMap> mapBeing = (Collection<LocatedOnMap>) kSession.getObjects(new ClassObjectFilter(LocatedOnMap.class));
                 gui.showMap(mapBeing, settings);
