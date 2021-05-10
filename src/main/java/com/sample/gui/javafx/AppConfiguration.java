@@ -15,7 +15,7 @@ public class AppConfiguration {
     }
 	
     public static AppConfiguration getInstance() {
-    	if (AppConfiguration.instance == null) {
+    	if (instance == null) {
     		instance = new AppConfiguration();
     	}
     	return instance;
@@ -48,15 +48,13 @@ public class AppConfiguration {
 	}
 	
 	public void setGrid(Grid grid) {
-		System.out.println("SET GRID");
 		synchronized(this) {
+			this.grid = grid;
 			notify();
 		}
-		this.grid = grid;
 	}
 	
 	public Grid getGrid() {
-		System.out.println("FETCH GRID");
 		synchronized(this) {
 			try {
 				wait();

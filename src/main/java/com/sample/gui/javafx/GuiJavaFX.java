@@ -18,10 +18,12 @@ public class GuiJavaFX implements Gui {
 	private static AppConfiguration appConf;
 	
 	private Grid grid;
+	private ActionHandler actionHandler;
 	private boolean started;
 	
 	public GuiJavaFX() {
 		appConf = AppConfiguration.getInstance();
+		this.actionHandler = ActionHandler.getInstance();
 		this.grid = null;
 		this.started = false;
 	}
@@ -60,7 +62,9 @@ public class GuiJavaFX implements Gui {
 	
 	public PlayerAction getAction() throws IOException {
 //		PlayerAction action = new PlayerAction(Moves.GO_UP);
-		GuiConsole tmp = new GuiConsole();
-		return tmp.getAction();
+//		GuiConsole tmp = new GuiConsole();
+		Moves move = this.actionHandler.getMove();
+		return new PlayerAction(move);
+		
 	}
 }

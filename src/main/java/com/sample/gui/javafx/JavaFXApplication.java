@@ -100,9 +100,14 @@ public class JavaFXApplication extends Application {
     
 	private List<ActionButton> getSidebarButtons() {
     	List<ActionButton> actionButtons = new ArrayList<ActionButton>();
+    	ActionHandler actionHandler = ActionHandler.getInstance();
     	
     	for(Moves move : Moves.values()) {
-    		actionButtons.add(new ActionButton(this.buttonWidth, move));
+    		ActionButton currButton = new ActionButton(this.buttonWidth, move);
+    		currButton.setOnMousePressed(event -> {
+    			actionHandler.registerMove(move);
+    		});
+    		actionButtons.add(currButton);
     	}
     	
     	return actionButtons;
