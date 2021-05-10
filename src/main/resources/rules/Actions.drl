@@ -177,8 +177,10 @@ rule "COMBACT: DEFENDER ELUDE ATTACK"
 salience action.getPriority()
 	when 
 	  	Settings( gameOver == false )
-		action : FightAction( this.offenderTryAttackValue()<=this.defenderTryEludeValue(), whoMoves : whoMoves ) 
-		offender : Character(this == whoMoves && status == Status.NOT_MOVED)
+		action : FightAction( this.offenderTryAttackValue()<=this.defenderTryEludeValue(), whoMoves : whoMoves, defensor : defender ) 
+		offender : Character(this == whoMoves && status == Status.NOT_MOVED, orow : row, ocol : col)
+		defender : Character(this == defensor && row in (orow, orow + 1, orow -1) && col in (ocol, ocol+1, ocol-1))
+		
 	then
 		System.out.println(offender.getSimbol()+" tries to attack "+action.getDefender().getSimbol()+" but he eludes the attack!");
 		offender.setStatus(Status.MOVED);
@@ -191,8 +193,8 @@ salience action.getPriority()
 	when 
 	  	Settings( gameOver == false )
 		action : FightAction( this.offenderTryAttackValue()>this.defenderTryEludeValue(), whoMoves : whoMoves, defensor : defender ) 
-		offender : Character(this == whoMoves && status == Status.NOT_MOVED)
-		defender : Character(this == defensor)
+		offender : Character(this == whoMoves && status == Status.NOT_MOVED, orow : row, ocol : col)
+		defender : Character(this == defensor && row in (orow, orow + 1, orow -1) && col in (ocol, ocol+1, ocol-1) )
 		
 	then
 		int damage = action.offenderDamageValue();

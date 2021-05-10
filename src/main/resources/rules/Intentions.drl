@@ -254,7 +254,6 @@ rule "NPC MOVE RIGHT TOWARD CHARACTER"
 		character : Character ( col == npc.getCol() && row == npc.getRow()-1 )
 
 	then
-		System.out.println("insert attack left");
 	
        insert (new FightAction(npc, character, 70));
  end
@@ -324,6 +323,108 @@ rule "NPC MOVE RIGHT TOWARD CHARACTER"
 	then
        insert (new FightAction(npc, character, 70));
  end
+ 
+ 
+ //=================RULE FOR HANDLE FIGHT MOVES OF HERO=================
+ 
+ rule "HERO ATTACK UP"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.ATTACK_UP, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		character : Character ( col == hero.getCol()-1 && row == hero.getRow() )
+
+	then
+       insert (new FightAction(hero, character, 70));
+ end
+ 
+ 
+ rule "HERO ATTACK DOWN"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.ATTACK_DOWN, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		character : Character ( col == hero.getCol()+1 && row == hero.getRow() )
+
+	then
+       insert (new FightAction(hero, character, 70));
+ end
+ 
+ rule "HERO ATTACK RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.ATTACK_RIGHT, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		character : Character ( col == hero.getCol() && row == hero.getRow()+1 )
+
+	then
+       insert (new FightAction(hero, character, 70));
+ end
+ 
+  rule "HERO ATTACK LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.ATTACK_LEFT, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		character : Character ( col == hero.getCol() && row == hero.getRow()-1 )
+
+	then
+       insert (new FightAction(hero, character, 70));
+ end
+ 
+  rule "HERO ATTACK UP RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.ATTACK_UP_RIGHT, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		character : Character ( col == hero.getCol()-1 && row == hero.getRow()+1 )
+
+	then
+       insert (new FightAction(hero, character, 70));
+ end
+ 
+  rule "HERO ATTACK UP LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.ATTACK_UP_LEFT, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		character : Character ( col == hero.getCol()-1 && row == hero.getRow()-1 )
+
+	then
+       insert (new FightAction(hero, character, 70));
+ end
+ 
+  rule "HERO ATTACK DOWN RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.ATTACK_DOWN_RIGHT, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		character : Character ( col == hero.getCol()+1 && row == hero.getRow()+1 )
+
+	then
+       insert (new FightAction(hero, character, 70));
+ end
+ 
+  rule "HERO ATTACK DOWN LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.ATTACK_DOWN_LEFT, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		character : Character ( col == hero.getCol()+1 && row == hero.getRow()-1 )
+
+	then
+       insert (new FightAction(hero, character, 70));
+ end
+ 
+ 
  /*
 rule "NPC ATTACK RIGHT"
      salience npc.getStat(StatAbility.SPEED) * 100 + 70

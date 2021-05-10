@@ -54,6 +54,19 @@ public class GuiConsole implements Gui{
 		case "fw":
 			action = Moves.ATTACK_UP;
 			break;
+			
+		case "fsd":
+			action = Moves.ATTACK_DOWN_RIGHT;
+			break;
+		case "fsa":
+			action = Moves.ATTACK_DOWN_LEFT;
+			break;
+		case "fwd":
+			action = Moves.ATTACK_UP_RIGHT;
+			break;
+		case "fwa":
+			action = Moves.ATTACK_UP_LEFT;
+			break;
 
 		case "cr":
 			action = Moves.CRAFT;
