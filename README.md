@@ -2,57 +2,22 @@
 
 ## FUNZIONALITÀ ATTUALMENTE IMPLEMENTATE
 
-- Codice già strutturato in ottica MVC, implementata una basica view da console.
+- Muoversi in tutte le 8 direzioni
+- Attaccare in tutte le 8 direzioni
+- Craftare sopra l'apposito simbolo
+- Piazzare una trappola (che fa danno random [0, SHARPNESS] a chi prova a craftarla)
 
-- Possibilità di muoversi per la mappa
-- Impossibilità di muoversi attaverso muri o NPG
-- Possibilità di muoversi sopra oggetti da draft per poter scavare 
+## IA in ordine di priorità decrescente
 
-- Possibilità di poter attaccare in tutte le direzioni
-- Semplice sistema di combattimento unidirezionale basato su vita e attacco
-- Morte di NPG nel caso la vita raggiunga lo zero a seguito di attacchi 
+- Se è vicino ad un nemico, lo attacca (****)
+- Se ha un nemico all'interno del suo raggio di visione in una delle 4 direzioni principali si avvicina (***)
+- Se ha un nemico all'interno del suo raggio di visione in una delle diagonali si avvicina diagonalmente (**)
+- Se non ha nessuno a crafta, piazza una trappola o si muove random (*)
 
-- Rimpicciolimento della mappa ogni 10 turni di gioco
-- Morte di ogni personaggio (hero o NPC) rimasto fuori della mappa
-- Vittoria nel caso l'eroe sia l'ultimo rimasto in gioco
-- Sconfitta nel caso la vita dell'eroe raggiunga lo 0 o rimanga fuori della mappa
+## Regole combattimento tra PG1 attaccante e PG2 difensore
 
-- Struttura per statistiche, ed oggetti da draft
-- Meccanismo di bonus-malus ad ogni draft 
-
-- NPG possono riattaccare
-- NPG possono fare il craft
-- NPG se hanno un character nel raggio di visione gli vanno in contro
-- NPG se non hanno niente nel raggio di visione si muovono in una direzione a caso
-- NPG se sono circondati da muri stanno fermi
-
-- Refactoring
-
-## TODO 
-
-- Dividerci i compiti:
--- Dima -> Gui
-
-
-- Finire IA NPG
-
-- Pacchettizzare 
-- Implementare GUI 
-
-
-- Trappole 
-
-Statistiche:
--- Fortuna (-1)
-
---attacco -> oggetto 
---difesa -> elusione 
---randomiciziamo il tutto random(1-10)+atk
-
-regole d&d
-
-Attaccante: statistiche utili sono attacco e destrezza, attacco rappresenta il danno, la destrezza sarà un valore randomico da 0-Destrezza che andrà ad aggiungersi al danno 
-
-Difesa: statistiche utili sono elusione e difesa. L'elusione rappresenta un valore randomico che sommato alla difesa ci dirà se un attacco è stato schivato o meno. 
-
+- PG1 lancia un D20 e somma la sua DEXTERITY al risultato ottenuto.
+- Se il valore ottenuto è inferiore alla somma tra DEFENCE e ELUSION di PG2 l'attacco fallisce altrimenti si procede con lo step successivo
+- PG1 lancia il Dado relativo al bonus della sua arma e lo somma il risultato ottenuto al danno base dell'arma e al suo ATTACK
+- PG2 sottrae alla sua LIFE il valore ottenuto nel punto precedente
 
