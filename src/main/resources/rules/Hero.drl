@@ -1,5 +1,7 @@
 package com.sample
 
+import com.sample.Logger;
+
 
 rule "MOVE RIGHT"
  salience hero.getStat(StatAbility.SPEED) * 100
@@ -10,7 +12,7 @@ rule "MOVE RIGHT"
 		not LocatedOnMap (steppable==0 && col == hero.getCol() && (row == hero.getRow() +1) )
 	
 	then
-       System.out.println("Move Right!");
+       Logger.getInstance().println("Move Right!");
        hero.moveRight();
 	   hero.setStatus(Status.MOVED);
        retract( action );
@@ -28,7 +30,7 @@ rule "MOVE RIGHT"
 		hero : Hero ( ) 
 		LocatedOnMap (steppable == 0 && col == hero.getCol() && row == hero.getRow() +1 ) 
 	then
-       System.out.println("Cannote move Right!");
+       Logger.getInstance().println("Cannote move Right!");
        hero.setStatus(Status.MOVED);       
        retract ( action );
        update ( hero );
@@ -45,7 +47,7 @@ rule "MOVE RIGHT"
 		action : PlayerAction( action == Moves.GO_RIGHT ) 
 		hero : Hero ( row >= setting.getDimension() - 1 )
 	then
-       System.out.println("Cannot move Right!");
+       Logger.getInstance().println("Cannot move Right!");
        hero.setStatus(Status.MOVED);
        retract( action );
        update( hero );
@@ -65,7 +67,7 @@ rule "MOVE RIGHT"
 
 		
     then
-       System.out.println("Move down!");
+       Logger.getInstance().println("Move down!");
        hero.moveDown();
        hero.setStatus(Status.MOVED);
        retract( action );
@@ -84,7 +86,7 @@ salience hero.getStat(StatAbility.SPEED) * 100
 		hero : Hero ( col >= setting.getDimension() - 1 )
 		
     then
-       System.out.println("Cannot Move down!");
+       Logger.getInstance().println("Cannot Move down!");
        hero.setStatus(Status.MOVED);
        retract( action );
        update( hero );
@@ -104,7 +106,7 @@ salience hero.getStat(StatAbility.SPEED) * 100
 
 		
     then
-       System.out.println("Cannot Move down!");
+       Logger.getInstance().println("Cannot Move down!");
        hero.setStatus(Status.MOVED);
        retract( action );
        update( hero );
@@ -123,7 +125,7 @@ salience hero.getStat(StatAbility.SPEED) * 100
 
 		
     then
-       System.out.println("Move up!");
+       Logger.getInstance().println("Move up!");
        hero.moveUp();
        hero.setStatus(Status.MOVED);
        retract( action );
@@ -142,7 +144,7 @@ salience hero.getStat(StatAbility.SPEED) * 100
 		hero : Hero ( col <= 0 ) 
 		
     then
-       System.out.println("Cannot Move up!");
+       Logger.getInstance().println("Cannot Move up!");
        hero.setStatus(Status.MOVED);
        retract( action );
        update( hero );
@@ -161,7 +163,7 @@ salience hero.getStat(StatAbility.SPEED) * 100
 
 		
     then
-       System.out.println("Cannot Move up!");
+       Logger.getInstance().println("Cannot Move up!");
        hero.setStatus(Status.MOVED);
        retract( action );
        update( hero );
@@ -181,7 +183,7 @@ salience hero.getStat(StatAbility.SPEED) * 100
 
 		
     then
-       System.out.println("Move left!");
+       Logger.getInstance().println("Move left!");
        hero.moveLeft();
        hero.setStatus(Status.MOVED);
        retract( action );
@@ -202,7 +204,7 @@ salience hero.getStat(StatAbility.SPEED) * 100
 		hero : Hero ( row <= 0 ) 
 		
     then
-       System.out.println("Cannot Move left!");
+       Logger.getInstance().println("Cannot Move left!");
        hero.setStatus(Status.MOVED);
        retract( action );
        update ( hero );
@@ -223,7 +225,7 @@ salience hero.getStat(StatAbility.SPEED) * 100
 
 		
     then
-       System.out.println("Cannot Move left!");
+       Logger.getInstance().println("Cannot Move left!");
        hero.setStatus(Status.MOVED);
        retract( action );
        update( hero );
@@ -250,7 +252,7 @@ salience hero.getStat(StatAbility.SPEED) * 100
 		npc: NPC (col == hero.getCol() && row == hero.getRow()+1)
 		
     then
-       System.out.println("Attacking enemy!");
+       Logger.getInstance().println("Attacking enemy!");
        npc.increment(StatAbility.LIFE, -(hero.getStat(StatAbility.ATK)));
        hero.setStatus(Status.MOVED);
 	   retract( action );
@@ -272,7 +274,7 @@ salience hero.getStat(StatAbility.SPEED) * 100
 		not NPC (col == hero.getCol() && row == hero.getRow()+1)
 		
     then
-       System.out.println("Everyone fights their inner demons ... but there is no need to attack the wind!");
+       Logger.getInstance().println("Everyone fights their inner demons ... but there is no need to attack the wind!");
        hero.setStatus(Status.MOVED);
        retract( action );
        update( hero );
@@ -293,7 +295,7 @@ salience hero.getStat(StatAbility.SPEED) * 100
 		npc: NPC (col == hero.getCol() && row == hero.getRow()-1)
 		
     then
-       System.out.println("Attacking enemy!");
+       Logger.getInstance().println("Attacking enemy!");
        npc.increment(StatAbility.LIFE, -(hero.getStat(StatAbility.ATK)));
        hero.setStatus(Status.MOVED);
        update ( npc );  
@@ -315,7 +317,7 @@ salience hero.getStat(StatAbility.SPEED) * 100
 		not NPC (col == hero.getCol() && row == hero.getRow()-1)
 		
     then
-       System.out.println("Everyone fights their inner demons ... but there is no need to attack the wind!");
+       Logger.getInstance().println("Everyone fights their inner demons ... but there is no need to attack the wind!");
        hero.setStatus(Status.MOVED);
        retract( action );
        update ( hero );
@@ -335,7 +337,7 @@ salience hero.getStat(StatAbility.SPEED) * 100
 		npc: NPC (col == hero.getCol()-1 && row == hero.getRow())
 		
     then
-       System.out.println("Attacking enemy!");
+       Logger.getInstance().println("Attacking enemy!");
        npc.increment(StatAbility.LIFE, -(hero.getStat(StatAbility.ATK)));
        hero.setStatus(Status.MOVED);
        retract( action );
@@ -357,7 +359,7 @@ salience hero.getStat(StatAbility.SPEED) * 100
 		not NPC (col == hero.getCol()-1 && row == hero.getRow())
 		
     then
-       System.out.println("Everyone fights their inner demons ... but there is no need to attack the wind!");
+       Logger.getInstance().println("Everyone fights their inner demons ... but there is no need to attack the wind!");
        hero.setStatus(Status.MOVED);
        retract( action );
 	   update( hero );
@@ -377,7 +379,7 @@ salience hero.getStat(StatAbility.SPEED) * 100
 		npc: NPC (col == hero.getCol()+1 && row == hero.getRow())
 		
     then
-       System.out.println("Attacking enemy!");
+       Logger.getInstance().println("Attacking enemy!");
        npc.increment(StatAbility.LIFE, -(hero.getStat(StatAbility.ATK)));
        hero.setStatus(Status.MOVED);
 	   retract( action );
@@ -399,7 +401,7 @@ rule "ATTACK DOWN BUT NO ENEMY"
 		not NPC (col == hero.getCol()+1 && row == hero.getRow())
 		
     then
-       System.out.println("Everyone fights their inner demons ... but there is no need to attack the wind!");
+       Logger.getInstance().println("Everyone fights their inner demons ... but there is no need to attack the wind!");
        hero.setStatus(Status.MOVED);
        retract( action );
        update( hero );
@@ -421,11 +423,11 @@ rule "ATTACK DOWN BUT NO ENEMY"
 		craft: CraftObject (col == hero.getCol() && row == hero.getRow())
 		
     then
-       System.out.println("Crafting...");
+       Logger.getInstance().println("Crafting...");
        hero.increment( craft.getStatToIncrease(), craft.getBonus());
        craft.setAvaiability(craft.getAvaiability() - 1); 
        
-       System.out.println("New stats: "+hero.getActualStat().toString() );
+       Logger.getInstance().println("New stats: "+hero.getActualStat().toString() );
        
        hero.setStatus(Status.MOVED);
        retract( action );
@@ -463,7 +465,7 @@ salience hero.getStat(StatAbility.SPEED) * 100
 		not CraftObject (col == hero.getCol() && row == hero.getRow())
 		
     then
-       System.out.println("Some might say that 'he who seeks finds', but this time you only found mud");
+       Logger.getInstance().println("Some might say that 'he who seeks finds', but this time you only found mud");
        hero.setStatus(Status.MOVED);
        retract( action );
        update(hero);

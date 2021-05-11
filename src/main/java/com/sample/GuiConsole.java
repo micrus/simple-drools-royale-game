@@ -96,6 +96,10 @@ public class GuiConsole implements Gui{
 		System.out.println();
 	}
 	
+	public void showMessage(String msg) {
+		System.out.print(msg);
+	}
+	
 	// Stampano una mappa su console
 	private void printToConsole(String[][] map) {
 		for(String[] row : map) {
