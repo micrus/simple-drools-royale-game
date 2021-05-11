@@ -69,6 +69,10 @@ public class Grid extends Pane {
     	cells[column][row].showCraft();
     }
     
+    public void showWall(int column, int row) {
+    	cells[column][row].showWall();
+    }
+    
     public void clearStyle() {
     	for(Cell[] cellArray : this.cells) {
     		for(Cell cell : cellArray) {

@@ -50,6 +50,11 @@ public class Cell extends StackPane {
     	this.getStyleClass().add("craft");
     }
 
+    public void showWall() {
+    	this.getStyleClass().remove("wall");
+    	this.getStyleClass().add("wall");
+    }
+
     public String toString() {
         return this.column + "/" + this.row;
     }

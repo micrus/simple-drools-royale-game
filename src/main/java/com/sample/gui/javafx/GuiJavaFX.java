@@ -3,6 +3,7 @@ package com.sample.gui.javafx;
 import java.io.IOException;
 import java.util.Collection;
 
+import com.sample.CraftObject;
 import com.sample.Gui;
 import com.sample.GuiConsole;
 import com.sample.Hero;
@@ -49,8 +50,10 @@ public class GuiJavaFX implements Gui {
 					this.grid.showHero(cols, rows);
 				} else if (lom instanceof NPC) {
 					this.grid.showNPC(cols, rows);
-				} else {
+				} else if (lom instanceof CraftObject) {
 					this.grid.showCraft(cols, rows);
+				} else {
+					this.grid.showWall(cols, rows);
 				}
 			}	
 		});

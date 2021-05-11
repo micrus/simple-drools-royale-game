@@ -11,6 +11,9 @@
 .hero {
 	-fx-background-color: blue;
 }
+.wall {
+	-fx-background-color: black;
+}
 textarea {
 	-fx-font-size: 4em;
 }
