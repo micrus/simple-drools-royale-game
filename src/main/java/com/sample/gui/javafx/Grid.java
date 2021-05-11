@@ -41,7 +41,6 @@ public class Grid extends Pane {
     }
     
     public void changeFocus() {
-    	System.out.println("Changing Focus");
     	this.changeFocus.run();
     }
 

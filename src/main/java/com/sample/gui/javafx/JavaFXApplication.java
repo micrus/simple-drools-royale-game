@@ -46,17 +46,6 @@ public class JavaFXApplication extends Application {
     private double buttonWidth = 100;
     
     private Stack<KeyCode> keyPressed = new Stack<KeyCode>();;
-    private KeyCode[] allowedKeys = {
-    			KeyCode.UP,
-    			KeyCode.DOWN,
-    			KeyCode.LEFT,
-    			KeyCode.RIGHT,
-    			KeyCode.W,
-    			KeyCode.S,
-    			KeyCode.A,
-    			KeyCode.D,
-    			KeyCode.C
-    	};
 
     private String imageURL = "https://opengameart.org/sites/default/files/tileable_grass.png";
 
@@ -117,21 +106,8 @@ public class JavaFXApplication extends Application {
 
             grid.setChangeFocus(() -> {
             	scene.getRoot().requestFocus();
-            	System.out.println("Focus requested by grid");
             });
-//            grid.setOnMouseClicked((event) -> {
-////            	grid.requestFocus();
-//            	scene.getRoot().requestFocus();
-//            	System.out.println("Focus requested by grid");
-//            });
-//            textarea.setOnKeyPressed((event) -> {
-//            	scene.getRoot().requestFocus();
-//            	System.out.println("Focus requested by textarea");
-//            });
-//            hbox.setOnKeyPressed((event) -> {
-//            	scene.getRoot().requestFocus();
-//            	System.out.println("Focus requested by hbox");
-//            });
+
             scene.getRoot().requestFocus();
 
             primaryStage.setScene(scene);
@@ -142,26 +118,20 @@ public class JavaFXApplication extends Application {
         }
     }
     
-//    private void clearKeyPressed() {
-//    	for(KeyCode key : this.allowedKeys) {
-//    		this.keyPressed.put(key, false);
-//    	}
-//    }
-    
     private boolean validMove = false;
     private Moves currMove;
     
     private Moves getMoveFromKey(KeyCode key) {
     	Moves move = null;
     	switch (key) {
-			case I: move = Moves.GO_UP; break;
-			case K: move = Moves.GO_DOWN; break;
-			case J: move = Moves.GO_LEFT; break;
-			case L: move = Moves.GO_RIGHT; break;
-			case W: move = Moves.ATTACK_UP; break;
-			case S: move = Moves.ATTACK_DOWN; break;
-			case A: move = Moves.ATTACK_LEFT; break;
-			case D: move = Moves.ATTACK_RIGHT; break;
+			case W: move = Moves.GO_UP; break;
+			case S: move = Moves.GO_DOWN; break;
+			case A: move = Moves.GO_LEFT; break;
+			case D: move = Moves.GO_RIGHT; break;
+			case I: move = Moves.ATTACK_UP; break;
+			case K: move = Moves.ATTACK_DOWN; break;
+			case J: move = Moves.ATTACK_LEFT; break;
+			case L: move = Moves.ATTACK_RIGHT; break;
 			case C: move = Moves.CRAFT; break;
 			default: break;
 		}
@@ -171,59 +141,59 @@ public class JavaFXApplication extends Application {
     private Moves getMoveFromDoubleKey(KeyCode firstKey, KeyCode secondKey) {
     	Moves move = null;
 		switch (firstKey) {
-			case I: 
-				switch(secondKey) {
-					case L: move = Moves.GO_UP_RIGHT; break;
-					case J: move = Moves.GO_UP_LEFT; break;
-					default: move = null;
-				}
-				break;
-			case K: 
-				switch(secondKey) {
-					case L: move = Moves.GO_DOWN_RIGHT; break;
-					case J: move = Moves.GO_DOWN_LEFT; break;
-					default: move = null;
-				}
-				break;
-			case L: 
-				switch(secondKey) {
-					case I: move = Moves.GO_UP_RIGHT; break;
-					case K: move = Moves.GO_DOWN_RIGHT; break;
-					default: move = null;
-				}
-				break;
-			case J: 
-				switch(secondKey) {
-					case I: move = Moves.GO_UP_LEFT; break;
-					case K: move = Moves.GO_DOWN_LEFT; break;
-					default: move = null;
-				}
-				break;
 			case W: 
 				switch(secondKey) {
-					case D: move = Moves.ATTACK_UP_RIGHT; break;
-					case A: move = Moves.ATTACK_UP_LEFT; break;
+					case D: move = Moves.GO_UP_RIGHT; break;
+					case A: move = Moves.GO_UP_LEFT; break;
 					default: move = null;
 				}
 				break;
 			case S: 
 				switch(secondKey) {
-					case D: move = Moves.ATTACK_DOWN_RIGHT; break;
-					case A: move = Moves.ATTACK_DOWN_LEFT; break;
+					case D: move = Moves.GO_DOWN_RIGHT; break;
+					case A: move = Moves.GO_DOWN_LEFT; break;
 					default: move = null;
 				}
 				break;
 			case D: 
 				switch(secondKey) {
-					case W: move = Moves.ATTACK_UP_RIGHT; break;
-					case S: move = Moves.ATTACK_DOWN_RIGHT; break;
+					case W: move = Moves.GO_UP_RIGHT; break;
+					case S: move = Moves.GO_DOWN_RIGHT; break;
 					default: move = null;
 				}
 				break;
 			case A: 
 				switch(secondKey) {
-					case W: move = Moves.ATTACK_UP_LEFT; break;
-					case S: move = Moves.ATTACK_DOWN_LEFT; break;
+					case W: move = Moves.GO_UP_LEFT; break;
+					case S: move = Moves.GO_DOWN_LEFT; break;
+					default: move = null;
+				}
+				break;
+			case I: 
+				switch(secondKey) {
+					case L: move = Moves.ATTACK_UP_RIGHT; break;
+					case J: move = Moves.ATTACK_UP_LEFT; break;
+					default: move = null;
+				}
+				break;
+			case K: 
+				switch(secondKey) {
+					case L: move = Moves.ATTACK_DOWN_RIGHT; break;
+					case J: move = Moves.ATTACK_DOWN_LEFT; break;
+					default: move = null;
+				}
+				break;
+			case L: 
+				switch(secondKey) {
+					case I: move = Moves.ATTACK_UP_RIGHT; break;
+					case K: move = Moves.ATTACK_DOWN_RIGHT; break;
+					default: move = null;
+				}
+				break;
+			case J: 
+				switch(secondKey) {
+					case I: move = Moves.ATTACK_UP_LEFT; break;
+					case K: move = Moves.ATTACK_DOWN_LEFT; break;
 					default: move = null;
 				}
 				break;
@@ -234,17 +204,12 @@ public class JavaFXApplication extends Application {
 
 	private void addKeyListeners(Scene scene) {
 		scene.setOnKeyPressed((KeyEvent event)->{
-//				System.out.println("Key pressed: "+event);
 				Moves move = null;
 				
 				KeyCode key = event.getCode();
-//				Boolean value = this.keyPressed.get(key);
-//				if (value != null) {
-//					this.keyPressed.put(key, true);
-//				}
+
 				int keyPressedLength = this.keyPressed.size();
 				if (keyPressedLength == 0) {
-					System.out.println("KeyPressed 0");
 					move = this.getMoveFromKey(key);
 					if (move != null) {
 						this.keyPressed.push(key);
@@ -254,7 +219,6 @@ public class JavaFXApplication extends Application {
 						this.validMove = false;
 					}
 				} else if (keyPressedLength == 1) {
-					System.out.println("KeyPressed 1");
 					KeyCode firstKey = this.keyPressed.firstElement();
 					this.keyPressed.add(key);
 					move = this.getMoveFromDoubleKey(firstKey, key);
@@ -265,28 +229,12 @@ public class JavaFXApplication extends Application {
 						this.validMove = false;
 					}
 				} else if (keyPressedLength > 2) {
-					System.out.println("KeyPressed " + keyPressedLength);
 					this.validMove = false;
 				}
 			
 			}
 		);
 		scene.setOnKeyReleased((KeyEvent event)->{
-//				System.out.println("Key pressed: "+event);
-				switch (event.getCode()) {
-					case UP:
-					case DOWN:
-					case LEFT:
-					case RIGHT:
-					case W:
-					case S:
-					case A:
-					case D:
-					case C:
-						System.out.println("OnGoing Move: "+this.currMove);
-						break;
-					default: this.keyPressed.clear(); break;
-				}
 				if (this.validMove) {
 					this.actionHandler.registerMove(this.currMove);
 				}
@@ -309,16 +257,8 @@ public class JavaFXApplication extends Application {
     	}
     	
     	return actionButtons;
-//    	return (ActionButton[])actionButtons.toArray();
     }
     
     
-
-//    public static void main(String[] args) {
-//    	AppConfiguration conf = AppConfiguration.getInstance();
-//    	conf.setRows(5);
-//    	conf.setColumns(5);
-//        launch(args);
-//    }
 
 }
