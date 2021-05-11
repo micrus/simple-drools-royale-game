@@ -1,4 +1,4 @@
-package com.sample;
+package test.com.sample;
 
 import org.junit.jupiter.api.Test;
 import org.kie.api.runtime.KieContainer;

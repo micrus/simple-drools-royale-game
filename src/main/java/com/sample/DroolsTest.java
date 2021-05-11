@@ -6,11 +6,9 @@ import org.drools.core.ClassObjectFilter;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
-<<<<<<< HEAD
 import utils.KnowledgeSessionHelper;
-=======
 import com.sample.gui.javafx.GuiJavaFX;
->>>>>>> origin/master
+
 
 /**
  * This is a sample class to launch a rule.
