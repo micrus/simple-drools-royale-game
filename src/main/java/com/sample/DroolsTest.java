@@ -25,7 +25,7 @@ public class DroolsTest {
 
         	//=====================SETUP ==============================
         	Gui gui = new GuiJavaFX();
-        	Logger.getInstance().setGui(new GuiConsole());
+        	Logger.getInstance().setGui(gui);
         	Settings setting = new Settings(0, 10);
         	Hero hero = new Hero(2, 2, new Statistic (30, 5, 15,0));
 

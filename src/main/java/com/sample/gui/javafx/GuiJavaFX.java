@@ -19,6 +19,7 @@ public class GuiJavaFX implements Gui {
 	private static AppConfiguration appConf;
 	
 	private Grid grid;
+	private ConsoleArea console;
 	private ActionHandler actionHandler;
 	private boolean started;
 	
@@ -64,7 +65,10 @@ public class GuiJavaFX implements Gui {
 	}
 	
 	public void showMessage(String msg) {
-		
+		if (this.console == null) {
+			this.console = appConf.getConsole();
+		}
+		this.console.appendMessage(msg);
 	}
 	
 	public PlayerAction getAction() throws IOException {

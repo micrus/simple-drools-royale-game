@@ -73,8 +73,9 @@ public class JavaFXApplication extends Application {
 
             root.getChildren().addAll(imageView, grid);
            
-            TextArea textarea = new TextArea();
-            textarea.setStyle("-fx-font-size: 2em;");
+            ConsoleArea textarea = new ConsoleArea();
+            conf.setConsole(textarea);
+//            textarea.setStyle("-fx-font-size: em;");
             textarea.setPrefHeight(this.consoleHeight);
             textarea.setMaxWidth(this.width);
             

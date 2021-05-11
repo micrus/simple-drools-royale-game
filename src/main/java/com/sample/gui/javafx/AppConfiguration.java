@@ -10,6 +10,7 @@ public class AppConfiguration {
     private double height;
     
     private volatile Grid grid;
+    private ConsoleArea console;
     
     public AppConfiguration() {
     }
@@ -47,6 +48,26 @@ public class AppConfiguration {
 		return height;
 	}
 	
+	public void setConsole(ConsoleArea console) {
+		synchronized(this) {
+			this.console = console;
+			notify();
+		}
+	}
+	
+	public ConsoleArea getConsole() {
+		synchronized(this) {
+			try {
+				if (this.console == null) {
+					wait();
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		return this.console;
+	}
+	
 	public void setGrid(Grid grid) {
 		synchronized(this) {
 			this.grid = grid;
@@ -57,7 +78,9 @@ public class AppConfiguration {
 	public Grid getGrid() {
 		synchronized(this) {
 			try {
-				wait();
+				if (this.grid == null) {
+					wait();
+				}
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
