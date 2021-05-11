@@ -45,19 +45,23 @@ public class GuiJavaFX implements Gui {
 		Platform.runLater(() -> {
 			this.grid.clearStyle();
 			for(LocatedOnMap lom : mapBeing) {
-				int cols = lom.getCol();
-				int rows = lom.getRow();
-				if (lom instanceof Hero) {
-					this.grid.showHero(cols, rows);
-				} else if (lom instanceof NPC) {
-					this.grid.showNPC(cols, rows);
-				} else if (lom instanceof CraftObject) {
-					this.grid.showCraft(cols, rows);
-				} else {
-					this.grid.showWall(cols, rows);
-				}
-			}	
-			this.grid.changeFocus();
+				this.grid.moveEntity(lom);
+			}
+			this.grid.clearEntities();
+//			for(LocatedOnMap lom : mapBeing) {
+//				int cols = lom.getCol();
+//				int rows = lom.getRow();
+//				if (lom instanceof Hero) {
+//					this.grid.showHero(cols, rows);
+//				} else if (lom instanceof NPC) {
+//					this.grid.showNPC(cols, rows);
+//				} else if (lom instanceof CraftObject) {
+//					this.grid.showCraft(cols, rows);
+//				} else {
+//					this.grid.showWall(cols, rows);
+//				}
+//			}	
+//			this.grid.changeFocus();
 		});
 	}
 	
