@@ -1,5 +1,7 @@
 package com.sample.gui.javafx;
 
+import com.sample.gui.javafx.*;
+
 public class AppConfiguration {
 	
 	private static volatile AppConfiguration instance;

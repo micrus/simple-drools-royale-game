@@ -39,10 +39,10 @@ public class Cell extends StackPane {
     }
     
     public void showHero() {
-//    	this.img = new ImageView(new Image("./hero_idle.png",50,50,false,false));
-//    	getChildren().add(this.img);
-    	this.getStyleClass().remove("hero");
-    	this.getStyleClass().add("hero");
+    	this.img = new ImageView(new Image("file:assets/hero_idle.png",50,50,false,false));
+    	getChildren().add(this.img);
+//    	this.getStyleClass().remove("hero");
+//    	this.getStyleClass().add("hero");
     }
     
     public void showCraft() {
