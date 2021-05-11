@@ -57,6 +57,7 @@ public class GuiJavaFX implements Gui {
 					this.grid.showWall(cols, rows);
 				}
 			}	
+			this.grid.changeFocus();
 		});
 	}
 	

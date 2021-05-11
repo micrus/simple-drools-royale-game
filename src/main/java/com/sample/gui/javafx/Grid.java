@@ -1,5 +1,7 @@
 package com.sample.gui.javafx;
 
+import java.util.function.Function;
+
 import com.sample.gui.javafx.Cell;
 
 import javafx.scene.image.Image;
@@ -16,6 +18,8 @@ public class Grid extends Pane {
     
     double cellWidth;
     double cellHeight;
+    
+    private Runnable changeFocus;
 
     Cell[][] cells;
 
@@ -30,6 +34,15 @@ public class Grid extends Pane {
 
         cells = new Cell[rows][columns];
 
+    }
+    
+    public void setChangeFocus(Runnable runnable) {
+    	this.changeFocus = runnable;
+    }
+    
+    public void changeFocus() {
+    	System.out.println("Changing Focus");
+    	this.changeFocus.run();
     }
 
     /**
