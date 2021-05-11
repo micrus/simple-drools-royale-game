@@ -1,8 +1,236 @@
 package com.sample
+import java.util.concurrent.ThreadLocalRandom;
 
 import com.sample.Logger;
 
+rule "MOVE RIGHT"
+ salience action.getPriority()
+    when
+	    setting : Settings( gameOver == false )
+		action : PlayerAction( action == Moves.GO_RIGHT, whoMoves : whoMoves  ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED && row < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == character.getCol() && (row == character.getRow() +1) )
+	
+	then
+       Logger.getInstance().println(character.getSimbol()+" move right!");
+       character.moveRight();
+	   character.setStatus(Status.MOVED);
+       update( character );
+ end
 
+rule "MOVE LEFT"
+ salience action.getPriority()
+    when
+	    setting : Settings( gameOver == false )
+		action : PlayerAction( action == Moves.GO_LEFT, whoMoves : whoMoves  ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED && row > 0 ) 
+		not LocatedOnMap (steppable==0 && col == character.getCol() && (row == character.getRow() -1) )
+	
+	then
+       Logger.getInstance().println(character.getSimbol()+" move left!");
+       character.moveLeft();
+	   character.setStatus(Status.MOVED);
+       update( character );
+ end
+
+rule "MOVE UP"
+ salience action.getPriority()
+    when
+	    setting : Settings( gameOver == false )
+		action : PlayerAction( action == Moves.GO_UP, whoMoves : whoMoves  ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED && col > 0 ) 
+		not LocatedOnMap (steppable==0 && col == character.getCol()-1 && (row == character.getRow()) )
+	
+	then
+       Logger.getInstance().println(character.getSimbol()+" move up!");
+       character.moveUp();
+	   character.setStatus(Status.MOVED);
+       update( character );
+ end
+ 
+rule "MOVE DOWN"
+ salience action.getPriority()
+    when
+	    setting : Settings( gameOver == false )
+		action : PlayerAction( action == Moves.GO_DOWN, whoMoves : whoMoves  ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED && col < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == character.getCol()+1 && (row == character.getRow()) )
+	
+	then
+       Logger.getInstance().println(character.getSimbol()+" move down!");
+       character.moveDown();
+	   character.setStatus(Status.MOVED);
+       update( character );
+ end
+ 
+rule "MOVE DOWN-RIGHT"
+ salience action.getPriority()
+    when
+	    setting : Settings( gameOver == false )
+		action : PlayerAction( action == Moves.GO_DOWN_RIGHT, whoMoves : whoMoves  ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED && col < setting.getDimension() - 1 && row < setting.getDimension() - 1) 
+		not LocatedOnMap (steppable==0 && col == character.getCol()+1 && (row == character.getRow()+1) )
+		
+	
+	then
+       Logger.getInstance().println(character.getSimbol()+" move down-right!");
+       character.moveDownRight();
+	   character.setStatus(Status.MOVED);
+       update( character );
+ end
+ 
+ rule "MOVE DOWN-LEFT"
+ salience action.getPriority()
+    when
+	    setting : Settings( gameOver == false )
+		action : PlayerAction( action == Moves.GO_DOWN_LEFT, whoMoves : whoMoves  ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED && col < setting.getDimension() - 1 && row > 0) 
+		not LocatedOnMap (steppable==0 && col == character.getCol()+1 && (row == character.getRow()-1) )
+		
+	
+	then
+       Logger.getInstance().println(character.getSimbol()+" move down-left!");
+       character.moveDownLeft();
+	   character.setStatus(Status.MOVED);
+       update( character );
+ end
+
+rule "MOVE UP-RIGHT"
+ salience action.getPriority()
+    when
+	    setting : Settings( gameOver == false )
+		action : PlayerAction( action == Moves.GO_UP_RIGHT, whoMoves : whoMoves  ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED && col >0 && row < setting.getDimension() - 1) 
+		not LocatedOnMap (steppable==0 && col == character.getCol()-1 && (row == character.getRow()+1) )
+		
+	
+	then
+       Logger.getInstance().println(character.getSimbol()+" move up-right!");
+       character.moveUpRight();
+	   character.setStatus(Status.MOVED);
+       update( character );
+ end
+ 
+ rule "MOVE UP-LEFT"
+ salience action.getPriority()
+    when
+	    setting : Settings( gameOver == false )
+		action : PlayerAction( action == Moves.GO_UP_LEFT, whoMoves : whoMoves  ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED && col >0 && row >0) 
+		not LocatedOnMap (steppable==0 && col == character.getCol()-1 && (row == character.getRow()-1) )
+		
+	
+	then
+       Logger.getInstance().println(character.getSimbol()+" move up-left!");
+       character.moveUpLeft();
+	   character.setStatus(Status.MOVED);
+       update( character );
+ end
+ 
+ //==========================TRAP AND CRAFT================================
+ 
+   rule "PUT TRAP"
+   salience action.getPriority()
+    when
+    	Settings( gameOver == false )
+		action : PlayerAction( action == Moves.PUT_TRAP, whoMoves : whoMoves ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED )
+		not craft: CraftObject (col == character.getCol() && row == character.getRow())
+		
+    then
+       Logger.getInstance().println(character.getSimbol()+" is putting trap...");
+       int randomMalus = ThreadLocalRandom.current().nextInt(0, character.getStat(StatAbility.SHREWDNESS) + 1);
+       insert (new CraftObject(character.getCol() , character.getRow() ,StatAbility.LIFE, -randomMalus, 1) );
+       character.setStatus(Status.MOVED);
+       update ( character );
+ end
+
+
+ rule "CRAFT"
+ salience action.getPriority()
+    when
+    	Settings( gameOver == false )
+		action : PlayerAction( action == Moves.CRAFT, whoMoves : whoMoves ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED )
+		craft: CraftObject (col == character.getCol() && row == character.getRow())
+		
+    then
+       Logger.getInstance().println(character.getSimbol()+" is crafting... "+craft.getStatToIncrease()+" increment of "+craft.getBonus());
+       character.increment(craft.getStatToIncrease(), craft.getBonus());
+       craft.setAvaiability(craft.getAvaiability() - 1); 
+              
+       character.setStatus(Status.MOVED);
+       update ( craft );        
+       update ( character );
+
+ end
+ 
+ rule "REMOVE CRAFT"
+salience 100000
+    when	
+		craft: CraftObject ( avaiability <= 0 )	
+    then  	
+    	retract( craft );
+ 	end
+ 
+ //====================COMBACT RULES=============================
+
+rule "COMBACT: DEFENDER ELUDE ATTACK"
+salience action.getPriority()
+	when 
+	  	Settings( gameOver == false )
+		action : FightAction( this.offenderTryAttackValue()<=this.defenderTryEludeValue(), whoMoves : whoMoves, defensor : defender ) 
+		offender : Character(this == whoMoves && status == Status.NOT_MOVED, orow : row, ocol : col)
+		defender : Character(this == defensor && row in (orow, orow + 1, orow -1) && col in (ocol, ocol+1, ocol-1))
+		
+	then
+		Logger.getInstance().println(offender.getSimbol()+" tries to attack "+action.getDefender().getSimbol()+" but he eludes the attack!");
+		offender.setStatus(Status.MOVED);
+        update ( offender );
+end
+
+rule "COMBACT: DEFENDER TAKE THE ATTACK"
+salience action.getPriority()
+
+	when 
+	  	Settings( gameOver == false )
+		action : FightAction( this.offenderTryAttackValue()>this.defenderTryEludeValue(), whoMoves : whoMoves, defensor : defender ) 
+		offender : Character(this == whoMoves && status == Status.NOT_MOVED, orow : row, ocol : col)
+		defender : Character(this == defensor && row in (orow, orow + 1, orow -1) && col in (ocol, ocol+1, ocol-1) )
+		
+	then
+		int damage = action.offenderDamageValue();
+        defender.increment(StatAbility.LIFE, -damage);
+        Logger.getInstance().println(offender.getSimbol()+" inflict "+damage+" damage to "+action.getDefender().getSimbol()+"! His remaining life is: "+defender.getStat(StatAbility.LIFE));
+		offender.setStatus(Status.MOVED);
+        update( defender );
+        update ( offender );
+end
+
+
+
+
+//======================END RULES=================================
+rule "INVALID MOVE"
+	when 
+		hero : Hero (status == Status.NOT_MOVED)
+	then 
+		Logger.getInstance().println("What are you doing? Fight instead of waisting time in useless action!");
+		hero.setStatus(Status.MOVED);
+		update (hero);
+end
+
+
+
+rule "RETRACT ACTION"
+when 
+    action:	PlayerAction()
+	not Character(status == Status.NOT_MOVED)
+then 
+	retract (action)
+end
+
+/*
 rule "MOVE RIGHT"
  salience hero.getStat(StatAbility.SPEED) * 100
     when
@@ -140,7 +368,7 @@ rule "CANNOT MOVE UP 1"
 salience hero.getStat(StatAbility.SPEED) * 100
     when
     	Settings( gameOver == false )
-		action : PlayerAction( action == Moves.GO_UP ) 
+		action : PlayerAction(action == Moves.GO_UP ) 
 		hero : Hero ( col <= 0 ) 
 		
     then
@@ -471,4 +699,24 @@ salience hero.getStat(StatAbility.SPEED) * 100
        update(hero);
 
  end
+ 
+  rule "PUT TRAP"
+ salience hero.getStat(StatAbility.SPEED) * 100
+    when
+    	Settings( gameOver == false )
+		action : PlayerAction( action == Moves.PUT_TRAP ) 
+		hero : Hero () 
+		not craft: CraftObject (col == hero.getCol() && row == hero.getRow())
+		
+    then
+       Logger.getInstance().println("Putting trap...");
+       int randomMalus = ThreadLocalRandom.current().nextInt(0, hero.getStat(StatAbility.SHREWDNESS) + 1);
+       insert (new CraftObject(hero.getCol() , hero.getRow() ,StatAbility.LIFE, -randomMalus, 1) );
+       hero.setStatus(Status.MOVED);
+       retract( action );
+       update ( hero );
+
+ end
+ 
+ */
  

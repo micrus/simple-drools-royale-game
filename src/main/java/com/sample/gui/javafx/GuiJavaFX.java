@@ -71,11 +71,10 @@ public class GuiJavaFX implements Gui {
 		this.console.appendMessage(msg);
 	}
 	
-	public PlayerAction getAction() throws IOException {
+	public Moves getAction() throws IOException {
 //		PlayerAction action = new PlayerAction(Moves.GO_UP);
 //		GuiConsole tmp = new GuiConsole();
-		Moves move = this.actionHandler.getMove();
-		return new PlayerAction(move);
+		return this.actionHandler.getMove();
 		
 	}
 }

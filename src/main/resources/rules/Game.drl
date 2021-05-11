@@ -98,7 +98,7 @@ package com.sample
  	when 
  		setting: Settings( ) 
  		turn : Turn ( status == TurnState.PERFORMING) 
- 		not Character ( status == Status.NOT_MOVED )
+ 		not PlayerAction( )
  	then
  		setting.setTime(setting.getTime() + 1);
  		update (setting);

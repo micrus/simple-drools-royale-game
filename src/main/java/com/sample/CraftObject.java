@@ -4,7 +4,7 @@ public class CraftObject extends LocatedOnMap{
 
 	StatAbility statToIncrease;
 	int bonus;
-	int avaiability;
+	int avaiability; 
 	
 	public CraftObject(int col, int row, StatAbility stat, int bonus, int avaiability) {
 		super("°", col, row, 1, 1);

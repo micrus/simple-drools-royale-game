@@ -1,8 +1,12 @@
 package com.sample;
 
 public enum StatAbility {
-	ATK,
 	LIFE,
+	ATTACK,
+	DEXTERITY,
+	ELUSION,
+	DEFENCE,
 	SPEED,
-	VIEW;
+	VIEW,
+	SHREWDNESS;
 }
