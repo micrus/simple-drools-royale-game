@@ -17,6 +17,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.PickResult;
 import javafx.scene.layout.HBox;
@@ -34,6 +35,8 @@ public class JavaFXApplication extends Application {
     double width;
     double height;
     
+    private ActionHandler actionHandler;
+    
     private double consoleHeight = 100;
     private double sidebarWidth = 200;
     private double buttonWidth = 100;
@@ -43,6 +46,7 @@ public class JavaFXApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
     	AppConfiguration conf = AppConfiguration.getInstance();
+    	this.actionHandler = ActionHandler.getInstance();
     	this.rows = conf.getRows();
     	this.columns = conf.getColumns();
     	this.width = conf.getWidth();
@@ -90,6 +94,15 @@ public class JavaFXApplication extends Application {
             // create scene and stage
             Scene scene = new Scene(hbox, width + this.sidebarWidth, height + this.consoleHeight);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+            this.addKeyListeners(scene);
+
+            grid.setOnMouseClicked((event) -> {
+//            	grid.requestFocus();
+            	scene.getRoot().requestFocus();
+            	System.out.println("Focus requested");
+            });
+            scene.getRoot().requestFocus();
+
             primaryStage.setScene(scene);
             primaryStage.show();
 
@@ -97,15 +110,38 @@ public class JavaFXApplication extends Application {
             e.printStackTrace();
         }
     }
+
+	private void addKeyListeners(Scene scene) {
+		scene.setOnKeyPressed((KeyEvent event)->{
+//				System.out.println("Key pressed: "+event);
+				Moves move = null;
+				boolean validMove = true;
+				switch (event.getCode()) {
+					case UP: move = Moves.GO_UP; break;
+					case DOWN: move = Moves.GO_DOWN; break;
+					case LEFT: move = Moves.GO_LEFT; break;
+					case RIGHT: move = Moves.GO_RIGHT; break;
+					case W: move = Moves.ATTACK_UP; break;
+					case S: move = Moves.ATTACK_DOWN; break;
+					case A: move = Moves.ATTACK_LEFT; break;
+					case D: move = Moves.ATTACK_RIGHT; break;
+					case C: move = Moves.CRAFT; break;
+					default: validMove = false; break;
+				}
+				if (validMove) {
+					this.actionHandler.registerMove(move);
+				}
+			}
+		);
+	}
     
 	private List<ActionButton> getSidebarButtons() {
     	List<ActionButton> actionButtons = new ArrayList<ActionButton>();
-    	ActionHandler actionHandler = ActionHandler.getInstance();
     	
     	for(Moves move : Moves.values()) {
     		ActionButton currButton = new ActionButton(this.buttonWidth, move);
     		currButton.setOnMousePressed(event -> {
-    			actionHandler.registerMove(move);
+    			this.actionHandler.registerMove(move);
     		});
     		actionButtons.add(currButton);
     	}
