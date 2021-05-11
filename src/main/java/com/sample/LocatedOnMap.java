@@ -1,6 +1,7 @@
 package com.sample;
 
 public abstract class LocatedOnMap {
+
 	String simbol;
 	int col;
 	int row;

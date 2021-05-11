@@ -1,0 +1,16 @@
+.cell {
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+.npc {
+	-fx-background-color: red;
+}
+.craft {
+	-fx-background-color: green;
+}
+.hero {
+	-fx-background-color: blue;
+}
+.wall {
+	-fx-background-color: black;
+}

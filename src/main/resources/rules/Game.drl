@@ -1,5 +1,6 @@
 package com.sample
  
+ import com.sample.Logger;
 
  
  //Start turn
@@ -77,7 +78,7 @@ package com.sample
  		not Hero( )
  	then 
  		setting.setGameOver(true);
- 		System.out.println("You lost! What an inglorious end for such a noble warrior");
+ 		Logger.getInstance().println("You lost! What an inglorious end for such a noble warrior");
  		update (setting);
  end
  
@@ -88,7 +89,7 @@ package com.sample
  		not NPC( )
  	then 
  		setting.setGameOver(true);
- 		System.out.println("Congrats! You win proud warrior!");
+ 		Logger.getInstance().println("Congrats! You win proud warrior!");
  		update (setting);
  end
  
@@ -97,7 +98,7 @@ package com.sample
  	when 
  		setting: Settings( ) 
  		turn : Turn ( status == TurnState.PERFORMING) 
- 		not Character ( status == Status.NOT_MOVED )
+ 		not PlayerAction( )
  	then
  		setting.setTime(setting.getTime() + 1);
  		update (setting);

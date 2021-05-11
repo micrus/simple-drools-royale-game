@@ -6,7 +6,11 @@ import org.drools.core.ClassObjectFilter;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
+<<<<<<< HEAD
 import utils.KnowledgeSessionHelper;
+=======
+import com.sample.gui.javafx.GuiJavaFX;
+>>>>>>> origin/master
 
 /**
  * This is a sample class to launch a rule.
@@ -21,29 +25,52 @@ public class DroolsTest {
 
 
         	//=====================SETUP ==============================
-        	Gui gui = new GuiConsole();
-        	Settings setting = new Settings(0, 5);
-        	Hero hero = new Hero(2, 2, new Statistic (30, 5, 15,0));
+        	Gui gui = new GuiJavaFX();
+        	Logger.getInstance().setGui(gui);
+        	Settings setting = new Settings(0, 10);
 
         	
-        	//Wall wall = new Wall("#",3,3);
-        	NPC npc1 = new NPC(0,1, new Statistic(20, 10, 10, 5));
-        	NPC npc2 = new NPC(3,3, new Statistic(20, 20, 20, 5));
+        	Weapon sword = new Weapon("base sword", 10, 6);
+        	Statistic balanceStatSlow = new Statistic(100,10,10,10,10,10,3,10);
+        	Statistic balanceStatMedium = new Statistic(100,10,10,10,10,15,3,10);
+        	Statistic balanceStatFast = new Statistic(100,10,10,10,10,20,3,10);
+
+        	Hero hero = new Hero(2, 2, sword, balanceStatFast);
+
+
+            NPC npc1 = new NPC("PG1",0,0, sword, balanceStatMedium);
+        	NPC npc3 = new NPC("PG2",4,4, sword, balanceStatSlow);
+        	NPC npc4 = new NPC("PG3",2,2, sword, balanceStatSlow);
+        	NPC npc5 = new NPC("PG4",4,0, sword, balanceStatSlow);
+        	NPC npc6 = new NPC("PG5",0,2, sword, balanceStatSlow);
+        	NPC npc7 = new NPC("PG6",2,0, sword, balanceStatSlow);
+        	NPC npc8 = new NPC("PG7",2,4, sword, balanceStatSlow);
+        	NPC npc9 = new NPC("PG8",4,2, sword, balanceStatSlow);
+
+        	//NPC npc2 = new NPC("PGF",0,0, new Statistic(20, 20, 20, 5, 10));
 
         	
-        	
-        	int a = 0;
-        	a++;
-        	CraftObject deadWood = new CraftObject(3,3,StatAbility.LIFE, -9, 2);
+
+        	//CraftObject deadWood = new CraftObject(3,3,StatAbility.LIFE, -9, 2);
         	CraftObject lifeWood = new CraftObject(3,1,StatAbility.LIFE, 5, 4);
 
         	kSession.insert(hero);
         	//kSession.insert(wall);
         	kSession.insert(npc1);
-        	kSession.insert(npc2);
+        	kSession.insert(npc3);
+        	//kSession.insert(npc4);
+        	//kSession.insert(npc5);
+        	//kSession.insert(npc6);
+        	//kSession.insert(npc7);
+        	//kSession.insert(npc8);
+        	//kSession.insert(npc9);
+
+
+
+        	//kSession.insert(npc2);
         	
         	kSession.insert(lifeWood);
-        	kSession.insert(deadWood);
+        	//kSession.insert(deadWood);
 
         	
             kSession.insert(setting);
@@ -52,14 +79,13 @@ public class DroolsTest {
             //=====================ACT=================================
             boolean run = true;
             while (run ) {
-                
             	Settings settings =  (Settings) kSession.getObjects(new ClassObjectFilter(Settings.class)).iterator().next();
                 Collection<LocatedOnMap> mapBeing = (Collection<LocatedOnMap>) kSession.getObjects(new ClassObjectFilter(LocatedOnMap.class));
                 gui.showMap(mapBeing, settings);
                 
-            	PlayerAction action= gui.getAction();
-            	if(action != null) {
-	                kSession.insert(action);
+            	Moves action= gui.getAction();
+            	if(action != Moves.BAD_MOVE) {
+	                kSession.insert(new PlayerAction(action, hero));
 	                kSession.insert(new Turn(TurnState.INIT));
 	                kSession.fireAllRules();
             	}else {

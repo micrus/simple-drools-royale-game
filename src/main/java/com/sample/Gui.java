@@ -6,5 +6,6 @@ import java.util.Collection;
 public interface Gui {
 	public void showMap(Collection<LocatedOnMap> mapBeing, Settings setting);
 	public void showHelp();
-	public PlayerAction getAction() throws IOException;
+	public void showMessage(String msg);
+	public Moves getAction() throws IOException;
 }

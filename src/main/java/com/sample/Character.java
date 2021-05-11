@@ -5,12 +5,14 @@ public abstract class Character extends LocatedOnMap {
 	Statistic baseStat;
 	Statistic actualStat;
 	Status status;
+	Weapon weapon;
 
-	public Character(String simbol, int col, int row, Statistic stat) {
+	public Character(String simbol, int col, int row, Weapon weapon, Statistic stat) {
 		super(simbol, col, row, 1, 0);
 		this.baseStat = stat;
 		this.actualStat = new Statistic(stat);
 		this.status = Status.NOT_MOVED;
+		this.weapon = weapon;
 	}
 	
 
@@ -44,7 +46,22 @@ public abstract class Character extends LocatedOnMap {
 	public void moveDown() {
 		this.col++;
 	}
-	
+	public void moveDownRight() {
+		this.col++;
+		this.row++;
+	}
+	public void moveDownLeft() {
+		this.col++;
+		this.row--;
+	}
+	public void moveUpRight() {
+		this.col--;
+		this.row++;
+	}
+	public void moveUpLeft() {
+		this.col--;
+		this.row--;
+	}
 	
 	
 	
@@ -73,6 +90,24 @@ public abstract class Character extends LocatedOnMap {
 		this.status = status;
 	}
 
+
+	public Weapon getWeapon() {
+		return weapon;
+	}
+
+
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}
+
+	// getDamage(){
+	// laciodado + modificatori} -> quanti danni faccio
 	
+	// takeDamage(int damage)
+	// {lacio dado elusione se lo supero danno 0 altrimenti calcolo danno effettivo}-> quanti danni prendo effettivi	
 	
+	/*
+	 * A attacca B
+	 * A tira dado per colpire -> getDamage
+	 */
 }

@@ -3,16 +3,19 @@ package com.sample;
 public class NPC extends Character{
 
 
-	public NPC(int col, int row, Statistic stat) {
-		super("NPC", col, row, stat);
+	public NPC(String name, int col, int row, Weapon weapon, Statistic stat) {
+		super(name, col, row, weapon, stat);
 		
 	}
 
 	@Override
 	public String toString() {
-		return "NPC [baseStat=" + baseStat + ", actualStat=" + actualStat + ", simbol=" + simbol + ", col=" + col
-				+ ", row=" + row + ", removable=" + removable + "]";
+		return "NPC [baseStat=" + baseStat + ", actualStat=" + actualStat + ", status=" + status + ", weapon=" + weapon
+				+ ", simbol=" + simbol + ", col=" + col + ", row=" + row + ", removable=" + removable + ", steppable="
+				+ steppable + "]";
 	}
+
+
 
 }
 

@@ -1,0 +1,664 @@
+package com.sample
+
+ rule "NPC MOVE RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol() && (row == npc.getRow() +1) )
+	
+	then
+	
+       insert (new PlayerAction(Moves.GO_RIGHT, npc));
+ end
+
+ rule "NPC MOVE LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row > 0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol() && (row == npc.getRow() -1) )
+	
+	then
+	
+       insert (new PlayerAction(Moves.GO_LEFT, npc));
+ end
+ 
+ rule "NPC MOVE UP"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col > 0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()-1 && (row == npc.getRow()) )
+	
+	then
+	
+       insert (new PlayerAction(Moves.GO_UP, npc));
+ end
+
+ rule "NPC MOVE DOWN"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()+1 && (row == npc.getRow()) )
+	
+	then
+	
+       insert (new PlayerAction(Moves.GO_DOWN, npc));
+ end
+ 
+  rule "NPC MOVE DOWN RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col < setting.getDimension() - 1 && row < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()+1 && row == npc.getRow()+1 )
+	
+	then
+	
+       insert (new PlayerAction(Moves.GO_DOWN_RIGHT, npc));
+ end
+
+  rule "NPC MOVE DOWN LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col < setting.getDimension() - 1 && row >0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()+1 && row == npc.getRow()-1 )
+	
+	then
+	
+       insert (new PlayerAction(Moves.GO_DOWN_LEFT, npc));
+ end
+ 
+ rule "NPC MOVE UP RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col >0 && row < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()-1 && row == npc.getRow()+1 )
+	
+	then
+	
+       insert (new PlayerAction(Moves.GO_UP_RIGHT, npc));
+ end
+ 
+ rule "NPC MOVE UP LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col >0 && row >0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()-1 && row == npc.getRow()-1 )
+	
+	then
+	
+       insert (new PlayerAction(Moves.GO_UP_LEFT, npc));
+ end
+ 
+  rule "NPC PUT TRAP"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		not CraftObject (col == npc.getCol() && row == npc.getRow() )
+	
+	then
+	
+       insert (new PlayerAction(Moves.PUT_TRAP, npc));
+ end
+ 
+ rule "NPC CRAFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		CraftObject (col == npc.getCol() && row == npc.getRow() )
+	
+	then
+	
+       insert (new PlayerAction(Moves.CRAFT, npc));
+ end
+ 
+//==============MOVE TOWARD WITH HIGHER PRIORITY=================
+
+ 
+ 
+ rule "NPC MOVE DOWN RIGHT TOWARD CHARACTER"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row < setting.getDimension() - 1 && col < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()+1 && (row == npc.getRow()+1) )
+		character : Character (row > npc.getRow() && row <= npc.getRow()+npc.getStat(StatAbility.VIEW )  && col > npc.getCol() && col <= npc.getCol()+npc.getStat(StatAbility.VIEW ) ) 
+		
+	
+	then
+       insert (new PlayerAction(Moves.GO_DOWN_RIGHT, npc, 10));
+ end
+ 
+  rule "NPC MOVE DOWN LEFT TOWARD CHARACTER"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row > 0 && col < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()+1 && (row == npc.getRow()-1) )
+		character : Character (row < npc.getRow() && row >= npc.getRow()-npc.getStat(StatAbility.VIEW )  && col > npc.getCol() && col <= npc.getCol()+npc.getStat(StatAbility.VIEW ) ) 
+		
+	
+	then
+       insert (new PlayerAction(Moves.GO_DOWN_LEFT, npc, 10));
+ end
+ 
+   rule "NPC MOVE UP LEFT TOWARD CHARACTER"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row > 0 && col > 0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()-1 && (row == npc.getRow()-1) )
+		character : Character (row < npc.getRow() && row >= npc.getRow()-npc.getStat(StatAbility.VIEW )  && col < npc.getCol() && col >= npc.getCol()-npc.getStat(StatAbility.VIEW ) ) 
+		
+	
+	then
+       insert (new PlayerAction(Moves.GO_UP_LEFT, npc, 10));
+ end
+ 
+    rule "NPC MOVE UP RIGHT TOWARD CHARACTER"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row < setting.getDimension()-1 && col > 0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()-1 && (row == npc.getRow()+1) )
+		character : Character (row > npc.getRow() && row <= npc.getRow()+npc.getStat(StatAbility.VIEW )  && col < npc.getCol() && col >= npc.getCol()-npc.getStat(StatAbility.VIEW ) ) 
+		
+	
+	then
+       insert (new PlayerAction(Moves.GO_UP_RIGHT, npc, 10));
+ end
+
+
+//===============MOVE TOWARD IN MAIN DIRECTION WITH HIGHER PRIORITY
+
+rule "NPC MOVE RIGHT TOWARD CHARACTER"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol() && (row == npc.getRow() +1) )
+		character : Character (col == npc.getCol() && row > npc.getRow() && row <= npc.getRow()+npc.getStat(StatAbility.VIEW ) ) 
+		
+	
+	then
+       insert (new PlayerAction(Moves.GO_RIGHT, npc, 20));
+ end
+ 
+ rule "NPC MOVE LEFT TOWARD CHARACTER"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row > 0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol() && (row == npc.getRow() -1) )
+		character : Character (col == npc.getCol() && row >=(npc.getRow()-npc.getStat(StatAbility.VIEW)) && row < npc.getRow() ) 
+		
+	
+	then
+       insert (new PlayerAction(Moves.GO_LEFT, npc, 20));
+ end
+ 
+  rule "NPC MOVE UP TOWARD CHARACTER"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col > 0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()-1 && (row == npc.getRow()) )
+		character : Character (row == npc.getRow() && col >=(npc.getCol()-npc.getStat(StatAbility.VIEW)) && col < npc.getCol() ) 
+		
+	
+	then
+       insert (new PlayerAction(Moves.GO_UP, npc, 20));
+ end
+ 
+  rule "NPC MOVE DOWN TOWARD CHARACTER"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()+1 && (row == npc.getRow()) )
+		character : Character (row == npc.getRow()  && col > npc.getCol() && col <= npc.getCol()+npc.getStat(StatAbility.VIEW ) )
+		
+	
+	then
+		
+       insert (new PlayerAction(Moves.GO_DOWN, npc, 20));
+ end
+ 
+ //=============================NPC ATTACK HIGHEST PRIORITY==================================
+ 
+ rule "NPC ATTACK RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		character : Character ( col == npc.getCol() && row == npc.getRow()+1 )
+
+	then
+		Logger.getInstance().println("insert attack right");
+       insert (new FightAction(npc, character, 70));
+ end
+ 
+ rule "NPC ATTACK LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		character : Character ( col == npc.getCol() && row == npc.getRow()-1 )
+
+	then
+	
+       insert (new FightAction(npc, character, 70));
+ end
+ 
+ rule "NPC ATTACK UP"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		character : Character ( col == npc.getCol()+1 && row == npc.getRow() )
+
+	then
+       insert (new FightAction(npc, character, 70));
+ end
+ 
+ rule "NPC ATTACK DOWN"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		character : Character ( col == npc.getCol()-1 && row == npc.getRow() )
+
+	then
+       insert (new FightAction(npc, character, 70));
+ end
+ 
+ rule "NPC ATTACK DOWN-RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		character : Character ( col == npc.getCol()+1 && row == npc.getRow()+1 )
+
+	then
+       insert (new FightAction(npc, character, 70));
+ end
+ 
+ rule "NPC ATTACK DOWN-LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		character : Character ( col == npc.getCol()+1 && row == npc.getRow()-1 )
+
+	then
+       insert (new FightAction(npc, character, 70));
+ end
+ 
+ rule "NPC ATTACK UP RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		character : Character ( col == npc.getCol()-1 && row == npc.getRow()+1 )
+
+	then
+       insert (new FightAction(npc, character, 70));
+ end
+ 
+ rule "NPC ATTACK UP LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		character : Character ( col == npc.getCol()-1 && row == npc.getRow()-1 )
+
+	then
+       insert (new FightAction(npc, character, 70));
+ end
+ 
+ 
+ //=================RULE FOR HANDLE FIGHT MOVES OF HERO=================
+ 
+ rule "HERO ATTACK UP"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.ATTACK_UP, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		character : Character ( col == hero.getCol()-1 && row == hero.getRow() )
+
+	then
+       insert (new FightAction(hero, character, 70));
+ end
+ 
+ 
+ rule "HERO ATTACK DOWN"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.ATTACK_DOWN, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		character : Character ( col == hero.getCol()+1 && row == hero.getRow() )
+
+	then
+       insert (new FightAction(hero, character, 70));
+ end
+ 
+ rule "HERO ATTACK RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.ATTACK_RIGHT, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		character : Character ( col == hero.getCol() && row == hero.getRow()+1 )
+
+	then
+       insert (new FightAction(hero, character, 70));
+ end
+ 
+  rule "HERO ATTACK LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.ATTACK_LEFT, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		character : Character ( col == hero.getCol() && row == hero.getRow()-1 )
+
+	then
+       insert (new FightAction(hero, character, 70));
+ end
+ 
+  rule "HERO ATTACK UP RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.ATTACK_UP_RIGHT, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		character : Character ( col == hero.getCol()-1 && row == hero.getRow()+1 )
+
+	then
+       insert (new FightAction(hero, character, 70));
+ end
+ 
+  rule "HERO ATTACK UP LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.ATTACK_UP_LEFT, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		character : Character ( col == hero.getCol()-1 && row == hero.getRow()-1 )
+
+	then
+       insert (new FightAction(hero, character, 70));
+ end
+ 
+  rule "HERO ATTACK DOWN RIGHT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.ATTACK_DOWN_RIGHT, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		character : Character ( col == hero.getCol()+1 && row == hero.getRow()+1 )
+
+	then
+       insert (new FightAction(hero, character, 70));
+ end
+ 
+  rule "HERO ATTACK DOWN LEFT"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.ATTACK_DOWN_LEFT, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		character : Character ( col == hero.getCol()+1 && row == hero.getRow()-1 )
+
+	then
+       insert (new FightAction(hero, character, 70));
+ end
+ 
+ 
+ /*
+rule "NPC ATTACK RIGHT"
+     salience npc.getStat(StatAbility.SPEED) * 100 + 70
+    
+    when
+    	Settings( gameOver == false )
+		npc: NPC ( status == Status.NOT_MOVED )
+		character : Character ( col == npc.getCol() && row == npc.getRow()+1 )
+		
+    then
+       Logger.getInstance().println("NPC is Attacking character");
+       character.increment(StatAbility.LIFE, -(npc.getStat(StatAbility.ATK)));
+       npc.setStatus(Status.MOVED);
+	   update ( character );       
+       update ( npc );       
+
+ end
+
+ rule "NPC ATTACK LEFT"
+     salience npc.getStat(StatAbility.SPEED) * 100 + 70
+    
+    when
+    	Settings( gameOver == false )
+		npc: NPC ( status == Status.NOT_MOVED )
+		character : Character ( col == npc.getCol() && row == npc.getRow()-1 )
+		
+    then
+       Logger.getInstance().println("NPC is Attacking character");
+       character.increment(StatAbility.LIFE, -(npc.getStat(StatAbility.ATK)));
+       npc.setStatus(Status.MOVED);
+	   update ( character );       
+       update ( npc );       
+
+ end
+ 
+ 
+ rule "NPC ATTACK UP"
+     salience npc.getStat(StatAbility.SPEED) * 100 + 70
+    
+    when
+    	Settings( gameOver == false )
+		npc: NPC ( status == Status.NOT_MOVED )
+		character : Character ( col == npc.getCol()-1 && row == npc.getRow() )
+		
+    then
+       Logger.getInstance().println("NPC is Attacking character");
+       character.increment(StatAbility.LIFE, -(npc.getStat(StatAbility.ATK)));
+       npc.setStatus(Status.MOVED);
+	   update ( character );       
+       update ( npc );       
+
+ end
+ 
+  rule "NPC ATTACK DOWN"
+     salience npc.getStat(StatAbility.SPEED) * 100 + 70
+    
+    when
+    	Settings( gameOver == false )
+		npc: NPC ( status == Status.NOT_MOVED )
+		character : Character ( col == npc.getCol()+1 && row == npc.getRow() )
+		
+    then
+       Logger.getInstance().println("NPC is Attacking character");
+       character.increment(StatAbility.LIFE, -(npc.getStat(StatAbility.ATK)));
+       npc.setStatus(Status.MOVED);
+	   update ( character );       
+       update ( npc );       
+
+ end
+ 
+ 
+ rule "NPC CRAFT"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 50
+    when
+    	Settings( gameOver == false )
+		npc: NPC ( status == Status.NOT_MOVED )
+		craft: CraftObject (col == npc.getCol() && row == npc.getRow())
+		
+    then
+       Logger.getInstance().println("Npc crafting...");
+       npc.increment( craft.getStatToIncrease(), craft.getBonus());
+       craft.setAvaiability(craft.getAvaiability() - 1); 
+       
+       Logger.getInstance().println("New stats: "+npc.getActualStat().toString() );
+       
+       npc.setStatus(Status.MOVED);
+       update ( npc );
+       update ( craft );       
+
+ end
+ 
+
+
+
+ rule "NPC MOVE RIGHT TOWARD CHARACTER"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 30
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row < setting.getDimension() - 1 ) 
+		character : Character (col == npc.getCol() && row > npc.getRow() && row < npc.getRow()+npc.getStat(StatAbility.VIEW ) ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol() && (row == npc.getRow() +1) )
+	
+	then
+       Logger.getInstance().println("NPC move right toward character!");
+       npc.moveRight();
+	   npc.setStatus(Status.MOVED);
+       update( npc );
+ end
+ 
+  rule "NPC MOVE LEFT TOWARD CHARACTER"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 30
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row > 0 ) 
+		character : Character (col == npc.getCol() && row >(npc.getRow()-npc.getStat(StatAbility.VIEW)) && row < npc.getRow() ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol() && (row == npc.getRow() -1) )
+	
+	then
+       Logger.getInstance().println("NPC move left toward character!");
+       npc.moveLeft();
+	   npc.setStatus(Status.MOVED);
+       update( npc );
+ end
+ 
+ rule "NPC MOVE DOWN TOWARD CHARACTER"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 30
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col < setting.getDimension() - 1 ) 
+		character : Character (row == npc.getRow()  && col > npc.getCol() && col < npc.getCol()+npc.getStat(StatAbility.VIEW ) )
+		not LocatedOnMap (steppable==0 && col == npc.getCol()+1 && row == npc.getRow()  )
+	
+	then
+       Logger.getInstance().println("NPC move down toward character!");
+       npc.moveDown();
+	   npc.setStatus(Status.MOVED);
+       update( npc );
+ end
+ 
+ rule "NPC MOVE UP TOWARD CHARACTER"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 30
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col > 0 ) 
+		character : Character (row == npc.getRow() && col >(npc.getCol()-npc.getStat(StatAbility.VIEW)) && col < npc.getCol() ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()-1 && row == npc.getRow() )
+	
+	then
+       Logger.getInstance().println("NPC move left toward character!");
+       npc.moveLeft();
+	   npc.setStatus(Status.MOVED);
+       update( npc );
+ end
+ 
+ 
+ 
+ 
+ 
+ rule "NPC MOVE RIGHT"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 10 
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol() && (row == npc.getRow() +1) )
+	
+	then
+	
+       Logger.getInstance().println("NPC move right!");
+       npc.moveRight();
+	   npc.setStatus(Status.MOVED);
+       update( npc );
+ end
+ 
+ 
+ rule "NPC MOVE LEFT"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 10
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row > 0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol() && (row == npc.getRow() -1) )
+	
+	then
+       Logger.getInstance().println("NPC move left!");
+       npc.moveLeft();
+	   npc.setStatus(Status.MOVED);
+       update( npc );
+ end
+ 
+ 
+ rule "NPC MOVE UP"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 10
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED  && col < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && (col == npc.getCol()-1) && row == npc.getRow() )
+	
+	then
+       Logger.getInstance().println("NPC move up!");
+       npc.moveUp();
+	   npc.setStatus(Status.MOVED);
+       update( npc );
+ end
+ 
+  rule "NPC MOVE DOWN"
+ salience npc.getStat(StatAbility.SPEED) * 100 + 10
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC (status == Status.NOT_MOVED && col > 0 ) 
+		not LocatedOnMap (steppable==0 && (col == npc.getCol()+1) && row == npc.getRow() )
+	
+	then
+       Logger.getInstance().println("NPC move down!");
+       npc.moveDown();
+	   npc.setStatus(Status.MOVED);
+       update( npc );
+ end
+ 
+ rule "NO MOVE"
+ salience npc.getStat(StatAbility.SPEED) * 100
+ 
+    when
+    	Settings( gameOver == false )
+		npc : NPC( status == Status.NOT_MOVED)
+		
+    then
+       Logger.getInstance().println("npg don't move ");
+       npc.setStatus(Status.MOVED);
+       update(npc);
+
+ end
+ 
+ 
+ 
+ 
+ 
+ */
+ 
