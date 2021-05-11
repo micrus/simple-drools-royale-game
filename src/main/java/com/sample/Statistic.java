@@ -48,9 +48,16 @@ public class Statistic{
 
 	@Override
 	public String toString() {
-		return "Statistic [stat=" + stat + "]";
+		return "Statistic [stat={LIFE=" + this.getStat(StatAbility.LIFE) + ", "
+				+ "ATTACK=" + this.getStat(StatAbility.ATTACK) + ", "
+				+ "DEXTERITY=" + this.getStat(StatAbility.DEXTERITY) + ", "
+				+ "DEFENCE=" + this.getStat(StatAbility.DEFENCE) + ", "
+				+ "ELUSION=" + this.getStat(StatAbility.ELUSION) + ", "
+				+ "SPEED=" + this.getStat(StatAbility.SPEED) + ", "
+				+ "VIEW=" + this.getStat(StatAbility.VIEW) + ", "
+				+ "SHREWDNESS=" + this.getStat(StatAbility.SHREWDNESS) + "}]";
 	}
-	
+
 	
 	
 }

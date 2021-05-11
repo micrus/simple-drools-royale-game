@@ -3,6 +3,7 @@ package utils;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.StatelessKieSession;
 
 /**
  * Utility class per la creazione di rule base e sessioni relative.
@@ -21,6 +22,19 @@ public class KnowledgeSessionHelper {
 		KieContainer kieContainer = ks.getKieClasspathContainer();
 		return kieContainer;
 		
+	}
+	
+	/**
+	 * Crea una sessione stateless.
+	 * 
+	 * @param kieContainer contenente la rule base
+	 * @param nome della sessione descritto nel kmodule
+	 * 
+	 * @return la sessione stateless
+	 */
+	public static StatelessKieSession getStatelessKnowledgeSession(KieContainer kieContainer, String sessionName) {
+		StatelessKieSession kieSession = kieContainer.newStatelessKieSession(sessionName);
+		return kieSession;
 	}
 	
 	/**
