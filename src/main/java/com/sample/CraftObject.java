@@ -40,7 +40,7 @@ public class CraftObject extends LocatedOnMap{
 
 	@Override
 	public String toString() {
-		return "DraftObject [statToIncrease=" + statToIncrease + ", bonus=" + bonus + ", avaiablity=" + avaiability
+		return "CraftObject [statToIncrease=" + statToIncrease + ", bonus=" + bonus + ", avaiablity=" + avaiability
 				+ ", simbol=" + simbol + ", col=" + col + ", row=" + row + ", removable=" + removable + "]";
 	}
 

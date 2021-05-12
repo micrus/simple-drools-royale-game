@@ -37,6 +37,8 @@ class TestNPC {
 		
 	}
 	
+	// TODO: Eliminare codice hard-coded testNPCToString()
+	
 	@Test
 	void testNPCToString() {
 		

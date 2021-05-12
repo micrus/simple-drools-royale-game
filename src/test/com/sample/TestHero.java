@@ -41,6 +41,8 @@ class TestHero {
 		// TODO: controllo caratteristiche ereditate da LocatedOnMap
 
 	}
+	
+	// TODO: Eliminare codice hard-coded in testHeroToString()
 
 	@Test
 	void testHeroToString() {
