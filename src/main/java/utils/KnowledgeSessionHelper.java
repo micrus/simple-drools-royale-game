@@ -27,7 +27,6 @@ public class KnowledgeSessionHelper {
 	/**
 	 * Crea una sessione stateless.
 	 * 
-	 * @param kieContainer contenente la rule base
 	 * @param nome della sessione descritto nel kmodule
 	 * 
 	 * @return la sessione stateless

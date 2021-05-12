@@ -3,7 +3,6 @@ package test.com.sample;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import com.sample.Weapon;
@@ -11,13 +10,13 @@ import com.sample.Weapon;
 class TestWeapon {
 	
 	private Weapon sword;
-	private Weapon riffle;
+	private Weapon rifle;
 	
 	@BeforeEach
 	void setUp() {
 		
 		sword = new Weapon("sword", 10, 6 );
-		riffle = new Weapon("riffle", 15, 5 );
+		rifle = new Weapon("rifle", 15, 8 );
 	}
 	
 	@Test
@@ -27,17 +26,17 @@ class TestWeapon {
 		assertEquals(10, sword.getBaseDamage());
 		assertEquals(6, sword.getModifier());
 		
-		assertEquals("riffle", riffle.getWeaponName());
-		assertEquals(15, riffle.getBaseDamage());
-		assertEquals(5, riffle.getModifier());		
+		assertEquals("rifle", rifle.getWeaponName());
+		assertEquals(15, rifle.getBaseDamage());
+		assertEquals(8, rifle.getModifier());		
 		
 	}
 	
 	@Test
 	void testWeaponToString() {
 		
-		String riffleExpectedString = "Weapon [weaponName=riffle, baseDamage=15, modifier=5]";
-		assertEquals(riffleExpectedString, riffle.toString());
+		String riffleExpectedString = "Weapon [weaponName=rifle, baseDamage=15, modifier=8]";
+		assertEquals(riffleExpectedString, rifle.toString());
 		
 		String swordExpectedString = "Weapon [weaponName=sword, baseDamage=10, modifier=6]" ;
 		assertEquals(swordExpectedString, sword.toString());

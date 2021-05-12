@@ -32,7 +32,8 @@ class TestHero {
 
 		// TODO: controllo testing di costruttori parametrizzati con objects
 		hero.getWeapon().equals(sword);
-		hero.getActualStat().equals(balanceState);
+		hero.getBaseStat().equals(balanceState);
+		hero.getActualStat().equals(balanceState);		
 
 		// TODO: controllo caratteristiche ereditate da Character
 		hero.getStatus().equals(Status.NOT_MOVED);
