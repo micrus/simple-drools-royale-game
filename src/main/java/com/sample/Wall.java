@@ -8,7 +8,7 @@ public class Wall extends LocatedOnMap {
 
 	@Override
 	public String toString() {
-		return "Wall [simbol=" + simbol + ", col=" + col + ", row=" + row + "]";
+		return "Wall [simbol=" + simbol+ ", col=" + col + ", row=" + row + "]";
 	}
 
 }

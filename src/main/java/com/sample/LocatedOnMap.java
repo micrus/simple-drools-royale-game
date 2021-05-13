@@ -2,11 +2,11 @@ package com.sample;
 
 public abstract class LocatedOnMap {
 
-	String simbol;
-	int col;
-	int row;
-	int removable;
-	int steppable;
+	protected String simbol;
+	protected int col;
+	protected int row;
+	protected int removable;
+	protected int steppable;
 	
 	public LocatedOnMap(String simbol, int col, int row, int removable, int steppable){
 		this.simbol = simbol;
