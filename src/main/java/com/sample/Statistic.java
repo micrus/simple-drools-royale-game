@@ -3,9 +3,9 @@ package com.sample;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Statistic{
+public class Statistic {
 	private Map<StatAbility, Integer> stat;
-	
+
 	public Statistic(int life, int atk, int dex, int def, int elu, int speed, int view, int shrewdness) {
 		super();
 		this.stat = new HashMap<StatAbility, Integer>();
@@ -18,10 +18,8 @@ public class Statistic{
 		stat.put(StatAbility.VIEW, view);
 		stat.put(StatAbility.SHREWDNESS, shrewdness);
 
-
-
 	}
-	
+
 	public Statistic(Statistic stats) {
 		super();
 		this.stat = new HashMap<StatAbility, Integer>();
@@ -33,32 +31,24 @@ public class Statistic{
 		stat.put(StatAbility.SPEED, stats.getStat(StatAbility.SPEED));
 		stat.put(StatAbility.VIEW, stats.getStat(StatAbility.VIEW));
 		stat.put(StatAbility.SHREWDNESS, stats.getStat(StatAbility.SHREWDNESS));
-
-
-
 	}
 
 	public int getStat(StatAbility ability) {
 		return this.stat.get(ability);
 	}
-	
+
 	public void setStat(StatAbility ability, int newValue) {
 		this.stat.put(ability, newValue);
 	}
 
 	@Override
 	public String toString() {
-		return "Statistic [stat={LIFE=" + this.getStat(StatAbility.LIFE) + ", "
-				+ "ATTACK=" + this.getStat(StatAbility.ATTACK) + ", "
-				+ "DEXTERITY=" + this.getStat(StatAbility.DEXTERITY) + ", "
-				+ "DEFENCE=" + this.getStat(StatAbility.DEFENCE) + ", "
-				+ "ELUSION=" + this.getStat(StatAbility.ELUSION) + ", "
-				+ "SPEED=" + this.getStat(StatAbility.SPEED) + ", "
-				+ "VIEW=" + this.getStat(StatAbility.VIEW) + ", "
-				+ "SHREWDNESS=" + this.getStat(StatAbility.SHREWDNESS) + "}]";
+		return "Statistic [stat={LIFE=" + this.getStat(StatAbility.LIFE) + ", " + "ATTACK="
+				+ this.getStat(StatAbility.ATTACK) + ", " + "DEXTERITY=" + this.getStat(StatAbility.DEXTERITY) + ", "
+				+ "DEFENCE=" + this.getStat(StatAbility.DEFENCE) + ", " + "ELUSION=" + this.getStat(StatAbility.ELUSION)
+				+ ", " + "SPEED=" + this.getStat(StatAbility.SPEED) + ", " + "VIEW=" + this.getStat(StatAbility.VIEW)
+				+ ", " + "SHREWDNESS=" + this.getStat(StatAbility.SHREWDNESS) + "}]";
 	}
 
-	
-	
 }
 
