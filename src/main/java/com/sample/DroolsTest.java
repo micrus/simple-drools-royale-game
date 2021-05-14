@@ -77,9 +77,14 @@ public class DroolsTest {
             //=====================ACT=================================
             boolean run = true;
             while (run ) {
-            	Settings settings =  (Settings) kSession.getObjects(new ClassObjectFilter(Settings.class)).iterator().next();
-                Collection<LocatedOnMap> mapBeing = (Collection<LocatedOnMap>) kSession.getObjects(new ClassObjectFilter(LocatedOnMap.class));
-                gui.showMap(mapBeing, settings);
+            	
+            	@SuppressWarnings("restriction")
+				Settings settings =  (Settings) kSession.getObjects(new ClassObjectFilter(Settings.class)).iterator().next();
+                
+            	@SuppressWarnings({ "unchecked", "restriction" })
+				Collection<LocatedOnMap> mapBeing = (Collection<LocatedOnMap>) kSession.getObjects(new ClassObjectFilter(LocatedOnMap.class));
+                
+            	gui.showMap(mapBeing, settings);
                 
             	Moves action= gui.getAction();
             	if(action != Moves.BAD_MOVE) {
@@ -93,9 +98,13 @@ public class DroolsTest {
             }    
             
             //The game is finished
-        	Settings settings =  (Settings) kSession.getObjects(new ClassObjectFilter(Settings.class)).iterator().next();
-            Collection<LocatedOnMap> mapBeing = (Collection<LocatedOnMap>) kSession.getObjects(new ClassObjectFilter(LocatedOnMap.class));
-            gui.showMap(mapBeing, settings);
+        	@SuppressWarnings("restriction")
+			Settings settings =  (Settings) kSession.getObjects(new ClassObjectFilter(Settings.class)).iterator().next();
+           
+        	@SuppressWarnings({ "unchecked", "restriction" })
+			Collection<LocatedOnMap> mapBeing = (Collection<LocatedOnMap>) kSession.getObjects(new ClassObjectFilter(LocatedOnMap.class));
+            
+        	gui.showMap(mapBeing, settings);
 
             
         } catch (Throwable t) {
