@@ -1,14 +1,16 @@
 package com.sample;
 
 public class ConsumableCraftObject extends CraftObject{
-
+	
+	String name;
 	StatAbility statToIncrease;
 	int bonus;
 	
-	public ConsumableCraftObject(int col, int row, StatAbility stat, int bonus, int avaiability) {
+	public ConsumableCraftObject(String name, int col, int row, StatAbility stat, int bonus, int avaiability) {
 		super(col, row, avaiability);
 		this.statToIncrease = stat;
 		this.bonus = bonus;
+		this.name = name;
 	}
 
 
@@ -29,12 +31,23 @@ public class ConsumableCraftObject extends CraftObject{
 	}
 
 
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
 	@Override
 	public String toString() {
-		return "ConsumableCraftObject [statToIncrease=" + statToIncrease + ", bonus=" + bonus + ", avaiability="
-				+ avaiability + ", simbol=" + simbol + ", col=" + col + ", row=" + row + ", removable=" + removable
-				+ ", steppable=" + steppable + "]";
+		return "ConsumableCraftObject [name=" + name + ", statToIncrease=" + statToIncrease + ", bonus=" + bonus + "]";
 	}
+
+
+
 
 
 

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.thoughtworks.xstream.mapper.Mapper;
@@ -149,4 +150,16 @@ public class GuiConsole implements Gui{
         System.out.println();
 
     }
+	
+	public int chooseToKeep() {
+		System.out.println("Do you want to keep it or not? (1 or 0)");
+		int userChoise = -1;
+		
+		while (userChoise<0 || userChoise > 1) {
+			userChoise =  new Scanner( System.in ).nextInt();
+			if(userChoise<0 || userChoise > 1 ) System.out.println("Accettable values are only 1 (yes) or 0 (no)");
+		}
+		
+		return userChoise;
+	}
 }

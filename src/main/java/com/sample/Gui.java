@@ -7,4 +7,5 @@ public interface Gui {
 	public void showMap(Collection<LocatedOnMap> mapBeing, Settings setting);
 	public void showHelp();
 	public Moves getAction() throws IOException;
+	public int chooseToKeep();
 }

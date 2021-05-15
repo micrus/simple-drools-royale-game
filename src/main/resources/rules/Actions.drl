@@ -156,11 +156,12 @@ rule "MOVE UP-RIGHT"
  		update (character);
  end
 
- rule "CRAFT"
+
+ rule "TAKE CRAFT"
  salience action.getPriority()
     when
     	Settings( gameOver == false )
-		action : PlayerAction( action == Moves.CRAFT, whoMoves : whoMoves ) 
+		action : CraftAction( keep == 1, whoMoves : whoMoves ) 
 		character : Character (this == whoMoves && status== Status.NOT_MOVED )
 		craft: ConsumableCraftObject (col == character.getCol() && row == character.getRow())
 		
@@ -172,6 +173,21 @@ rule "MOVE UP-RIGHT"
               
        character.setStatus(Status.MOVED);
        update ( craft );        
+       update ( character );
+
+ end
+ 
+ rule "DISCARD CRAFT"
+ salience action.getPriority()
+    when
+    	Settings( gameOver == false )
+		action : CraftAction( keep == 0, whoMoves : whoMoves ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED )
+		craft: ConsumableCraftObject (col == character.getCol() && row == character.getRow())
+		
+    then
+	   System.out.println(character.getSimbol() + " is crafting... but nah, he do not keep the craft");              
+       character.setStatus(Status.MOVED);
        update ( character );
 
  end
