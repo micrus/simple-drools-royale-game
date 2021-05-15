@@ -250,7 +250,6 @@ rule "NPC MOVE RIGHT TOWARD CHARACTER"
 		character : Character ( col == npc.getCol() && row == npc.getRow()+1 )
 
 	then
-		System.out.println("insert attack right");
        insert (new FightAction(npc, character, 70));
  end
  
@@ -447,6 +446,22 @@ rule "NPC MOVE RIGHT TOWARD CHARACTER"
 
 	then
 	   System.out.println("You find a "+craft.getName());
+	   int userChoise = gui.chooseToKeep();
+       insert (new CraftAction(hero, userChoise));
+ end
+ 
+  rule "HERO WEAPON CRAFT"
+ salience 100000
+ no-loop  
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.CRAFT, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		craft : WeaponCraftObject ( col == hero.getCol() && row == hero.getRow() )
+		gui : Gui ( )
+
+	then
+	   System.out.println("You find a "+craft.getWeapon().getWeaponName()+" ["+craft.getWeapon().getBaseDamage()+", "+craft.getWeapon().getModifier()+"]");
 	   int userChoise = gui.chooseToKeep();
        insert (new CraftAction(hero, userChoise));
  end

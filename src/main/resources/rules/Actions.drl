@@ -157,7 +157,7 @@ rule "MOVE UP-RIGHT"
  end
 
 
- rule "TAKE CRAFT"
+ rule "TAKE CONSUMABLE CRAFT"
  salience action.getPriority()
     when
     	Settings( gameOver == false )
@@ -177,13 +177,35 @@ rule "MOVE UP-RIGHT"
 
  end
  
+  rule "TAKE WEAPON CRAFT"
+ salience action.getPriority()
+    when
+    	Settings( gameOver == false )
+		action : CraftAction( keep == 1, whoMoves : whoMoves ) 
+		character : Character (this == whoMoves && status== Status.NOT_MOVED )
+		craft: WeaponCraftObject (col == character.getCol() && row == character.getRow())
+		
+    then
+       System.out.println(character.getSimbol()+" is crafting... "+" he have found a "+craft.getWeapon().getWeaponName()+" and decided to keep it!");
+       
+       character.setWeapon(craft.getWeapon());
+       craft.setAvaiability(craft.getAvaiability() - 1);        
+       character.setStatus(Status.MOVED);
+       
+       System.out.println(character);
+       update ( craft );        
+       update ( character );
+
+ end
+ 
+ 
  rule "DISCARD CRAFT"
  salience action.getPriority()
     when
     	Settings( gameOver == false )
 		action : CraftAction( keep == 0, whoMoves : whoMoves ) 
 		character : Character (this == whoMoves && status== Status.NOT_MOVED )
-		craft: ConsumableCraftObject (col == character.getCol() && row == character.getRow())
+		craft: CraftObject (col == character.getCol() && row == character.getRow())
 		
     then
 	   System.out.println(character.getSimbol() + " is crafting... but nah, he do not keep the craft");              
