@@ -237,6 +237,18 @@ rule "NPC MOVE RIGHT TOWARD CHARACTER"
        insert (new CraftAction(npc, 1, 30));
  end
  
+ rule "NPC CRAFT WEAPON"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED ) 
+		WeaponCraftObject (col == npc.getCol() && row == npc.getRow() && (weapon.baseDamage+weapon.modifier >= npc.getWeapon().getBaseDamage()+npc.getWeapon().getModifier()) )
+	
+	then
+		System.out.println("......");
+       insert (new CraftAction(npc, 1, 30));
+ end
+ 
  
  
  
