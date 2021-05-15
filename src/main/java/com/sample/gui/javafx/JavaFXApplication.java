@@ -42,7 +42,7 @@ public class JavaFXApplication extends Application {
     private ActionHandler actionHandler;
     
     private double consoleHeight = 100;
-    private double sidebarWidth = 200;
+    private double sidebarWidth = 300;
     private double buttonWidth = 100;
     
     private Stack<KeyCode> keyPressed = new Stack<KeyCode>();;
@@ -76,22 +76,23 @@ public class JavaFXApplication extends Application {
             textarea.setPrefHeight(this.consoleHeight);
             textarea.setMaxWidth(this.width);
 
-            conf.setGameView(new GameView(grid, textarea));
             
             Separator sep1 = new Separator();
             Separator sep2 = new Separator();
 
             VBox vbox = new VBox(root, textarea);
             
-            VBox buttons = new VBox();
+//            VBox buttons = new VBox();
             
-            buttons.setSpacing(10);
+//            buttons.setSpacing(10);
 //            Button moveUp = new Button();
 //            moveUp.setPrefWidth(100);
-            buttons.setPadding(new Insets(0, 20, 10, 20));
-            buttons.getChildren().addAll(this.getSidebarButtons());
-            HBox hbox = new HBox(vbox, sep1, buttons, sep2);
+//            buttons.setPadding(new Insets(0, 20, 10, 20));
+//            buttons.getChildren().addAll(this.getSidebarButtons());
+            HUDSidebar sidebar = new HUDSidebar(this.sidebarWidth);
+            HBox hbox = new HBox(vbox, sep1, sidebar, sep2);
             
+            conf.setGameView(new GameView(grid, textarea, sidebar));
             // create scene and stage
             Scene scene = new Scene(hbox, width + this.sidebarWidth, height + this.consoleHeight);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

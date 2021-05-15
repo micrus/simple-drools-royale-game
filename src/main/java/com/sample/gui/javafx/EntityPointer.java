@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class EntityPointer extends ImageView implements Observer {
+	private String imgPath;
 	private double cellWidth;
 	private double cellHeight;
 	private int col;
@@ -23,17 +24,22 @@ public class EntityPointer extends ImageView implements Observer {
 	private Consumer<EntityPointer> deleteFn;
 	
 	public EntityPointer(Image img) {
-		super(img);
+		super();
 	}
 	
-	public EntityPointer(Image img, LocatedOnMap lom, double cellWidth, double cellHeight) {
-		super(img);
+	public EntityPointer(String imgPath, LocatedOnMap lom, double cellWidth, double cellHeight) {
+		super(new Image(imgPath, cellWidth, cellHeight, false, true));
+		this.imgPath = imgPath;
 		this.lom = lom;
 		if (!this.lom.isFixed()) {
 			this.lom.addObserver(this);
 		}
 		this.cellWidth = cellWidth;
 		this.cellHeight = cellHeight;
+	}
+	
+	public String getImgPath() {
+		return this.imgPath;
 	}
 
 	public int getCol() {

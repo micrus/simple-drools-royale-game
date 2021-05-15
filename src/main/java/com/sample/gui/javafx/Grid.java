@@ -62,10 +62,10 @@ public class Grid extends Pane {
 //        return cells[row][column];
 //    }
     
-    public EntityPointer createEntityPointer(LocatedOnMap entity) {
-    	String imgPath = this.getImagePath(entity);
-    	Image img = new Image(imgPath,this.cellWidth,this.cellHeight,false,true);
-    	EntityPointer entityPointer = new EntityPointer(img, entity, this.cellWidth, this.cellHeight);
+    public EntityPointer createEntityPointer(LocatedOnMap entity, String imgPath) {
+//    	String imgPath = this.getImagePath(entity);
+//    	Image img = new Image(imgPath,this.cellWidth,this.cellHeight,false,true);
+    	EntityPointer entityPointer = new EntityPointer(imgPath, entity, this.cellWidth, this.cellHeight);
     	entityPointer.setDeleteFn((EntityPointer et) -> {
     		this.getChildren().remove(et);
     	});
@@ -73,23 +73,6 @@ public class Grid extends Pane {
     	this.getChildren().add(entityPointer);
     	entity.setOnMap(true);
     	return entityPointer;
-    }
-    
-    private String getImagePath(LocatedOnMap entity) {
-    	String imgPath = "file:assets/";
-    	if (entity instanceof Hero) {
-    		imgPath = imgPath.concat("hero_idle.png");
-    	} else if (entity instanceof NPC) {
-    		int rand = new Random().nextInt(4);
-    		imgPath = imgPath.concat("npc"+rand+"_idle.png");
-    	} else if (entity instanceof CraftObject) {
-    		imgPath = imgPath.concat("craft_object.png");
-    	} else if (entity instanceof Wall) {
-    		imgPath = imgPath.concat("out_of_map.png");
-    	} else {
-    		imgPath = imgPath.concat("cross.png");
-    	}
-    	return imgPath;
     }
     
     private static void setEntityLocation(EntityPointer entity, int col, int row) {

@@ -14,3 +14,7 @@
 .wall {
 	-fx-background-color: black;
 }
+.border {
+	-fx-border-color: black;
+	-fx-border-width: 1px;
+}
