@@ -11,11 +11,7 @@ public class AppConfiguration {
     private double width;
     private double height;
     
-    private volatile Grid grid;
-    private ConsoleArea console;
-    
-    public AppConfiguration() {
-    }
+    private GameView gameView;
 	
     public static AppConfiguration getInstance() {
     	if (instance == null) {
@@ -50,45 +46,26 @@ public class AppConfiguration {
 		return height;
 	}
 	
-	public void setConsole(ConsoleArea console) {
+	
+	public void setGameView(GameView gv) {
 		synchronized(this) {
-			this.console = console;
+			this.gameView = gv;
 			notify();
 		}
 	}
 	
-	public ConsoleArea getConsole() {
+	public GameView getGameView() {
 		synchronized(this) {
 			try {
-				if (this.console == null) {
+				if (this.gameView == null) {
 					wait();
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		return this.console;
+		return this.gameView;
 	}
 	
-	public void setGrid(Grid grid) {
-		synchronized(this) {
-			this.grid = grid;
-			notify();
-		}
-	}
-	
-	public Grid getGrid() {
-		synchronized(this) {
-			try {
-				if (this.grid == null) {
-					wait();
-				}
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return this.grid;
-	}
 
 }

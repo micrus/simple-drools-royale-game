@@ -18,16 +18,17 @@ import javafx.application.Platform;
 public class GuiJavaFX implements Gui {
 	private static AppConfiguration appConf;
 	
-	private Grid grid;
-	private ConsoleArea console;
+//	private Grid grid;
+//	private ConsoleArea console;
+	private GameView view;
 	private ActionHandler actionHandler;
 	private boolean started;
 	
 	public GuiJavaFX() {
 		appConf = AppConfiguration.getInstance();
 		this.actionHandler = ActionHandler.getInstance();
-		this.grid = null;
 		this.started = false;
+		this.view = null;
 	}
 
 	public void showMap(Collection<LocatedOnMap> mapBeing, Settings setting) {
@@ -40,19 +41,16 @@ public class GuiJavaFX implements Gui {
 				}
 			}.start();
 			this.started = true;
-			this.grid = appConf.getGrid();
+			if (this.view == null) {
+				this.view = appConf.getGameView();
+			}
 		}
-
-		Platform.runLater(() -> {
-			mapBeing
-				.stream()
-				.filter((LocatedOnMap lom) -> lom.isOnMap() == false )
-				.forEach((LocatedOnMap lom) -> {
-					this.grid.createEntityPointer(lom);
-				});
-
-		});
-
+		mapBeing
+			.stream()
+			.filter((LocatedOnMap lom) -> lom.isOnMap() == false )
+			.forEach((LocatedOnMap lom) -> {
+				this.view.addEntity(lom);
+			});
 	}
 	
 	public void showHelp() {
@@ -60,10 +58,10 @@ public class GuiJavaFX implements Gui {
 	}
 	
 	public void showMessage(String msg) {
-		if (this.console == null) {
-			this.console = appConf.getConsole();
+		if (this.view == null) {
+			this.view = appConf.getGameView();
 		}
-		this.console.appendMessage(msg);
+		this.view.appendMessageOnConsole(msg);
 	}
 	
 	public Moves getAction() throws IOException {

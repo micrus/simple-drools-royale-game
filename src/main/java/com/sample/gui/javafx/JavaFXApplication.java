@@ -62,28 +62,21 @@ public class JavaFXApplication extends Application {
             StackPane root = new StackPane();
 			ImageView imageView = new ImageView( new Image(this.imageURL, this.width, this.height, false, false));
 
-            // create grid
             Grid grid = new Grid( columns, rows, width, height);
-
-            // fill grid
             for (int row = 0; row < rows; row++) {
                 for (int column = 0; column < columns; column++) {
-
                     Cell cell = new Cell(column, row);
-
                     grid.add(cell, column, row);
                 }
             }
-            
-            conf.setGrid(grid);
 
             root.getChildren().addAll(imageView, grid);
            
             ConsoleArea textarea = new ConsoleArea();
-            conf.setConsole(textarea);
-//            textarea.setStyle("-fx-font-size: em;");
             textarea.setPrefHeight(this.consoleHeight);
             textarea.setMaxWidth(this.width);
+
+            conf.setGameView(new GameView(grid, textarea));
             
             Separator sep1 = new Separator();
             Separator sep2 = new Separator();

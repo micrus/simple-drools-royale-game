@@ -24,8 +24,6 @@ public class Grid extends Pane {
     double cellWidth;
     double cellHeight;
     
-    private Map<LocatedOnMap, EntityPointer> entities = new HashMap<LocatedOnMap, EntityPointer>();
-
     Cell[][] cells;
 
     public Grid( int columns, int rows, double width, double height) {
@@ -60,9 +58,9 @@ public class Grid extends Pane {
 
     }
 
-    public Cell getCell(int column, int row) {
-        return cells[row][column];
-    }
+//    public Cell getCell(int column, int row) {
+//        return cells[row][column];
+//    }
     
     public EntityPointer createEntityPointer(LocatedOnMap entity) {
     	String imgPath = this.getImagePath(entity);
