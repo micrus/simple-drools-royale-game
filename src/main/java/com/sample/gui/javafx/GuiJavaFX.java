@@ -42,27 +42,17 @@ public class GuiJavaFX implements Gui {
 			this.started = true;
 			this.grid = appConf.getGrid();
 		}
+
 		Platform.runLater(() -> {
-			this.grid.clearStyle();
-			for(LocatedOnMap lom : mapBeing) {
-				this.grid.moveEntity(lom);
-			}
-			this.grid.clearEntities();
-//			for(LocatedOnMap lom : mapBeing) {
-//				int cols = lom.getCol();
-//				int rows = lom.getRow();
-//				if (lom instanceof Hero) {
-//					this.grid.showHero(cols, rows);
-//				} else if (lom instanceof NPC) {
-//					this.grid.showNPC(cols, rows);
-//				} else if (lom instanceof CraftObject) {
-//					this.grid.showCraft(cols, rows);
-//				} else {
-//					this.grid.showWall(cols, rows);
-//				}
-//			}	
-//			this.grid.changeFocus();
+			mapBeing
+				.stream()
+				.filter((LocatedOnMap lom) -> lom.isOnMap() == false )
+				.forEach((LocatedOnMap lom) -> {
+					this.grid.createEntityPointer(lom);
+				});
+
 		});
+
 	}
 	
 	public void showHelp() {

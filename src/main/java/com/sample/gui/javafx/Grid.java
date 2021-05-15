@@ -3,18 +3,14 @@ package com.sample.gui.javafx;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.Stack;
-import java.util.function.Function;
 
 import com.sample.CraftObject;
 import com.sample.Hero;
 import com.sample.LocatedOnMap;
 import com.sample.NPC;
 import com.sample.Wall;
-import com.sample.gui.javafx.Cell;
 
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public class Grid extends Pane {
@@ -27,8 +23,6 @@ public class Grid extends Pane {
     
     double cellWidth;
     double cellHeight;
-    
-    private Runnable changeFocus;
     
     private Map<LocatedOnMap, EntityPointer> entities = new HashMap<LocatedOnMap, EntityPointer>();
 
@@ -47,14 +41,6 @@ public class Grid extends Pane {
 
     }
     
-    public void setChangeFocus(Runnable runnable) {
-    	this.changeFocus = runnable;
-    }
-    
-    public void changeFocus() {
-    	this.changeFocus.run();
-    }
-
     /**
      * Add cell to array and to the UI.
      */
@@ -62,8 +48,6 @@ public class Grid extends Pane {
 
         cells[row][column] = cell;
 
-//        double w = width / columns;
-//        double h = height / rows;
         double x = this.cellWidth * column;
         double y = this.cellHeight * row;
 
@@ -80,40 +64,16 @@ public class Grid extends Pane {
         return cells[row][column];
     }
     
-    public void moveEntity(LocatedOnMap entity) {
-    	EntityPointer entityPointer = this.entities.get(entity);
-    	if (entityPointer == null) {
-    		this.entities.put(entity, this.createEntityPointer(entity));
-    	} else {
-			setEntityLocation(entityPointer, entity.getCol(), entity.getRow());
-    	}
-    }
-    
-    public void clearEntities() {
-    	Stack<LocatedOnMap> loms = new Stack<LocatedOnMap>();
-    	this.entities.keySet().stream()
-    						.forEach((key) -> {
-    							EntityPointer entityPointer = this.entities.get(key);
-    							if (!entityPointer.doesExist()) {
-									this.getChildren().remove(entityPointer);
-									loms.add(key);
-    							}
-    						});
-    	loms.stream()
-    		.forEach((lom) -> {
-    			this.entities.remove(lom);
-    		});
-    	for(EntityPointer ep : this.entities.values()) {
-    		ep.setExists(false);
-    	}
-    }
-    
-    private EntityPointer createEntityPointer(LocatedOnMap entity) {
+    public EntityPointer createEntityPointer(LocatedOnMap entity) {
     	String imgPath = this.getImagePath(entity);
     	Image img = new Image(imgPath,this.cellWidth,this.cellHeight,false,true);
-    	EntityPointer entityPointer = new EntityPointer(img, this.cellWidth, this.cellHeight);
+    	EntityPointer entityPointer = new EntityPointer(img, entity, this.cellWidth, this.cellHeight);
+    	entityPointer.setDeleteFn((EntityPointer et) -> {
+    		this.getChildren().remove(et);
+    	});
     	setEntityLocation(entityPointer, entity.getCol(), entity.getRow());
     	this.getChildren().add(entityPointer);
+    	entity.setOnMap(true);
     	return entityPointer;
     }
     
@@ -137,31 +97,6 @@ public class Grid extends Pane {
     private static void setEntityLocation(EntityPointer entity, int col, int row) {
     	entity.setRow(row);
     	entity.setCol(col);
-    	entity.setExists(true);
-    }
-
-    public void showHero(int column, int row) {
-    	cells[column][row].showHero();
-    }
-    
-    public void showNPC(int column, int row) {
-    	cells[column][row].showNPC();
-    }
-    
-    public void showCraft(int column, int row) {
-    	cells[column][row].showCraft();
-    }
-    
-    public void showWall(int column, int row) {
-    	cells[column][row].showWall();
-    }
-    
-    public void clearStyle() {
-    	for(Cell[] cellArray : this.cells) {
-    		for(Cell cell : cellArray) {
-    			cell.clearStyle();
-    		}
-    	}
     }
 
 }

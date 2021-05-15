@@ -91,6 +91,7 @@ public class JavaFXApplication extends Application {
             VBox vbox = new VBox(root, textarea);
             
             VBox buttons = new VBox();
+            
             buttons.setSpacing(10);
 //            Button moveUp = new Button();
 //            moveUp.setPrefWidth(100);
@@ -103,10 +104,6 @@ public class JavaFXApplication extends Application {
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 //            this.clearKeyPressed();
             this.addKeyListeners(scene);
-
-            grid.setChangeFocus(() -> {
-            	scene.getRoot().requestFocus();
-            });
 
             scene.getRoot().requestFocus();
 
@@ -204,6 +201,7 @@ public class JavaFXApplication extends Application {
 
 	private void addKeyListeners(Scene scene) {
 		scene.setOnKeyPressed((KeyEvent event)->{
+			synchronized(this) {
 				Moves move = null;
 				
 				KeyCode key = event.getCode();
@@ -231,10 +229,10 @@ public class JavaFXApplication extends Application {
 				} else if (keyPressedLength > 2) {
 					this.validMove = false;
 				}
-			
 			}
-		);
+		});
 		scene.setOnKeyReleased((KeyEvent event)->{
+			synchronized(this) {
 				if (this.validMove) {
 					this.actionHandler.registerMove(this.currMove);
 				}
@@ -242,7 +240,7 @@ public class JavaFXApplication extends Application {
 				this.currMove = null;
 				this.validMove = false;
 			}
-		);
+		});
 	}
     
 	private List<ActionButton> getSidebarButtons() {

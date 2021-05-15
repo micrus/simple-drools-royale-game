@@ -1,6 +1,7 @@
 package com.sample;
 
-public abstract class LocatedOnMap {
+
+public abstract class LocatedOnMap extends Observable {
 
 	String simbol;
 	int col;
@@ -8,12 +9,16 @@ public abstract class LocatedOnMap {
 	int removable;
 	int steppable;
 	
+	boolean fixed;
+	boolean onMap = false;
+	
 	public LocatedOnMap(String simbol, int col, int row, int removable, int steppable){
 		this.simbol = simbol;
 		this.col = col;
 		this.row = row;
 		this.removable = removable;
 		this.steppable = steppable;
+		this.fixed = true;
 	}
 	
 	public String getSimbol() {
@@ -56,5 +61,16 @@ public abstract class LocatedOnMap {
 		this.steppable = steppable;
 	}
 	
+	public boolean isFixed() {
+		return this.fixed;
+	}
+	
+	public boolean isOnMap() {
+		return this.onMap;
+	}
+	
+	public void setOnMap(boolean onMap) {
+		this.onMap = onMap;
+	}
 	
 }
