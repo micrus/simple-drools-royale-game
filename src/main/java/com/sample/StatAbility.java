@@ -8,5 +8,6 @@ public enum StatAbility {
 	DEFENCE,
 	SPEED,
 	VIEW,
-	SHREWDNESS;
+	SHREWDNESS,
+	LUCK;
 }

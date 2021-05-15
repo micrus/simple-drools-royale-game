@@ -133,16 +133,28 @@ rule "MOVE UP-RIGHT"
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.PUT_TRAP, whoMoves : whoMoves ) 
 		character : Character (this == whoMoves && status== Status.NOT_MOVED )
-		not craft: CraftObject (col == character.getCol() && row == character.getRow())
+		not CraftObject (col == character.getCol() && row == character.getRow())
 		
     then
        System.out.println(character.getSimbol()+" is putting trap...");
-       int randomMalus = ThreadLocalRandom.current().nextInt(0, character.getStat(StatAbility.SHREWDNESS) + 1);
-       insert (new CraftObject(character.getCol() , character.getRow() ,StatAbility.LIFE, -randomMalus, 1) );
+       insert (new Trap(character.getCol() , character.getRow() , character) );
        character.setStatus(Status.MOVED);
        update ( character );
  end
 
+ rule "STEP ON A TRAP"
+ salience 200000
+ 	when
+ 		Settings( gameOver == false )
+ 		trap: Trap( avaiability > 0 ,positioner : positioner)
+ 		character : Character (this != positioner && col == trap.getCol() && row == trap.getRow())
+ 	then
+ 		character.increment(StatAbility.LIFE, - trap.getMalus());
+ 		trap.setAvaiability(trap.getAvaiability() - 1 );
+ 		System.out.println(character.getSimbol()+" stepped on a trap! The "+trap.getMalus()+" damage inflicted lead him to a remaining LIFE of "+character.getStat(StatAbility.LIFE));
+ 		update (trap);
+ 		update (character);
+ end
 
  rule "CRAFT"
  salience action.getPriority()
@@ -150,11 +162,12 @@ rule "MOVE UP-RIGHT"
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.CRAFT, whoMoves : whoMoves ) 
 		character : Character (this == whoMoves && status== Status.NOT_MOVED )
-		craft: CraftObject (col == character.getCol() && row == character.getRow())
+		craft: ConsumableCraftObject (col == character.getCol() && row == character.getRow())
 		
     then
-       System.out.println(character.getSimbol()+" is crafting... "+craft.getStatToIncrease()+" increment of "+craft.getBonus());
-       character.increment(craft.getStatToIncrease(), craft.getBonus());
+       int powerUp = craft.getBonus()+ character.getStat(StatAbility.LUCK);
+       System.out.println(character.getSimbol()+" is crafting... "+craft.getStatToIncrease()+" increment of "+ powerUp);
+       character.increment(craft.getStatToIncrease(), powerUp);
        craft.setAvaiability(craft.getAvaiability() - 1); 
               
        character.setStatus(Status.MOVED);
@@ -177,7 +190,7 @@ rule "COMBACT: DEFENDER ELUDE ATTACK"
 salience action.getPriority()
 	when 
 	  	Settings( gameOver == false )
-		action : FightAction( this.offenderTryAttackValue()<=this.defenderTryEludeValue(), whoMoves : whoMoves, defensor : defender ) 
+		action : FightAction( this.offenderTryAttackValue()<this.defenderTryEludeValue(), whoMoves : whoMoves, defensor : defender ) 
 		offender : Character(this == whoMoves && status == Status.NOT_MOVED, orow : row, ocol : col)
 		defender : Character(this == defensor && row in (orow, orow + 1, orow -1) && col in (ocol, ocol+1, ocol-1))
 		
@@ -192,7 +205,7 @@ salience action.getPriority()
 
 	when 
 	  	Settings( gameOver == false )
-		action : FightAction( this.offenderTryAttackValue()>this.defenderTryEludeValue(), whoMoves : whoMoves, defensor : defender ) 
+		action : FightAction( this.offenderTryAttackValue()>=this.defenderTryEludeValue(), whoMoves : whoMoves, defensor : defender ) 
 		offender : Character(this == whoMoves && status == Status.NOT_MOVED, orow : row, ocol : col)
 		defender : Character(this == defensor && row in (orow, orow + 1, orow -1) && col in (ocol, ocol+1, ocol-1) )
 		

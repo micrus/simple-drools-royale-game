@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.thoughtworks.xstream.mapper.Mapper;
 
 public class GuiConsole implements Gui{
 	
@@ -87,9 +91,14 @@ public class GuiConsole implements Gui{
 		int time = setting.getTime();
 		
 		String[][] map = createEmptyMap(dimension);
+		List<LocatedOnMap> characters = mapBeing.stream().filter( mapper -> Character.class.isAssignableFrom(mapper.getClass())).collect(Collectors.toList());;
 
-		//Aggiungo l'hero
-		mapBeing.forEach(mapper -> {map[mapper.col][mapper.row] = "[ "+mapper.simbol+" ]";});
+		mapBeing.forEach(mapper -> { map[mapper.col][mapper.row] = "[ "+mapper.simbol+" ]";});
+		
+		//Characters must be shown with higher priority than objects
+		characters.forEach(mapper -> { map[mapper.col][mapper.row] = "[ "+mapper.simbol+" ]";});
+
+		
 		
 		System.out.println("Time: "+time%10);
 		printToConsole(map);

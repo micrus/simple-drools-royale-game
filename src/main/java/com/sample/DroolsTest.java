@@ -26,9 +26,9 @@ public class DroolsTest {
         	Settings setting = new Settings(0, 5);
         	
         	Weapon sword = new Weapon("base sword", 10, 6);
-        	Statistic balanceStatSlow = new Statistic(100,10,10,10,10,10,3,10);
-        	Statistic balanceStatMedium = new Statistic(100,10,10,10,10,15,3,10);
-        	Statistic balanceStatFast = new Statistic(100,10,10,10,10,20,3,10);
+        	Statistic balanceStatSlow = new Statistic(100,10,10,10,10,10,3,10,2);
+        	Statistic balanceStatMedium = new Statistic(100,10,10,10,10,15,3,10,3);
+        	Statistic balanceStatFast = new Statistic(100,10,10,10,10,20,3,10,4);
 
         	Hero hero = new Hero(2, 2, sword, balanceStatFast);
 
@@ -47,7 +47,7 @@ public class DroolsTest {
         	
 
         	//CraftObject deadWood = new CraftObject(3,3,StatAbility.LIFE, -9, 2);
-        	CraftObject lifeWood = new CraftObject(3,1,StatAbility.LIFE, 5, 4);
+        	CraftObject lifeWood = new ConsumableCraftObject(3,1,StatAbility.LIFE, 5, 1);
 
         	kSession.insert(hero);
         	//kSession.insert(wall);
