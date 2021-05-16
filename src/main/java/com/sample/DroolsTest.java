@@ -29,10 +29,13 @@ public class DroolsTest {
         	Settings setting = new Settings(0, 10);
 
         	
+        	
         	Weapon sword = new Weapon("base sword", 10, 6);
-        	Statistic balanceStatSlow = new Statistic(100,10,10,10,10,10,3,10);
-        	Statistic balanceStatMedium = new Statistic(100,10,10,10,10,15,3,10);
-        	Statistic balanceStatFast = new Statistic(100,10,10,10,10,20,3,10);
+        	Weapon lance = new Weapon("lance", 40, 3);
+        	
+        	Statistic balanceStatSlow = new Statistic(100,10,10,10,10,10,3,10,2);
+        	Statistic balanceStatMedium = new Statistic(100,10,10,10,10,15,3,10,3);
+        	Statistic balanceStatFast = new Statistic(100,10,10,10,10,20,3,10,4);
 
         	Hero hero = new Hero(2, 2, sword, balanceStatFast);
 
@@ -47,12 +50,14 @@ public class DroolsTest {
         	NPC npc9 = new NPC("PG8",4,2, sword, balanceStatSlow);
 
         	//NPC npc2 = new NPC("PGF",0,0, new Statistic(20, 20, 20, 5, 10));
-
+        
         	
 
         	//CraftObject deadWood = new CraftObject(3,3,StatAbility.LIFE, -9, 2);
-        	CraftObject lifeWood = new CraftObject(3,1,StatAbility.LIFE, 5, 4);
-
+        	CraftObject lifeWood = new ConsumableCraftObject("life wood",1,1,StatAbility.LIFE, 5, 1);
+        	CraftObject hiddenLance = new WeaponCraftObject(lance, 3, 3, 1);
+        	
+        	kSession.insert(hiddenLance);
         	kSession.insert(hero);
         	//kSession.insert(wall);
         	kSession.insert(npc1);

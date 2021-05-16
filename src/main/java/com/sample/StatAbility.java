@@ -8,7 +8,8 @@ public enum StatAbility {
 	DEFENCE ("DEF"),
 	SPEED ("SPD"),
 	VIEW ("VIW"),
-	SHREWDNESS ("SHR");
+	SHREWDNESS ("SHR"),
+	LUCK ("LCK");
 	
 	private String shortText;
 	

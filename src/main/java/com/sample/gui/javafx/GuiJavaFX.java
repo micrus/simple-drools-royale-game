@@ -70,4 +70,10 @@ public class GuiJavaFX implements Gui {
 		return this.actionHandler.getMove();
 		
 	}
+
+	@Override
+	public int chooseToKeep() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
