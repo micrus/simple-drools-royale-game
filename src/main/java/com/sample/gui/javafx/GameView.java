@@ -31,31 +31,44 @@ public class GameView {
 	}
 	
 	public void addEntity(LocatedOnMap lom) {
-		String imgPath = getImagePath(lom);
+		String folderPath = getFolderPath(lom);
+		String imgBase = getBaseImg(lom);
 		Platform.runLater(() -> {
-			this.grid.createEntityPointer(lom, imgPath);
+			this.grid.createEntityPointer(lom, folderPath, imgBase);
 			if (lom instanceof Character) {
-				this.sidebar.addHUD((Character) lom, imgPath);
+				this.sidebar.addHUD((Character) lom, folderPath+imgBase);
 			}
 		});
 	}
+	
 
-   private static String getImagePath(LocatedOnMap entity) {
+   private static String getFolderPath(LocatedOnMap entity) {
     	String imgPath = "file:assets/";
     	if (entity instanceof Hero) {
-    		imgPath = imgPath.concat("hero_idle.png");
+			imgPath = imgPath.concat("hero/");
     	} else if (entity instanceof NPC) {
-    		int rand = new Random().nextInt(4);
-    		imgPath = imgPath.concat("npc"+rand+"_idle.png");
+    		int rand = new Random().nextInt(10);
+    		imgPath = imgPath.concat("npc"+rand+"/");
     	} else if (entity instanceof CraftObject) {
-    		imgPath = imgPath.concat("craft_object.png");
+    		imgPath = imgPath.concat("craft/");
     	} else if (entity instanceof Wall) {
-    		imgPath = imgPath.concat("out_of_map.png");
+    		imgPath = imgPath.concat("wall/");
     	} else {
-    		imgPath = imgPath.concat("cross.png");
+    		imgPath = imgPath.concat("unhandled/");
     	}
     	return imgPath;
     }
+   
+   private static String getBaseImg(LocatedOnMap entity) {
+    	String imgPath = "";
+    	if (entity instanceof Character) {
+    		imgPath = imgPath.concat("down_1.png");
+    	} else {
+    		imgPath = imgPath.concat("base.png");
+    	}
+    	
+    	return imgPath;
+   }
 	
 	 
 

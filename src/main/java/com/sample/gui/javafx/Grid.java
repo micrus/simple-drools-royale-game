@@ -70,7 +70,7 @@ public class Grid extends Pane implements Observer {
 //        return cells[row][column];
 //    }
     
-    public void createEntityPointer(LocatedOnMap entity, String imgPath) {
+    public void createEntityPointer(LocatedOnMap entity, String folderPath, String imgPath) {
     	if (entity instanceof Hero) {
 			if (!AppConfiguration.getInstance().isDebug()) {
 				this.hero = (Hero) entity;
@@ -81,7 +81,7 @@ public class Grid extends Pane implements Observer {
     	}
 //    	String imgPath = this.getImagePath(entity);
 //    	Image img = new Image(imgPath,this.cellWidth,this.cellHeight,false,true);
-    	EntityPointer entityPointer = new EntityPointer(imgPath, entity, this.cellWidth, this.cellHeight);
+    	EntityPointer entityPointer = new EntityPointer(folderPath, imgPath, entity, this.cellWidth, this.cellHeight);
     	entityPointer.setDeleteFn((EntityPointer et) -> {
     		this.getChildren().remove(et);
     	});
