@@ -82,7 +82,7 @@ public class EntityPointer extends ImageView implements Observer {
 		Platform.runLater(() -> {
 			synchronized(this) {
 				switch(ut) {
-					case UPDATE: 
+					case MOVE: 
 						this.setRow(lom.getRow());
 						this.setCol(lom.getCol());
 						break;

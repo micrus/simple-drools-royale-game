@@ -38,41 +38,41 @@ public abstract class Character extends LocatedOnMap {
 	
 	public void moveLeft() {
 		this.row--;
-		this.notifyObservers(UpdateType.UPDATE);
+		this.notifyObservers(UpdateType.MOVE);
 	}
 	
 	public void moveRight() {
 		this.row++;
-		this.notifyObservers(UpdateType.UPDATE);
+		this.notifyObservers(UpdateType.MOVE);
 	}
 	
 	public void moveUp() {
 		this.col--;
-		this.notifyObservers(UpdateType.UPDATE);
+		this.notifyObservers(UpdateType.MOVE);
 	}
 	public void moveDown() {
 		this.col++;
-		this.notifyObservers(UpdateType.UPDATE);
+		this.notifyObservers(UpdateType.MOVE);
 	}
 	public void moveDownRight() {
 		this.col++;
 		this.row++;
-		this.notifyObservers(UpdateType.UPDATE);
+		this.notifyObservers(UpdateType.MOVE);
 	}
 	public void moveDownLeft() {
 		this.col++;
 		this.row--;
-		this.notifyObservers(UpdateType.UPDATE);
+		this.notifyObservers(UpdateType.MOVE);
 	}
 	public void moveUpRight() {
 		this.col--;
 		this.row++;
-		this.notifyObservers(UpdateType.UPDATE);
+		this.notifyObservers(UpdateType.MOVE);
 	}
 	public void moveUpLeft() {
 		this.col--;
 		this.row--;
-		this.notifyObservers(UpdateType.UPDATE);
+		this.notifyObservers(UpdateType.MOVE);
 	}
 	
 	
@@ -102,7 +102,7 @@ public abstract class Character extends LocatedOnMap {
 
 	public void setStatus(Status status) {
 		this.status = status;
-		this.notifyObservers(UpdateType.UPDATE);
+//		this.notifyObservers(UpdateType.UPDATE);
 	}
 
 

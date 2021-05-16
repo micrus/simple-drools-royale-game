@@ -4,6 +4,8 @@ import com.sample.gui.javafx.*;
 
 public class AppConfiguration {
 	
+	private final boolean debug = false;
+	
 	private static volatile AppConfiguration instance;
 	private int rows;
     private int columns;
@@ -18,6 +20,10 @@ public class AppConfiguration {
     		instance = new AppConfiguration();
     	}
     	return instance;
+    }
+    
+    public boolean isDebug() {
+    	return this.debug;
     }
 
 	public int getRows() {
