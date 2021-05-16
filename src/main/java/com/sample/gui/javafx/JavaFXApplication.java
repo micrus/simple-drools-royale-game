@@ -124,6 +124,7 @@ public class JavaFXApplication extends Application {
 			case J: move = Moves.ATTACK_LEFT; break;
 			case L: move = Moves.ATTACK_RIGHT; break;
 			case C: move = Moves.CRAFT; break;
+			case T: move = Moves.PUT_TRAP; break;
 			default: break;
 		}
     	return move;
@@ -236,21 +237,6 @@ public class JavaFXApplication extends Application {
 			}
 		});
 	}
-    
-	private List<ActionButton> getSidebarButtons() {
-    	List<ActionButton> actionButtons = new ArrayList<ActionButton>();
-    	
-    	for(Moves move : Moves.values()) {
-    		ActionButton currButton = new ActionButton(this.buttonWidth, move);
-    		currButton.setOnMousePressed(event -> {
-    			this.actionHandler.registerMove(move);
-    		});
-    		actionButtons.add(currButton);
-    	}
-    	
-    	return actionButtons;
-    }
-    
     
 
 }
