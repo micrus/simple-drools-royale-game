@@ -17,7 +17,7 @@ public class HUDSidebar extends VBox {
 	}
 	
 	public void addHUD(Character c, String imgPath) {
-		CharacterHUD hud = new CharacterHUD(c, imgPath, this.width, 50);
+		CharacterHUD hud = new CharacterHUD(c, imgPath, this.width);
 		this.getChildren().add(hud);
 	}
 }

@@ -42,7 +42,7 @@ public class JavaFXApplication extends Application {
     private ActionHandler actionHandler;
     
     private double consoleHeight = 100;
-    private double sidebarWidth = 300;
+    private double sidebarWidth = 400;
     private double buttonWidth = 100;
     
     private Stack<KeyCode> keyPressed = new Stack<KeyCode>();;
@@ -77,10 +77,9 @@ public class JavaFXApplication extends Application {
             textarea.setMaxWidth(this.width);
 
             
-            Separator sep1 = new Separator();
-            Separator sep2 = new Separator();
 
             VBox vbox = new VBox(root, textarea);
+//            vbox.setPadding(new Insets(10, 10, 10, 10));
             
 //            VBox buttons = new VBox();
             
@@ -90,7 +89,8 @@ public class JavaFXApplication extends Application {
 //            buttons.setPadding(new Insets(0, 20, 10, 20));
 //            buttons.getChildren().addAll(this.getSidebarButtons());
             HUDSidebar sidebar = new HUDSidebar(this.sidebarWidth);
-            HBox hbox = new HBox(vbox, sep1, sidebar, sep2);
+            sidebar.setPadding(new Insets(10, 10, 10, 10));
+            HBox hbox = new HBox(vbox, sidebar);
             
             conf.setGameView(new GameView(grid, textarea, sidebar));
             // create scene and stage
