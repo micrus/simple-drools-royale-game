@@ -7,6 +7,7 @@ import com.sample.Character;
 import com.sample.Observer;
 import com.sample.StatAbility;
 import com.sample.UpdateType;
+import com.sample.Weapon;
 
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -18,12 +19,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class CharacterHUD extends HBox implements Observer {
-	private final double height = 100;
+	private final double height = 120;
 	private Character character;
 	
 	private ProgressBar lifeBar;
 	private Label lifeLabel;
 	private List<StatLabel> statLabels = new ArrayList<StatLabel>();
+	
+	private Label weaponLabel;
+	private Weapon currentWeapon;
 	
 	float lifePerc;
 	int maxLife;
@@ -75,7 +79,9 @@ public class CharacterHUD extends HBox implements Observer {
 			}
 		}
 		
-		VBox vbox = new VBox(lifeRow, statRow1, statRow2);
+		this.weaponLabel = new Label();
+		this.updateWeaponLabel();
+		VBox vbox = new VBox(lifeRow, statRow1, statRow2, this.weaponLabel);
 		vbox.setPadding(new Insets(0, 0, 0, 10));
 		this.getChildren().add(vbox);
 
@@ -88,6 +94,16 @@ public class CharacterHUD extends HBox implements Observer {
 	
 	private void setLifeText() {
 		this.lifeLabel.setText(this.currentLife + "/" + this.maxLife);
+	}
+	
+	private void updateWeaponLabel() {
+		Weapon weapon = this.character.getWeapon();
+		if (this.currentWeapon != weapon) {
+			String weaponName = weapon.getWeaponName();
+			int baseDmg = weapon.getBaseDamage();
+			int modifier = weapon.getModifier();
+			this.weaponLabel.setText(weaponName + " - DMG: " + baseDmg + " + 1d"+modifier);
+		}
 	}
 	
 	private void updateStatLabels() {
@@ -105,6 +121,7 @@ public class CharacterHUD extends HBox implements Observer {
 					this.lifeBar.setProgress(this.getLifePerc());
 					this.setLifeText();
 					this.updateStatLabels();
+					this.updateWeaponLabel();
 					break;
 				case DELETED:
 					this.lifeBar.setProgress(0);

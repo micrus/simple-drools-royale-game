@@ -30,8 +30,8 @@ public class DroolsTest {
 
         	
         	
-        	Weapon sword = new Weapon("base sword", 10, 6);
-        	Weapon lance = new Weapon("lance", 40, 3);
+        	Weapon sword = new Weapon("Broken sword", 10, 6);
+        	Weapon lance = new Weapon("Lance", 30, 3);
         	
         	Statistic balanceStatSlow = new Statistic(100,10,10,10,10,10,3,10,2);
         	Statistic balanceStatMedium = new Statistic(100,10,10,10,10,15,3,10,3);
