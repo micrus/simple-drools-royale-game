@@ -78,7 +78,7 @@ public class Grid extends Pane implements Observer {
 				this.hero.addObserver(this);
 				this.calculateHiddenCells();
     		}
-    	}
+    	} 
 //    	String imgPath = this.getImagePath(entity);
 //    	Image img = new Image(imgPath,this.cellWidth,this.cellHeight,false,true);
     	EntityPointer entityPointer = new EntityPointer(folderPath, imgPath, entity, this.cellWidth, this.cellHeight);
@@ -87,6 +87,9 @@ public class Grid extends Pane implements Observer {
     	});
     	setEntityLocation(entityPointer, entity.getCol(), entity.getRow());
     	this.getChildren().add(entityPointer);
+    	if (entity instanceof CraftObject) {
+    		entityPointer.toBack();
+    	}
     	entity.setOnMap(true);
     	this.cellsToFront();
     }

@@ -8,6 +8,7 @@ public class CraftObject extends LocatedOnMap {
 	public CraftObject(int col, int row, int avaiability) {
 		super("°", col, row, 1, 1);
 		this.avaiability = avaiability;
+		this.fixed = false;
 	}
 
 
@@ -18,6 +19,9 @@ public class CraftObject extends LocatedOnMap {
 
 	public void setAvaiability(int avaiability) {
 		this.avaiability = avaiability;
+		if (avaiability <= 0) {
+			this.notifyObservers(UpdateType.DELETED);
+		}
 	}
 
 
