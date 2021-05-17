@@ -1,4 +1,4 @@
-package test.com.sample;
+package com.sample;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
