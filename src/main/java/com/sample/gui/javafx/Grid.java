@@ -1,12 +1,24 @@
 package com.sample.gui.javafx;
 
-import com.sample.gui.javafx.Cell;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
+import com.sample.CraftObject;
+import com.sample.Hero;
+import com.sample.LocatedOnMap;
+import com.sample.NPC;
+import com.sample.Observer;
+import com.sample.StatAbility;
+import com.sample.UpdateType;
+import com.sample.Wall;
+
+import javafx.application.Platform;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-public class Grid extends Pane {
+public class Grid extends Pane implements Observer {
 
     int rows;
     int columns;
@@ -16,7 +28,10 @@ public class Grid extends Pane {
     
     double cellWidth;
     double cellHeight;
-
+    
+    private Hero hero;
+    private int heroVision;
+    
     Cell[][] cells;
 
     public Grid( int columns, int rows, double width, double height) {
@@ -31,7 +46,7 @@ public class Grid extends Pane {
         cells = new Cell[rows][columns];
 
     }
-
+    
     /**
      * Add cell to array and to the UI.
      */
@@ -39,8 +54,6 @@ public class Grid extends Pane {
 
         cells[row][column] = cell;
 
-//        double w = width / columns;
-//        double h = height / rows;
         double x = this.cellWidth * column;
         double y = this.cellHeight * row;
 
@@ -53,32 +66,71 @@ public class Grid extends Pane {
 
     }
 
-    public Cell getCell(int column, int row) {
-        return cells[row][column];
+//    public Cell getCell(int column, int row) {
+//        return cells[row][column];
+//    }
+    
+    public void createEntityPointer(LocatedOnMap entity, String folderPath, String imgPath) {
+    	if (entity instanceof Hero) {
+			if (!AppConfiguration.getInstance().isDebug()) {
+				this.hero = (Hero) entity;
+				this.heroVision = this.hero.getStat(StatAbility.VIEW);
+				this.hero.addObserver(this);
+				this.calculateHiddenCells();
+    		}
+    	} 
+//    	String imgPath = this.getImagePath(entity);
+//    	Image img = new Image(imgPath,this.cellWidth,this.cellHeight,false,true);
+    	EntityPointer entityPointer = new EntityPointer(folderPath, imgPath, entity, this.cellWidth, this.cellHeight);
+    	entityPointer.setDeleteFn((EntityPointer et) -> {
+    		this.getChildren().remove(et);
+    	});
+    	setEntityLocation(entityPointer, entity.getCol(), entity.getRow());
+    	this.getChildren().add(entityPointer);
+    	if (entity instanceof CraftObject) {
+    		entityPointer.toBack();
+    	}
+    	entity.setOnMap(true);
+    	this.cellsToFront();
     }
     
-    public void showHero(int column, int row) {
-    	cells[column][row].showHero();
+    private static void setEntityLocation(EntityPointer entity, int col, int row) {
+    	entity.setRow(row);
+    	entity.setCol(col);
     }
     
-    public void showNPC(int column, int row) {
-    	cells[column][row].showNPC();
-    }
-    
-    public void showCraft(int column, int row) {
-    	cells[column][row].showCraft();
-    }
-    
-    public void showWall(int column, int row) {
-    	cells[column][row].showWall();
-    }
-    
-    public void clearStyle() {
+    private void cellsToFront() {
     	for(Cell[] cellArray : this.cells) {
     		for(Cell cell : cellArray) {
-    			cell.clearStyle();
+    			cell.toFront();
     		}
     	}
+    }
+    
+    private void calculateHiddenCells() {
+    	for(int row = 0; row < this.rows; row++) {
+    		for(int column = 0; column < this.columns; column++) {
+    			int rowOffset = Math.abs(row - this.hero.getRow());
+    			int columnOffset = Math.abs(column - this.hero.getCol());
+    			boolean hidden = rowOffset + columnOffset > this.heroVision;
+    			Cell currCell = this.cells[column][row];
+//    			Label l = new Label();
+//    			l.setText("("+rowOffset+","+columnOffset+")");
+//    			currCell.getChildren().clear();
+//    			currCell.getChildren().add(l);
+    			currCell.setHidden(hidden);
+    			currCell.updateStyle();
+    		}
+    	}
+    }
+    
+    public void update(UpdateType ut) {
+    	Platform.runLater(() -> {
+			switch (ut) {
+				case MOVE:
+					this.calculateHiddenCells();
+			}
+    	});
     }
 
 }

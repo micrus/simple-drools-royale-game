@@ -7,15 +7,17 @@ import javafx.scene.layout.StackPane;
 
 public class Cell extends StackPane {
 
-    int column;
-    int row;
+    private int column;
+    private int row;
     
-    ImageView img;
-
+    private boolean hidden;
+    
     public Cell(int column, int row) {
 
         this.column = column;
         this.row = row;
+        
+        this.hidden = false;
         
 
         getStyleClass().add("cell");
@@ -24,35 +26,23 @@ public class Cell extends StackPane {
 //
 //      getChildren().add(label);
 
-        setOpacity(0.9);
+//        setOpacity(0.9);
     }
-
+    
+    public void setHidden(boolean hidden) {
+    	this.hidden = hidden;
+    }
+    
+    public void updateStyle() {
+		this.getStyleClass().remove("hidden");
+    	if (this.hidden) {
+    		this.getStyleClass().add("hidden");
+    	}
+    }
+    
     public void clearStyle() {
-    	this.getChildren().clear();
     	this.getStyleClass().clear();
     	this.getStyleClass().add("cell");
-    }
-    
-    public void showNPC() {
-    	this.getStyleClass().remove("npc");
-    	this.getStyleClass().add("npc");
-    }
-    
-    public void showHero() {
-    	this.img = new ImageView(new Image("file:assets/hero_idle.png",50,50,false,false));
-    	getChildren().add(this.img);
-//    	this.getStyleClass().remove("hero");
-//    	this.getStyleClass().add("hero");
-    }
-    
-    public void showCraft() {
-    	this.getStyleClass().remove("craft");
-    	this.getStyleClass().add("craft");
-    }
-
-    public void showWall() {
-    	this.getStyleClass().remove("wall");
-    	this.getStyleClass().add("wall");
     }
 
     public String toString() {

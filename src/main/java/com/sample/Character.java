@@ -1,5 +1,7 @@
 package com.sample;
 
+//import javafx.beans.Observable;
+
 public abstract class Character extends LocatedOnMap {
 
 	Statistic baseStat;
@@ -13,6 +15,7 @@ public abstract class Character extends LocatedOnMap {
 		this.actualStat = new Statistic(stat);
 		this.status = Status.NOT_MOVED;
 		this.weapon = weapon;
+		this.fixed = false;
 	}
 	
 
@@ -25,7 +28,8 @@ public abstract class Character extends LocatedOnMap {
 		} else {
 			actualStat.setStat(ability, baseStat.getStat(ability));
 		}
-		
+		this.notifyObservers(UpdateType.UPDATE);
+		this.checkDeath();
 	}
 	
 	public int getStat(StatAbility ability) {
@@ -34,33 +38,41 @@ public abstract class Character extends LocatedOnMap {
 	
 	public void moveLeft() {
 		this.row--;
+		this.notifyObservers(UpdateType.MOVE);
 	}
 	
 	public void moveRight() {
 		this.row++;
+		this.notifyObservers(UpdateType.MOVE);
 	}
 	
 	public void moveUp() {
 		this.col--;
+		this.notifyObservers(UpdateType.MOVE);
 	}
 	public void moveDown() {
 		this.col++;
+		this.notifyObservers(UpdateType.MOVE);
 	}
 	public void moveDownRight() {
 		this.col++;
 		this.row++;
+		this.notifyObservers(UpdateType.MOVE);
 	}
 	public void moveDownLeft() {
 		this.col++;
 		this.row--;
+		this.notifyObservers(UpdateType.MOVE);
 	}
 	public void moveUpRight() {
 		this.col--;
 		this.row++;
+		this.notifyObservers(UpdateType.MOVE);
 	}
 	public void moveUpLeft() {
 		this.col--;
 		this.row--;
+		this.notifyObservers(UpdateType.MOVE);
 	}
 	
 	
@@ -80,6 +92,8 @@ public abstract class Character extends LocatedOnMap {
 
 	public void setActualStat(Statistic actualStat) {
 		this.actualStat = actualStat;
+		this.notifyObservers(UpdateType.UPDATE);
+		this.checkDeath();
 	}
 
 	public Status getStatus() {
@@ -88,6 +102,7 @@ public abstract class Character extends LocatedOnMap {
 
 	public void setStatus(Status status) {
 		this.status = status;
+//		this.notifyObservers(UpdateType.UPDATE);
 	}
 
 
@@ -95,11 +110,17 @@ public abstract class Character extends LocatedOnMap {
 		return weapon;
 	}
 
-
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
+		this.notifyObservers(UpdateType.UPDATE);
 	}
-
+	
+	private void checkDeath() {
+		if (this.actualStat.getStat(StatAbility.LIFE) <= 0) {
+			this.notifyObservers(UpdateType.DELETED);
+		}
+	}
+	
 	// getDamage(){
 	// laciodado + modificatori} -> quanti danni faccio
 	
