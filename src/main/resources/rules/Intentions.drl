@@ -444,3 +444,36 @@ rule "NPC MOVE RIGHT TOWARD CHARACTER"
        insert (new FightAction(hero, character, 70));
  end
  
+
+  //=================RULE FOR HANDLE CRAFT OF HERO=================
+ 
+ rule "HERO CONSUMABLE CRAFT"
+ salience 100000
+ no-loop  
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.CRAFT, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		craft : ConsumableCraftObject ( col == hero.getCol() && row == hero.getRow() )
+
+	then
+	   Logger.getInstance().println("You find a "+craft.getName());
+	   int userChoise = Logger.getInstance().chooseToKeep();
+       insert (new CraftAction(hero, userChoise));
+ end
+ 
+  rule "HERO WEAPON CRAFT"
+ salience 100000
+ no-loop  
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.CRAFT, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		craft : WeaponCraftObject ( col == hero.getCol() && row == hero.getRow() )
+
+	then
+	   Logger.getInstance().println("You find a "+craft.getWeapon().getWeaponName()+" ["+craft.getWeapon().getBaseDamage()+", "+craft.getWeapon().getModifier()+"]");
+	   int userChoise = Logger.getInstance().chooseToKeep();
+       insert (new CraftAction(hero, userChoise));
+ end 
+ 
