@@ -24,7 +24,7 @@ public class DroolsTest {
 
 
         	//=====================SETUP ==============================
-        	Gui gui = new GuiJavaFX();
+        	Gui gui = new GuiConsole();
         	Logger.getInstance().setGui(gui);
         	Settings setting = new Settings(0, 10);
 
@@ -38,7 +38,10 @@ public class DroolsTest {
         	Statistic balanceStatFast = new Statistic(100,10,10,10,10,20,3,10,4);
 
         	Hero hero = new Hero(2, 2, sword, balanceStatFast);
-
+        	System.out.println(hero.toString());
+        	hero.levelUp();
+        	System.out.println();
+        	System.out.println(hero.toString());
 
             NPC npc1 = new NPC("PG1",0,0, sword, balanceStatMedium);
         	NPC npc3 = new NPC("PG2",4,4, sword, balanceStatSlow);
