@@ -27,15 +27,26 @@ package com.sample
  		
  
  // Rule that handle the shrinking of the map
-  rule "REMOVE PG OF THE BORDER" salience 300000
+  rule "REMOVE CRAFT OF THE BORDER" salience 300000
     when
     	setting : Settings( time!=0 && (time % 10) == 0 && gameOver == false) 
-		lom : LocatedOnMap ( ((col in (setting.getLimitColLeft() , setting.getLimitColRight())) || (row in (setting.getLimitRowUp() , setting.getLimitRowDown())))&& removable == 1 )  
+		co : CraftObject ( ((col in (setting.getLimitColLeft() , setting.getLimitColRight())) || (row in (setting.getLimitRowUp() , setting.getLimitRowDown())))&& removable == 1 )  
     then
-		retract (lom);
+		retract (co);
  end
  
-   rule "EFFECTIVELY REMOVE PORTIONS OF MAP" salience 300000 
+   rule "REMOVE PG OF THE BORDER" salience 300000
+    when
+    	setting : Settings( time!=0 && (time % 10) == 0 && gameOver == false) 
+		character : Character ( ((col in (setting.getLimitColLeft() , setting.getLimitColRight())) || (row in (setting.getLimitRowUp() , setting.getLimitRowDown())))&& removable == 1 )  
+    then
+    	character.die();
+    	update (character);
+		retract (character);
+ end
+ 
+ 
+   rule "EFFECTIVELY REMOVE PORTIONS OF MAP" salience 299999 
     when
     	setting: Settings( time!= 0 && (time % 10) == 0 && gameOver == false)
 		not LocatedOnMap ( ((col in (setting.getLimitColLeft() , setting.getLimitColRight())) || (row in (setting.getLimitRowUp() , setting.getLimitRowDown()))) && removable == 1 )  
