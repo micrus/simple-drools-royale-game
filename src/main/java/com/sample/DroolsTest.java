@@ -33,7 +33,7 @@ public class DroolsTest {
         	Weapon sword = new Weapon("Broken sword", 10, 6);
         	Weapon lance = new Weapon("Lance", 30, 3);
         	
-        	Statistic balanceStatSlow = new Statistic(100,10,10,10,10,10,3,10,2);
+        	Statistic balanceStatSlow = new Statistic(1,10,10,10,10,10,3,10,2);
         	Statistic balanceStatMedium = new Statistic(100,10,10,10,10,15,3,10,3);
         	Statistic balanceStatFast = new Statistic(100,10,10,10,10,20,3,10,4);
 
@@ -41,7 +41,7 @@ public class DroolsTest {
 
 
             NPC npc1 = new NPC("PG1",0,0, sword, balanceStatMedium);
-        	NPC npc3 = new NPC("PG2",4,4, sword, balanceStatSlow);
+        	NPC npc3 = new NPC("PG2",1,1, sword, balanceStatSlow);
         	NPC npc4 = new NPC("PG3",2,2, sword, balanceStatSlow);
         	NPC npc5 = new NPC("PG4",4,0, sword, balanceStatSlow);
         	NPC npc6 = new NPC("PG5",0,2, sword, balanceStatSlow);
