@@ -33,6 +33,15 @@ public class DroolsTest {
         	Weapon sword = new Weapon("Broken sword", 10, 6);
         	Weapon lance = new Weapon("Lance", 30, 3);
         	
+        	
+        	Statistic randomStat = new Statistic(100);
+        	Statistic randomStat2 = new Statistic(100);
+
+        	System.out.println(randomStat.toString());
+        	System.out.println(randomStat2.toString());
+
+        	
+        	
         	Statistic balanceStatSlow = new Statistic(1,10,10,10,10,10,3,10,2);
         	Statistic balanceStatMedium = new Statistic(100,10,10,10,10,15,3,10,3);
         	Statistic balanceStatFast = new Statistic(100,10,10,10,10,20,3,10,4);
