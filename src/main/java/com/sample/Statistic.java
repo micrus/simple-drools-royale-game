@@ -6,8 +6,6 @@ import java.util.Map;
 public class Statistic {
 	private Map<StatAbility, Integer> stat;
 
-	// ########## Inizio modifica commit precedente ##########
-
 	public Statistic(int life, int atk, int dex, int def, int elu, int speed, int view, int shrewdness, int luck) {
 		super();
 		this.stat = new HashMap<StatAbility, Integer>();
@@ -38,8 +36,6 @@ public class Statistic {
 
 	}
 
-	// ########## Fine modifica commit precedente ##########
-
 	public int getStat(StatAbility ability) {
 		return this.stat.get(ability);
 	}
@@ -54,7 +50,8 @@ public class Statistic {
 				+ this.getStat(StatAbility.ATTACK) + ", " + "DEXTERITY=" + this.getStat(StatAbility.DEXTERITY) + ", "
 				+ "DEFENCE=" + this.getStat(StatAbility.DEFENCE) + ", " + "ELUSION=" + this.getStat(StatAbility.ELUSION)
 				+ ", " + "SPEED=" + this.getStat(StatAbility.SPEED) + ", " + "VIEW=" + this.getStat(StatAbility.VIEW)
-				+ ", " + "SHREWDNESS=" + this.getStat(StatAbility.SHREWDNESS) + "}]";
+				+ ", " + "SHREWDNESS=" + this.getStat(StatAbility.SHREWDNESS) + ", " + "LUCK="
+				+ this.getStat(StatAbility.LUCK) + "}]";
 	}
 
 }

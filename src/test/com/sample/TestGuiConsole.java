@@ -1,6 +1,7 @@
 package com.sample;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -12,32 +13,27 @@ import org.junit.jupiter.api.Test;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
-import com.sample.GuiConsole;
-import com.sample.Hero;
-import com.sample.LocatedOnMap;
-import com.sample.Moves;
-import com.sample.Settings;
-import com.sample.Statistic;
-import com.sample.Weapon;
-
 import utils.KnowledgeSessionHelper;
 
 @SuppressWarnings("restriction")
 class TestGuiConsole {
 
-	GuiConsole gui;
-	ByteArrayInputStream input;
-	Settings settings;
+	private GuiConsole gui;
+	private ByteArrayInputStream input;
+	private Settings settings;
+	
+	private Weapon rifle;
+	private Statistic statistics;
+	private Hero hero;
 
 	@BeforeEach()
 	void setUp() {
-		gui = new GuiConsole();
-
+		this.gui = new GuiConsole();
 	}
 
 	@Test
 	void testGetAction() throws IOException {
-		input = new ByteArrayInputStream("d".getBytes());
+		this.input = new ByteArrayInputStream("d".getBytes());
 		System.setIn(input);
 		Moves action = gui.getAction();
 		assertEquals(action, Moves.GO_RIGHT);
@@ -54,36 +50,28 @@ class TestGuiConsole {
 
 		KieContainer kContainer = KnowledgeSessionHelper.createRuleBase();
 		KieSession testSession = KnowledgeSessionHelper.getStatefulKnowledgeSession(kContainer, "ksession-rules");
+		
+		this.rifle = new Weapon("rifle", 15, 8);
+		this.statistics = new Statistic(100, 10, 8, 7, 9, 8, 10, 8, 8);
+		this.hero = new Hero(1, 1, this.rifle, this.statistics);
 
-		Weapon rifle = new Weapon("rifle", 15, 8);
-		Statistic statistics = new Statistic(100, 10, 8, 7, 9, 8, 10, 8);
-		Hero hero = new Hero(1, 1, rifle, statistics);
-		testSession.insert(hero);
+		testSession.insert(this.hero);
 
-		Settings settings = new Settings(10, 4);
-		assertEquals(10, settings.getTime());
-		assertEquals(4, settings.getDimension());
+		this.settings = new Settings(10, 4);
+		assertEquals(10, this.settings.getTime());
+		assertEquals(4, this.settings.getDimension());
 
-		testSession.insert(settings);
+		testSession.insert(this.settings);
 
-		// FIXME: Perché utilizzare un altro oggetto Settings?
-		// FIXME: Come togliere il warning?
-
-		// Settings settings = (Settings) testSession.getObjects(new
-		// ClassObjectFilter(Settings.class)).iterator().next();
+		this.settings = (Settings) testSession.getObjects(new
+		 ClassObjectFilter(Settings.class)).iterator().next();
 
 		@SuppressWarnings({ "unchecked" })
 		Collection<LocatedOnMap> mapBeing = (Collection<LocatedOnMap>) testSession
 				.getObjects(new ClassObjectFilter(LocatedOnMap.class));
 
-		gui.showMap(mapBeing, settings);
-
-		// TODO: Come proseguire ulteriormente?
-
-		// FIXME: COdice relativo a DroolsTest, da spostare
-
-		// assertTrue(mapBeing.contains(hero));
-		// assertTrue(mapBeing.contains(setting));
+		gui.showMap(mapBeing, this.settings);
+		assertTrue(mapBeing.contains(this.hero));
 
 	}
 }

@@ -23,6 +23,7 @@ public class DroolsTest {
 
 
         	//=====================SETUP ==============================
+        	//Gui gui = new GuiJavaFX();
         	Gui gui = new GuiJavaFX();
         	Logger.getInstance().setGui(gui);
         	Settings setting = new Settings(0, 10);

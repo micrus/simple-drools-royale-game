@@ -112,11 +112,7 @@ public class GuiConsole implements Gui {
 			map[mapper.col][mapper.row] = "[ " + mapper.simbol + " ]";
 		});
 		
-		// ########## Inizio modifica commit precedente ##########
-
 		System.out.println("Time: " + time % 10);
-
-		// ########## Fine modifica commit precedente ##########
 
 		printToConsole(map);
 	}

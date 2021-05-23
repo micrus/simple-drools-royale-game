@@ -5,12 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.sample.Wall;
-
 class TestWall {
-	
+
 	Wall wall;
-	
+
 	@BeforeEach
 	void setUp() {
 		wall = new Wall(2, 5);
@@ -23,6 +21,7 @@ class TestWall {
 		assertEquals(5, wall.getRow());
 		assertEquals(0, wall.getRemovable());
 		assertEquals(0, wall.getSteppable());
+		assertEquals(true, wall.isFixed());
 	}
 
 	@Test

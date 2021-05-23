@@ -4,10 +4,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class PlayerAction {
 	
-	// TODO: refactor in "move" (?)	
-	Moves action;
-	Character whoMoves;
-	int priority;
+	private Moves action;
+	private Character whoMoves;
+	private int priority;
 
 	public PlayerAction(Moves action, Character whoMoves) {
 		this.action = action;

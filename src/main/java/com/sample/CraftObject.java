@@ -2,35 +2,31 @@ package com.sample;
 
 public class CraftObject extends LocatedOnMap {
 
-	int avaiability;
+	private int availability;
 
-	public CraftObject(int col, int row, int avaiability) {
+	public CraftObject(int col, int row, int availability) {
 		super("°", col, row, 1, 1);
-		this.avaiability = avaiability;
+		this.availability = availability;
 		this.fixed = false;
 	}
 
-	public int getAvaiability() {
-		return avaiability;
+	public int getAvailability() {
+		return availability;
 	}
 
-	public void setAvaiability(int avaiability) {
-		this.avaiability = avaiability;
-		if (avaiability <= 0) {
+	public void setAvailability(int availability) {
+		this.availability = availability;
+		if (availability <= 0) {
 			this.notifyObservers(UpdateType.DELETED);
 		}
 	}
 
-	// ########## Inizio modifica commit precedente ##########
-
 	@Override
 	public String toString() {
 		
-		return "CraftObject [avaiability=" + avaiability + ", simbol=" + simbol + ", col=" + col + ", row=" + row
+		return "CraftObject [availability=" + availability + ", simbol=" + simbol + ", col=" + col + ", row=" + row
 				+ ", removable=" + removable + ", steppable=" + steppable + "]";
 
 	}
-
-	// ########## Fine modifica commit precedente ##########
 
 }

@@ -2,7 +2,7 @@ package com.sample;
 
 public class CraftAction extends PlayerAction{
 	
-	int keep;
+	private int keep;
 	
 	public CraftAction(Character whoMoves, int keep) {
 		super(Moves.CRAFT, whoMoves);
