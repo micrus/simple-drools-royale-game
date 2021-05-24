@@ -19,12 +19,11 @@ public class DroolsTest {
         try {
         	
             KieContainer kContainer = KnowledgeSessionHelper.createRuleBase();
-        	KieSession kSession = KnowledgeSessionHelper.getStatefulKnowledgeSession(kContainer, "ksession-rules");        
-
+        	KieSession kSession = KnowledgeSessionHelper.getStatefulKnowledgeSession(kContainer, "ksession-rules"); 
 
         	//=====================SETUP ==============================
-        	//Gui gui = new GuiJavaFX();
-        	Gui gui = new GuiJavaFX();
+        	
+        	Gui gui = new GuiConsole();
         	Logger.getInstance().setGui(gui);
         	Settings setting = new Settings(0, 10);
 
