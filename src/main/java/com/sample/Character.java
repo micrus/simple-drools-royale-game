@@ -1,5 +1,7 @@
 package com.sample;
 
+import java.util.stream.Stream;
+
 //import javafx.beans.Observable;
 
 public abstract class Character extends LocatedOnMap {
@@ -35,6 +37,16 @@ public abstract class Character extends LocatedOnMap {
 	public int getStat(StatAbility ability) {
 		return this.actualStat.getStat(ability);
 	}
+	
+	public void levelUp() {
+
+		Stream.of(StatAbility.values()).forEach(ability -> {
+			int bonus = (int)(Math.random()*2);
+			this.baseStat.setStat(ability, this.baseStat.getStat(ability)+bonus);
+			this.increment(ability, bonus);
+		});
+	}
+	
 	
 	public void moveLeft() {
 		this.row--;
@@ -75,7 +87,11 @@ public abstract class Character extends LocatedOnMap {
 		this.notifyObservers(UpdateType.MOVE);
 	}
 	
-	
+	public void die() {
+		this.actualStat.setStat(StatAbility.LIFE, 0);
+		this.notifyObservers(UpdateType.UPDATE);
+
+	}
 	
 
 	public Statistic getBaseStat() {
@@ -120,6 +136,8 @@ public abstract class Character extends LocatedOnMap {
 			this.notifyObservers(UpdateType.DELETED);
 		}
 	}
+	
+	
 	
 	// getDamage(){
 	// laciodado + modificatori} -> quanti danni faccio

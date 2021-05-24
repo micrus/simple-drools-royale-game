@@ -27,15 +27,37 @@ package com.sample
  		
  
  // Rule that handle the shrinking of the map
-  rule "REMOVE PG OF THE BORDER" salience 300000
+rule "KILL PG OUT OF THE BORDER" salience 300002
+
     when
     	setting : Settings( time!=0 && (time % 10) == 0 && gameOver == false) 
-		lom : LocatedOnMap ( ((col in (setting.getLimitColLeft() , setting.getLimitColRight())) || (row in (setting.getLimitRowUp() , setting.getLimitRowDown())))&& removable == 1 )  
+		character : Character ( ((col in (setting.getLimitColLeft() , setting.getLimitColRight())) || (row in (setting.getLimitRowUp() , setting.getLimitRowDown())))&& removable == 1 )  
     then
-		retract (lom);
+    	character.die();
+    	update (character);
+    	retract(character);
+ end
+
+rule "REMOVE DIED PG" 
+ salience 300001
+ 	when 
+ 		character: Character ( actualStat.getStat(StatAbility.LIFE)<=0 )
+ 	then 
+ 		insert (new PlayerSoul(character.getCol(),character.getRow(),1, -character.getStat(StatAbility.LIFE)));
+ 		insert (new WeaponCraftObject(character.getWeapon(), character.getCol(),character.getRow(),1));
+ 		retract (character);
  end
  
-   rule "EFFECTIVELY REMOVE PORTIONS OF MAP" salience 300000 
+  rule "REMOVE CRAFT OF THE BORDER" salience 300000
+    when
+    	setting : Settings( time!=0 && (time % 10) == 0 && gameOver == false) 
+		co : CraftObject ( ((col in (setting.getLimitColLeft() , setting.getLimitColRight())) || (row in (setting.getLimitRowUp() , setting.getLimitRowDown())))&& removable == 1 )  
+    then
+		retract (co);
+ end
+ 
+ 
+rule "EFFECTIVELY REMOVE PORTIONS OF MAP" salience 299999 
     when
     	setting: Settings( time!= 0 && (time % 10) == 0 && gameOver == false)
 		not LocatedOnMap ( ((col in (setting.getLimitColLeft() , setting.getLimitColRight())) || (row in (setting.getLimitRowUp() , setting.getLimitRowDown()))) && removable == 1 )  
@@ -62,13 +84,7 @@ package com.sample
  end
  
   
- rule "REMOVE DIED PG" 
- salience 200000
- 	when 
- 		character: Character ( actualStat.getStat(StatAbility.LIFE)<=0 )
- 	then 
- 		retract (character);
- end
+
  
  
  rule "LOSE GAME BECAUSE YOU DIE"

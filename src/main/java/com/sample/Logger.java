@@ -25,7 +25,7 @@ public class Logger {
 	public int chooseToKeep(String message) {
 		return gui.chooseToKeep(message + "\nDo you want to keep it?");
 	}
-	
+
 	public static Logger getInstance() {
 		if (instance == null) {
 			instance = new Logger();
