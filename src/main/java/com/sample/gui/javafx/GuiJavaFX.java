@@ -24,6 +24,8 @@ public class GuiJavaFX implements Gui {
 	private ActionHandler actionHandler;
 	private boolean started;
 	
+	private Integer userChoice;
+	
 	public GuiJavaFX() {
 		appConf = AppConfiguration.getInstance();
 		this.actionHandler = ActionHandler.getInstance();
@@ -70,10 +72,31 @@ public class GuiJavaFX implements Gui {
 		return this.actionHandler.getMove();
 		
 	}
+	
+	public void setChoice(int choice) {
+		synchronized(this) {
+			this.userChoice = choice;
+			notify();
+		}
+	}
 
 	@Override
-	public int chooseToKeep() {
+	public int chooseToKeep(String msg) {
 		// TODO Auto-generated method stub
-		return 1;
+		this.userChoice = null;
+		Platform.runLater(() -> {
+			this.view.createModal(this, msg);
+		});
+		synchronized(this) {
+			try {
+				if (this.userChoice == null) {
+					wait();
+				}
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return this.userChoice;
 	}
 }

@@ -92,7 +92,6 @@ public class JavaFXApplication extends Application {
             sidebar.setPadding(new Insets(10, 10, 10, 10));
             HBox hbox = new HBox(vbox, sidebar);
             
-            conf.setGameView(new GameView(grid, textarea, sidebar));
             // create scene and stage
             Scene scene = new Scene(hbox, width + this.sidebarWidth, height + this.consoleHeight);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -103,6 +102,8 @@ public class JavaFXApplication extends Application {
 
             primaryStage.setScene(scene);
             primaryStage.show();
+
+            conf.setGameView(new GameView(grid, textarea, sidebar, primaryStage));
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -17,7 +17,7 @@ public class CraftObject extends LocatedOnMap {
 		return avaiability;
 	}
 
-	public void setAvaiability(int avaiability) {
+	public synchronized void setAvaiability(int avaiability) {
 		this.avaiability = avaiability;
 		if (avaiability <= 0) {
 			this.notifyObservers(UpdateType.DELETED);

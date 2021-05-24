@@ -457,8 +457,8 @@ rule "NPC MOVE RIGHT TOWARD CHARACTER"
 		craft : ConsumableCraftObject ( col == hero.getCol() && row == hero.getRow() )
 
 	then
-	   Logger.getInstance().println("You find a "+craft.getName());
-	   int userChoise = Logger.getInstance().chooseToKeep();
+	   String msg = "You find a "+craft.getName();
+	   int userChoise = Logger.getInstance().chooseToKeep(msg);
        insert (new CraftAction(hero, userChoise));
  end
  
@@ -472,8 +472,8 @@ rule "NPC MOVE RIGHT TOWARD CHARACTER"
 		craft : WeaponCraftObject ( col == hero.getCol() && row == hero.getRow() )
 
 	then
-	   Logger.getInstance().println("You find a "+craft.getWeapon().getWeaponName()+" ["+craft.getWeapon().getBaseDamage()+", "+craft.getWeapon().getModifier()+"]");
-	   int userChoise = Logger.getInstance().chooseToKeep();
+	   String msg = "You find a "+craft.getWeapon().getWeaponName()+" ["+craft.getWeapon().getBaseDamage()+", "+craft.getWeapon().getModifier()+"]";
+	   int userChoise = Logger.getInstance().chooseToKeep(msg);
        insert (new CraftAction(hero, userChoise));
  end 
  

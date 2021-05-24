@@ -14,20 +14,23 @@ import com.sample.Hero;
 
 import javafx.application.Platform;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 public class GameView {
 	
 	private Grid grid;
 	private ConsoleArea console;
 	private HUDSidebar sidebar;
+	private Stage primaryStage;
 	
 	private Map<LocatedOnMap, String> imgPaths = new HashMap<LocatedOnMap, String>();
 	
 
-	public GameView(Grid grid, ConsoleArea console, HUDSidebar sidebar) {
+	public GameView(Grid grid, ConsoleArea console, HUDSidebar sidebar, Stage primaryStage) {
 		this.grid = grid;
 		this.console = console;
 		this.sidebar = sidebar;
+		this.primaryStage = primaryStage;
 	}
 	
 	public void addEntity(LocatedOnMap lom) {
@@ -39,6 +42,10 @@ public class GameView {
 				this.sidebar.addHUD((Character) lom, folderPath+imgBase);
 			}
 		});
+	}
+	
+	public ChoiceModal createModal(GuiJavaFX gui, String msg) {
+		return new ChoiceModal(this.primaryStage, gui, msg);
 	}
 	
 
@@ -69,8 +76,7 @@ public class GameView {
     	
     	return imgPath;
    }
-	
-	 
+   
 
 	public void appendMessageOnConsole(String msg) {
 		this.console.appendMessage(msg);

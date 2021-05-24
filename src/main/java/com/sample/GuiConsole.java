@@ -155,7 +155,8 @@ public class GuiConsole implements Gui{
 
     }
 	
-	public int chooseToKeep() {
+	public int chooseToKeep(String msg) {
+		System.out.println(msg);
 		System.out.println("Do you want to keep it or not? (1 or 0)");
 		int userChoise = -1;
 		
