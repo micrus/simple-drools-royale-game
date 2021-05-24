@@ -89,6 +89,8 @@ public abstract class Character extends LocatedOnMap {
 	
 	public void die() {
 		this.actualStat.setStat(StatAbility.LIFE, 0);
+		this.notifyObservers(UpdateType.UPDATE);
+
 	}
 	
 

@@ -25,7 +25,7 @@ public class DroolsTest {
 
 
         	//=====================SETUP ==============================
-        	Gui gui = new GuiConsole();
+        	Gui gui = new GuiJavaFX();
         	Logger.getInstance().setGui(gui);
         	
         	int dimension = 7;
@@ -37,7 +37,7 @@ public class DroolsTest {
         	Initializer init = new Initializer(dimension, npcNumber, weaponCraftNumber, consumableCraftNumber);
 
         	Position heroPos = init.getPosition();
-        	Hero hero = new Hero(heroPos.getCol(), heroPos.getRow(), init.getWeapon(), new Statistic(100));
+        	Hero hero = new Hero(heroPos.getCol(), heroPos.getRow(), init.getWeapon(), new Statistic(150));
         	
         	
         	init.getNpcs().forEach(npc -> kSession.insert(npc));
