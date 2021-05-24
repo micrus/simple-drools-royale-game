@@ -1,5 +1,6 @@
 package com.sample;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -24,7 +25,7 @@ public class Statistic{
 	/*
 	 * Randomly generate statistic 
 	 * */
-	public Statistic(int overallValue) {
+	/*public Statistic(int overallValue) {
 		Random gen = new Random();
 		double atk = gen.nextInt(50)+20;
 		double def = gen.nextInt(50)+20;
@@ -46,7 +47,41 @@ public class Statistic{
 		stat.put(StatAbility.VIEW, (int)Math.ceil(viw*overallValue/sum));
 		stat.put(StatAbility.SHREWDNESS, (int)Math.ceil(shr*overallValue/sum));
 		stat.put(StatAbility.LUCK, (int)Math.ceil(lck*overallValue/sum));
+	}*/
+	
+	public Statistic(int overallValue) {
+		Random gen = new Random();
+		int viw = gen.nextInt(3)+1;
+		overallValue -= viw;
+
+		Integer[] rnd = new Integer[8];
+		
+		rnd[0]=0;
+		rnd[7]=overallValue;
+		
+		for (int i = 1; i < 7; i++) {
+		    rnd[i] = gen.nextInt(overallValue+1);
+		}
+		
+		Arrays.sort(rnd);
+		Integer[] statValue = new Integer[7];
+		
+		for (int i = 0; i < 7; i++) {
+		    statValue[i] = rnd[i + 1] - rnd[i];
+		}
+				
+		this.stat = new HashMap<StatAbility, Integer>();
+		stat.put(StatAbility.LIFE, overallValue+viw);
+		stat.put(StatAbility.ATTACK, statValue[0]);
+		stat.put(StatAbility.DEXTERITY,statValue[1]);
+		stat.put(StatAbility.DEFENCE, statValue[2]);
+		stat.put(StatAbility.ELUSION, statValue[3]);
+		stat.put(StatAbility.SPEED, statValue[4]);
+		stat.put(StatAbility.VIEW, viw);
+		stat.put(StatAbility.SHREWDNESS, statValue[5]);
+		stat.put(StatAbility.LUCK, statValue[6]);
 	}
+	
 	
 	public Statistic(Statistic stats) {
 		super();
