@@ -7,6 +7,7 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
+import com.sample.Initializer.Position;
 import com.sample.gui.javafx.GuiJavaFX;
 
 /**
@@ -26,71 +27,26 @@ public class DroolsTest {
         	//=====================SETUP ==============================
         	Gui gui = new GuiConsole();
         	Logger.getInstance().setGui(gui);
-        	Settings setting = new Settings(0, 5);
+        	
+        	int dimension = 7;
+        	int npcNumber = 3;
+        	int weaponCraftNumber = 2;
+        	int consumableCraftNumber = 2;
+        	
+        	Settings setting = new Settings(0, dimension);
+        	Initializer init = new Initializer(dimension, npcNumber, weaponCraftNumber, consumableCraftNumber);
 
+        	Position heroPos = init.getPosition();
+        	Hero hero = new Hero(heroPos.getCol(), heroPos.getRow(), init.getWeapon(), new Statistic(100));
         	
         	
-        	Weapon sword = new Weapon("Broken sword", 10, 6);
-        	Weapon lance = new Weapon("Lance", 30, 3);
-        	
-        	
-        	Statistic randomStat = new Statistic(100);
-        	Statistic randomStat2 = new Statistic(100);
-
-        	System.out.println(randomStat.toString());
-        	System.out.println(randomStat2.toString());
-
-        	
-        	
-        	Statistic balanceStatSlow = new Statistic(1,10,10,10,10,10,3,10,2);
-        	Statistic balanceStatMedium = new Statistic(100,10,10,10,10,15,3,10,3);
-        	Statistic balanceStatFast = new Statistic(100,10,10,10,10,20,3,10,4);
-
-        	Hero hero = new Hero(2, 2, sword, balanceStatFast);
-
-
-            NPC npc1 = new NPC("PG1",0,0, sword, balanceStatMedium);
-        	NPC npc3 = new NPC("PG2",1,1, sword, balanceStatSlow);
-        	NPC npc4 = new NPC("PG3",2,2, sword, balanceStatSlow);
-        	NPC npc5 = new NPC("PG4",4,0, sword, balanceStatSlow);
-        	NPC npc6 = new NPC("PG5",0,2, sword, balanceStatSlow);
-        	NPC npc7 = new NPC("PG6",2,0, sword, balanceStatSlow);
-        	NPC npc8 = new NPC("PG7",2,4, sword, balanceStatSlow);
-        	NPC npc9 = new NPC("PG8",4,2, sword, balanceStatSlow);
-
-        	//NPC npc2 = new NPC("PGF",0,0, new Statistic(20, 20, 20, 5, 10));
-        
-        	
-
-        	//CraftObject deadWood = new CraftObject(3,3,StatAbility.LIFE, -9, 2);
-        	CraftObject lifeWood = new ConsumableCraftObject("life wood",1,1,StatAbility.LIFE, 5, 1);
-        	PlayerSoul proudWarrior = new PlayerSoul(1,1,1,10);
-        	CraftObject hiddenLance = new WeaponCraftObject(lance, 3, 3, 1);
-        	
-        	kSession.insert(hiddenLance);
-        	kSession.insert(proudWarrior);
-        	kSession.insert(hero);
-        	//kSession.insert(wall);
-        	kSession.insert(npc1);
-        	kSession.insert(npc3);
-        	//kSession.insert(npc4);
-        	//kSession.insert(npc5);
-        	//kSession.insert(npc6);
-        	//kSession.insert(npc7);
-        	//kSession.insert(npc8);
-        	//kSession.insert(npc9);
-
-
-
-        	//kSession.insert(npc2);
-        	
-        	kSession.insert(lifeWood);
-        	//kSession.insert(deadWood);
-
-        	
+        	init.getNpcs().forEach(npc -> kSession.insert(npc));
+        	init.getConsumableCrafts().forEach(cc -> kSession.insert(cc));
+        	init.getWeaponCrafts().forEach(wc -> kSession.insert(wc));
             kSession.insert(setting);
+            kSession.insert(hero);
             
-            
+            System.out.println(hero.toString());
             //=====================ACT=================================
             boolean run = true;
             while (run ) {
