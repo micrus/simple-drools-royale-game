@@ -25,29 +25,7 @@ public class Statistic{
 	/*
 	 * Randomly generate statistic 
 	 * */
-	/*public Statistic(int overallValue) {
-		Random gen = new Random();
-		double atk = gen.nextInt(50)+20;
-		double def = gen.nextInt(50)+20;
-		double dex = gen.nextInt(50)+20;
-		double elu = gen.nextInt(50)+20;
-		double spd = gen.nextInt(30)+10;
-		double viw = gen.nextInt(3)+1;
-		double shr = gen.nextInt(20)+10;
-		double lck = gen.nextInt(20)+10;
-		double sum = atk+def+dex+elu+spd+viw+shr+lck;	
-		
-		this.stat = new HashMap<StatAbility, Integer>();
-		stat.put(StatAbility.LIFE, overallValue);
-		stat.put(StatAbility.ATTACK, (int)Math.ceil(atk*overallValue/sum));
-		stat.put(StatAbility.DEXTERITY,(int)Math.ceil(dex*overallValue/sum));
-		stat.put(StatAbility.DEFENCE, (int)Math.ceil(def*overallValue/sum));
-		stat.put(StatAbility.ELUSION, (int)Math.ceil(elu*overallValue/sum));
-		stat.put(StatAbility.SPEED, (int)Math.ceil(spd*overallValue/sum));
-		stat.put(StatAbility.VIEW, (int)Math.ceil(viw*overallValue/sum));
-		stat.put(StatAbility.SHREWDNESS, (int)Math.ceil(shr*overallValue/sum));
-		stat.put(StatAbility.LUCK, (int)Math.ceil(lck*overallValue/sum));
-	}*/
+	
 	
 	public Statistic(int overallValue) {
 		Random gen = new Random();
