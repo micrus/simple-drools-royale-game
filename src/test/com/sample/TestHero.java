@@ -1,5 +1,6 @@
 package com.sample;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -51,6 +52,21 @@ class TestHero {
 		// valore minore o uguale a baseStat
 		hero.increment(StatAbility.ELUSION, 1);
 		assertEquals(6, hero.getStat(StatAbility.ELUSION));
+	}
+	
+	@Test
+	void testLevelUp() {
+		Statistic oldBaseStat = hero.getBaseStat();
+		hero.levelUp();
+		assertFalse(oldBaseStat.getStat(StatAbility.LIFE) != this.hero.getStat(StatAbility.LIFE));
+		assertFalse(oldBaseStat.getStat(StatAbility.ATTACK) != this.hero.getStat(StatAbility.ATTACK));
+		assertFalse(oldBaseStat.getStat(StatAbility.DEXTERITY) != this.hero.getStat(StatAbility.DEXTERITY));
+		assertFalse(oldBaseStat.getStat(StatAbility.DEFENCE) != this.hero.getStat(StatAbility.DEFENCE));
+		assertFalse(oldBaseStat.getStat(StatAbility.ELUSION) != this.hero.getStat(StatAbility.ELUSION));
+		assertFalse(oldBaseStat.getStat(StatAbility.SPEED) != this.hero.getStat(StatAbility.SPEED));
+		assertFalse(oldBaseStat.getStat(StatAbility.VIEW) != this.hero.getStat(StatAbility.VIEW));
+		assertFalse(oldBaseStat.getStat(StatAbility.SHREWDNESS) != this.hero.getStat(StatAbility.SHREWDNESS));
+		assertFalse(oldBaseStat.getStat(StatAbility.LUCK) != this.hero.getStat(StatAbility.LUCK));		
 	}
 
 	@Test

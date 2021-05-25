@@ -1,5 +1,7 @@
 package com.sample;
 
+import java.util.stream.Stream;
+
 //import javafx.beans.Observable;
 
 public abstract class Character extends LocatedOnMap {
@@ -33,6 +35,15 @@ public abstract class Character extends LocatedOnMap {
 
 	public int getStat(StatAbility ability) {
 		return this.actualStat.getStat(ability);
+	}
+	
+	public void levelUp() {
+		
+		Stream.of(StatAbility.values()).forEach(ability -> {
+			int bonus = (int)(Math.random()*2);
+			this.baseStat.setStat(ability, this.baseStat.getStat(ability)+bonus);
+			this.increment(ability, bonus);
+		});
 	}
 
 	public void moveLeft() {
@@ -78,6 +89,12 @@ public abstract class Character extends LocatedOnMap {
 		this.row--;
 		this.notifyObservers(UpdateType.MOVE);
 	}
+	
+	public void die() {
+		this.actualStat.setStat(StatAbility.LIFE, 0);
+		this.notifyObservers(UpdateType.UPDATE);
+
+	}	
 
 	public Statistic getBaseStat() {
 		return baseStat;
@@ -120,15 +137,4 @@ public abstract class Character extends LocatedOnMap {
 			this.notifyObservers(UpdateType.DELETED);
 		}
 	}
-
-	// getDamage(){
-	// laciodado + modificatori} -> quanti danni faccio
-
-	// takeDamage(int damage)
-	// {lacio dado elusione se lo supero danno 0 altrimenti calcolo danno
-	// effettivo}-> quanti danni prendo effettivi
-
-	/*
-	 * A attacca B A tira dado per colpire -> getDamage
-	 */
 }

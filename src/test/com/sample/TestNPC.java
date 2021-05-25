@@ -1,8 +1,10 @@
 package com.sample;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class TestNPC {
@@ -49,6 +51,21 @@ class TestNPC {
 		// valore minore o uguale a baseStat
 		npc.increment(StatAbility.DEXTERITY, 3);
 		assertEquals(9, npc.getStat(StatAbility.DEXTERITY));
+	}
+	
+	@Test
+	void testLevelUp() {
+		Statistic oldBaseStat = npc.getBaseStat();
+		npc.levelUp();
+		assertFalse(oldBaseStat.getStat(StatAbility.LIFE) != this.npc.getStat(StatAbility.LIFE));
+		assertFalse(oldBaseStat.getStat(StatAbility.ATTACK) != this.npc.getStat(StatAbility.ATTACK));
+		assertFalse(oldBaseStat.getStat(StatAbility.DEXTERITY) != this.npc.getStat(StatAbility.DEXTERITY));
+		assertFalse(oldBaseStat.getStat(StatAbility.DEFENCE) != this.npc.getStat(StatAbility.DEFENCE));
+		assertFalse(oldBaseStat.getStat(StatAbility.ELUSION) != this.npc.getStat(StatAbility.ELUSION));
+		assertFalse(oldBaseStat.getStat(StatAbility.SPEED) != this.npc.getStat(StatAbility.SPEED));
+		assertFalse(oldBaseStat.getStat(StatAbility.VIEW) != this.npc.getStat(StatAbility.VIEW));
+		assertFalse(oldBaseStat.getStat(StatAbility.SHREWDNESS) != this.npc.getStat(StatAbility.SHREWDNESS));
+		assertFalse(oldBaseStat.getStat(StatAbility.LUCK) != this.npc.getStat(StatAbility.LUCK));		
 	}
 	
 

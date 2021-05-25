@@ -3,23 +3,26 @@ package utils;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
-import org.kie.api.runtime.StatelessKieSession;
 
 public class KnowledgeSessionHelper {
-
+	
+;
+	private static KieServices kieServices;
+	private static KieContainer kieContainer;
+	private static KieSession statefulSession;
+	
 	public static KieContainer createRuleBase() {
-		KieServices ks = KieServices.Factory.get();
-		KieContainer kieContainer = ks.getKieClasspathContainer();
+		kieServices = KieServices.Factory.get();
+		kieContainer = kieServices.getKieClasspathContainer();
 		return kieContainer;
 	}
 
-	public static StatelessKieSession getStatelessKnowledgeSession(KieContainer kieContainer, String sessionName) {
-		StatelessKieSession kieSession = kieContainer.newStatelessKieSession(sessionName);
-		return kieSession;
+	public static KieSession getStatefulKnowledgeSession(KieContainer kieContainer, String sessionName) {
+		if (statefulSession != null) {
+			throw new IllegalStateException("Kie Session has already been built.");
+		}
+		KieSession statefulSession = kieContainer.newKieSession(sessionName);
+		return statefulSession;
 	}
 
-	public static KieSession getStatefulKnowledgeSession(KieContainer kieContainer, String sessionName) {
-		KieSession kieSession = kieContainer.newKieSession(sessionName);
-		return kieSession;
-	}
 }

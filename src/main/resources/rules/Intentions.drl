@@ -245,7 +245,6 @@ rule "NPC MOVE RIGHT TOWARD CHARACTER"
 		WeaponCraftObject (col == npc.getCol() && row == npc.getRow() && (weapon.baseDamage+weapon.modifier >= npc.getWeapon().getBaseDamage()+npc.getWeapon().getModifier()) )
 	
 	then
-		Logger.getInstance().println("......");
        insert (new CraftAction(npc, 1, 30));
  end
  
@@ -342,6 +341,119 @@ rule "NPC MOVE RIGHT TOWARD CHARACTER"
 	then
        insert (new FightAction(npc, character, 70));
  end
+ 
+ 
+//==============MOVE TOWARD SOUL WITH HIGHEST PRIORITY=================
+
+ 
+ 
+ rule "NPC MOVE DOWN RIGHT TOWARD SOUL"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row < setting.getDimension() - 1 && col < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()+1 && (row == npc.getRow()+1) )
+		soul : PlayerSoul (row > npc.getRow() && row <= npc.getRow()+npc.getStat(StatAbility.VIEW )  && col > npc.getCol() && col <= npc.getCol()+npc.getStat(StatAbility.VIEW ) ) 
+		
+	
+	then
+       insert (new PlayerAction(Moves.GO_DOWN_RIGHT, npc, 80));
+ end
+ 
+  rule "NPC MOVE DOWN LEFT TOWARD SOUL"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row > 0 && col < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()+1 && (row == npc.getRow()-1) )
+		soul : PlayerSoul (row < npc.getRow() && row >= npc.getRow()-npc.getStat(StatAbility.VIEW )  && col > npc.getCol() && col <= npc.getCol()+npc.getStat(StatAbility.VIEW ) ) 
+		
+	
+	then
+       insert (new PlayerAction(Moves.GO_DOWN_LEFT, npc, 80));
+ end
+ 
+   rule "NPC MOVE UP LEFT TOWARD SOUL"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row > 0 && col > 0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()-1 && (row == npc.getRow()-1) )
+		soul : PlayerSoul (row < npc.getRow() && row >= npc.getRow()-npc.getStat(StatAbility.VIEW )  && col < npc.getCol() && col >= npc.getCol()-npc.getStat(StatAbility.VIEW ) ) 
+		
+	
+	then
+       insert (new PlayerAction(Moves.GO_UP_LEFT, npc, 80));
+ end
+ 
+    rule "NPC MOVE UP RIGHT TOWARD SOUL"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row < setting.getDimension()-1 && col > 0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()-1 && (row == npc.getRow()+1) )
+		soul : PlayerSoul (row > npc.getRow() && row <= npc.getRow()+npc.getStat(StatAbility.VIEW )  && col < npc.getCol() && col >= npc.getCol()-npc.getStat(StatAbility.VIEW ) ) 
+		
+	
+	then
+       insert (new PlayerAction(Moves.GO_UP_RIGHT, npc, 80));
+ end
+ 
+ 
+ rule "NPC MOVE RIGHT TOWARD SOUL"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol() && (row == npc.getRow() +1) )
+		soul : PlayerSoul (col == npc.getCol() && row > npc.getRow() && row <= npc.getRow()+npc.getStat(StatAbility.VIEW ) ) 
+		
+	
+	then
+       insert (new PlayerAction(Moves.GO_RIGHT, npc, 90));
+ end
+ 
+ rule "NPC MOVE LEFT TOWARD SOUL"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && row > 0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol() && (row == npc.getRow() -1) )
+		soul : PlayerSoul (col == npc.getCol() && row >=(npc.getRow()-npc.getStat(StatAbility.VIEW)) && row < npc.getRow() ) 
+		
+	
+	then
+       insert (new PlayerAction(Moves.GO_LEFT, npc, 90));
+ end
+ 
+  rule "NPC MOVE UP TOWARD SOUL"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col > 0 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()-1 && (row == npc.getRow()) )
+		soul : PlayerSoul (row == npc.getRow() && col >=(npc.getCol()-npc.getStat(StatAbility.VIEW)) && col < npc.getCol() ) 
+		
+	
+	then
+       insert (new PlayerAction(Moves.GO_UP, npc, 90));
+ end
+ 
+  rule "NPC MOVE DOWN TOWARD SOUL"
+ salience 100000
+    when
+	    setting : Settings( gameOver == false )
+		npc : NPC ( status == Status.NOT_MOVED && col < setting.getDimension() - 1 ) 
+		not LocatedOnMap (steppable==0 && col == npc.getCol()+1 && (row == npc.getRow()) )
+		soul : PlayerSoul (row == npc.getRow()  && col > npc.getCol() && col <= npc.getCol()+npc.getStat(StatAbility.VIEW ) )
+		
+	
+	then
+		
+       insert (new PlayerAction(Moves.GO_DOWN, npc, 90));
+ end
+ 
+ 
  
  
  //=================RULE FOR HANDLE FIGHT MOVES OF HERO=================
@@ -443,4 +555,38 @@ rule "NPC MOVE RIGHT TOWARD CHARACTER"
 	then
        insert (new FightAction(hero, character, 70));
  end
+ 
+ 
+ 
+   //=================RULE FOR HANDLE CRAFT OF HERO=================
+ 
+ rule "HERO CONSUMABLE CRAFT"
+ salience 100000
+ no-loop  
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.CRAFT, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		craft : ConsumableCraftObject ( col == hero.getCol() && row == hero.getRow() )
+
+	then
+	   Logger.getInstance().println("You find a "+craft.getName());
+	   int userChoise = Logger.getInstance().chooseToKeep();
+       insert (new CraftAction(hero, userChoise));
+ end
+ 
+  rule "HERO WEAPON CRAFT"
+ salience 100000
+ no-loop  
+    when
+	    setting : Settings( gameOver == false )
+	    action : PlayerAction( action == Moves.CRAFT, heroes : whoMoves )
+	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
+		craft : WeaponCraftObject ( col == hero.getCol() && row == hero.getRow() )
+
+	then
+	   Logger.getInstance().println("You find a "+craft.getWeapon().getWeaponName()+" ["+craft.getWeapon().getBaseDamage()+", "+craft.getWeapon().getModifier()+"]");
+	   int userChoise = Logger.getInstance().chooseToKeep();
+       insert (new CraftAction(hero, userChoise));
+ end 
  
