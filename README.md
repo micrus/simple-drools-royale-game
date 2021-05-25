@@ -4,7 +4,7 @@
 
 - Muoversi in tutte le 8 direzioni
 - Attaccare in tutte le 8 direzioni
-- Craftare sopra l'apposito simbolo
+- Pickare sopra l'apposito simbolo
 - Piazzare una trappola (che fa danno random [0, SHARPNESS] a chi prova a craftarla)
 
 ## IA in ordine di priorità decrescente

@@ -161,7 +161,7 @@ package com.sample
     when
 	    setting : Settings( gameOver == false )
 		npc : NPC ( status == Status.NOT_MOVED ) 
-		not CraftObject (col == npc.getCol() && row == npc.getRow() )
+		not PickableObject (col == npc.getCol() && row == npc.getRow() )
 	
 	then
 	
@@ -230,11 +230,11 @@ rule "NPC MOVE RIGHT TOWARD CHARACTER"
     when
 	    setting : Settings( gameOver == false )
 		npc : NPC ( status == Status.NOT_MOVED ) 
-		ConsumableCraftObject (col == npc.getCol() && row == npc.getRow() )
+		ConsumablePickableObject (col == npc.getCol() && row == npc.getRow() )
 	
 	then
 	
-       insert (new CraftAction(npc, 1, 30));
+       insert (new PickAction(npc, 1, 30));
  end
  
  rule "NPC CRAFT WEAPON"
@@ -242,10 +242,10 @@ rule "NPC MOVE RIGHT TOWARD CHARACTER"
     when
 	    setting : Settings( gameOver == false )
 		npc : NPC ( status == Status.NOT_MOVED ) 
-		WeaponCraftObject (col == npc.getCol() && row == npc.getRow() && (weapon.baseDamage+weapon.modifier >= npc.getWeapon().getBaseDamage()+npc.getWeapon().getModifier()) )
+		WeaponPickableObject (col == npc.getCol() && row == npc.getRow() && (weapon.baseDamage+weapon.modifier >= npc.getWeapon().getBaseDamage()+npc.getWeapon().getModifier()) )
 	
 	then
-       insert (new CraftAction(npc, 1, 30));
+       insert (new PickAction(npc, 1, 30));
  end
  
  
@@ -565,12 +565,12 @@ rule "NPC MOVE RIGHT TOWARD CHARACTER"
 	    setting : Settings( gameOver == false )
 	    action : PlayerAction( action == Moves.CRAFT, heroes : whoMoves )
 	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
-		craft : ConsumableCraftObject ( col == hero.getCol() && row == hero.getRow() )
+		pick : ConsumablePickableObject ( col == hero.getCol() && row == hero.getRow() )
 
 	then
-	   String msg = "You find a "+craft.getName();
+	   String msg = "You find a "+pick.getName();
 	   int userChoise = Logger.getInstance().chooseToKeep(msg);
-       insert (new CraftAction(hero, userChoise));
+       insert (new PickAction(hero, userChoise));
  end
  
   rule "HERO WEAPON CRAFT"
@@ -580,11 +580,11 @@ rule "NPC MOVE RIGHT TOWARD CHARACTER"
 	    setting : Settings( gameOver == false )
 	    action : PlayerAction( action == Moves.CRAFT, heroes : whoMoves )
 	    hero : Hero (this == heroes && status == Status.NOT_MOVED)
-		craft : WeaponCraftObject ( col == hero.getCol() && row == hero.getRow() )
+		pick : WeaponPickableObject ( col == hero.getCol() && row == hero.getRow() )
 
 	then
-	   String msg = "You find a "+craft.getWeapon().getWeaponName()+" ["+craft.getWeapon().getBaseDamage()+", "+craft.getWeapon().getModifier()+"]";
+	   String msg = "You find a "+pick.getWeapon().getWeaponName()+" ["+pick.getWeapon().getBaseDamage()+", "+pick.getWeapon().getModifier()+"]";
 	   int userChoise = Logger.getInstance().chooseToKeep(msg);
-       insert (new CraftAction(hero, userChoise));
+       insert (new PickAction(hero, userChoise));
  end 
  

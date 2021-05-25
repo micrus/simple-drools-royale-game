@@ -17,8 +17,8 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.FactHandle;
 
-import com.sample.ConsumableCraftObject;
-import com.sample.CraftAction;
+import com.sample.ConsumablePickableObject;
+import com.sample.PickAction;
 import com.sample.Gui;
 import com.sample.GuiConsole;
 import com.sample.Hero;
@@ -33,7 +33,7 @@ import com.sample.Trap;
 import com.sample.Turn;
 import com.sample.TurnState;
 import com.sample.Weapon;
-import com.sample.WeaponCraftObject;
+import com.sample.WeaponPickableObject;
 
 import utils.KnowledgeSessionHelper;
 
@@ -132,7 +132,7 @@ class TestActionsDrl {
 
 	@Test
 	@Disabled
-	void testTakeConsumableCraft() throws IOException {
+	void testTakeConsumablePick() throws IOException {
 
 		weapon = new Weapon("base sword", 10, 6);
 		baseStat = new Statistic(100, 10, 10, 10, 8, 15, 10, 7, 6);
@@ -143,8 +143,8 @@ class TestActionsDrl {
 		String name = "glasses";
 		StatAbility statToIncrease = StatAbility.VIEW;
 		int bonus = 2;
-		ConsumableCraftObject craft = new ConsumableCraftObject(name, 3, 1, statToIncrease, bonus, 1);
-		FactHandle handleCraft = session.insert(craft);
+		ConsumablePickableObject pick = new ConsumablePickableObject(name, 3, 1, statToIncrease, bonus, 1);
+		FactHandle handlePick = session.insert(pick);
 
 		Statistic newActualStat = new Statistic(100, 10, 10, 10, 8, 15, 6, 7, 6);
 		hero.setActualStat(newActualStat);
@@ -160,11 +160,11 @@ class TestActionsDrl {
 		Moves crafting = gui.getAction();
 		assertEquals(crafting, Moves.CRAFT);
 
-		session.insert(new CraftAction(hero, 1));
+		session.insert(new PickAction(hero, 1));
 		// session.insert(new Turn(TurnState.INIT));
 
 		session.fireAllRules();
-		session.update(handleCraft, craft);
+		session.update(handlePick, pick);
 		session.update(handleHero, hero);
 
 		assertEquals(8, hero.getStat(statToIncrease));
@@ -172,7 +172,7 @@ class TestActionsDrl {
 	}
 
 	@Test
-	void testTakeWeaponCraft() throws IOException {
+	void testTakeWeaponPick() throws IOException {
 
 		weapon = new Weapon("base sword", 10, 6);
 		baseStat = new Statistic(100, 10, 10, 10, 8, 15, 10, 7, 6);
@@ -181,19 +181,19 @@ class TestActionsDrl {
 		FactHandle handleHero = session.insert(hero);
 
 		Weapon knife = new Weapon("knife", 7, 5);
-		WeaponCraftObject craft = new WeaponCraftObject(knife, 3, 2, 2);
-		FactHandle handleCraft = session.insert(craft);
+		WeaponPickableObject pick = new WeaponPickableObject(knife, 3, 2, 2);
+		FactHandle handlePick = session.insert(pick);
 
 		this.input = new ByteArrayInputStream("cr".getBytes());
 		System.setIn(input);
 		Moves crafting = gui.getAction();
 		assertEquals(crafting, Moves.CRAFT);
 
-		session.insert(new CraftAction(hero, 1));
+		session.insert(new PickAction(hero, 1));
 		// session.insert(new Turn(TurnState.INIT));
 
 		session.fireAllRules();
-		session.update(handleCraft, craft);
+		session.update(handlePick, pick);
 		session.update(handleHero, hero);
 
 		hero.getWeapon().equals(knife);

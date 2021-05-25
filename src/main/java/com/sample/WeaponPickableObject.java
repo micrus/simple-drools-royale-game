@@ -1,10 +1,10 @@
 package com.sample;
 
-public class WeaponCraftObject extends CraftObject{
+public class WeaponPickableObject extends PickableObject{
 
 	Weapon weapon;
 	
-	public WeaponCraftObject(Weapon weapon, int col, int row, int availability) {
+	public WeaponPickableObject(Weapon weapon, int col, int row, int availability) {
 		super(col, row, availability);
 		this.weapon = weapon;
 	}

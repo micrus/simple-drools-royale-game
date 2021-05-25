@@ -1,7 +1,7 @@
 package com.sample;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Trap extends CraftObject{
+public class Trap extends PickableObject{
 	private Character positioner;
 	private int malus;
 	

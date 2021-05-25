@@ -5,28 +5,28 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class TestWeaponCraft {
+class TestWeaponPick {
 	
 	Weapon knife;
-	WeaponCraftObject craft;
+	WeaponPickableObject pick;
 
 	@BeforeEach
 	void setUp() {
 		knife = new Weapon("knife", 7, 5);
-		craft = new WeaponCraftObject(knife,1,2,2);
+		pick = new WeaponPickableObject(knife,1,2,2);
 	}
 	
 	@Test
-	void testWeaponCraftObjectConstructor() {
+	void testWeaponPickableObjectConstructor() {
 		
-		assertEquals(1, craft.getCol());
-		assertEquals(2, craft.getRow());
-		assertEquals(2, craft.getAvailability());
-		assertEquals(false, craft.isFixed());
+		assertEquals(1, pick.getCol());
+		assertEquals(2, pick.getRow());
+		assertEquals(2, pick.getAvailability());
+		assertEquals(false, pick.isFixed());
 
-		assertEquals("°", craft.getSimbol());
-		assertEquals(1, craft.getRemovable());
-		assertEquals(1, craft.getSteppable());		
+		assertEquals("°", pick.getSimbol());
+		assertEquals(1, pick.getRemovable());
+		assertEquals(1, pick.getSteppable());		
 	}
 
 }

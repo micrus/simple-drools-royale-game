@@ -44,14 +44,14 @@ rule "REMOVE DIED PG"
  		character: Character ( actualStat.getStat(StatAbility.LIFE)<=0 )
  	then 
  		insert (new PlayerSoul(character.getCol(),character.getRow(),1, -character.getStat(StatAbility.LIFE)));
- 		insert (new WeaponCraftObject(character.getWeapon(), character.getCol(),character.getRow(),1));
+ 		insert (new WeaponPickableObject(character.getWeapon(), character.getCol(),character.getRow(),1));
  		retract (character);
  end
  
   rule "REMOVE CRAFT OF THE BORDER" salience 300000
     when
     	setting : Settings( time!=0 && (time % 10) == 0 && gameOver == false) 
-		co : CraftObject ( ((col in (setting.getLimitColLeft() , setting.getLimitColRight())) || (row in (setting.getLimitRowUp() , setting.getLimitRowDown())))&& removable == 1 )  
+		co : PickableObject ( ((col in (setting.getLimitColLeft() , setting.getLimitColRight())) || (row in (setting.getLimitRowUp() , setting.getLimitRowDown())))&& removable == 1 )  
     then
 		retract (co);
  end

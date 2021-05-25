@@ -1,12 +1,12 @@
 package com.sample;
 
-public class ConsumableCraftObject extends CraftObject{
+public class ConsumablePickableObject extends PickableObject{
 	
 	String name;
 	StatAbility statToIncrease;
 	int bonus;
 	
-	public ConsumableCraftObject(String name, int col, int row, StatAbility stat, int bonus, int availability) {
+	public ConsumablePickableObject(String name, int col, int row, StatAbility stat, int bonus, int availability) {
 		super(col, row, availability);
 		this.statToIncrease = stat;
 		this.bonus = bonus;
@@ -43,7 +43,7 @@ public class ConsumableCraftObject extends CraftObject{
 
 	@Override
 	public String toString() {
-		return "ConsumableCraftObject [name=" + name + ", statToIncrease=" + statToIncrease + ", bonus=" + bonus + "]";
+		return "ConsumablePickableObject [name=" + name + ", statToIncrease=" + statToIncrease + ", bonus=" + bonus + "]";
 	}
 
 

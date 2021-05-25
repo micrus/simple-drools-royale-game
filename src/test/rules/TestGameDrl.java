@@ -14,7 +14,7 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.FactHandle;
 
-import com.sample.ConsumableCraftObject;
+import com.sample.ConsumablePickableObject;
 import com.sample.Gui;
 import com.sample.GuiConsole;
 import com.sample.Hero;

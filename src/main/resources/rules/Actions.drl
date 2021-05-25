@@ -135,7 +135,7 @@ rule "MOVE UP-RIGHT"
     	Settings( gameOver == false )
 		action : PlayerAction( action == Moves.PUT_TRAP, whoMoves : whoMoves ) 
 		character : Character (this == whoMoves && status== Status.NOT_MOVED )
-		not CraftObject (col == character.getCol() && row == character.getRow())
+		not PickableObject (col == character.getCol() && row == character.getRow())
 		
     then
        Logger.getInstance().println(character.getSimbol()+" is putting trap...");
@@ -163,18 +163,18 @@ rule "MOVE UP-RIGHT"
  salience action.getPriority()
     when
     	Settings( gameOver == false )
-		action : CraftAction( keep == 1, whoMoves : whoMoves ) 
+		action : PickAction( keep == 1, whoMoves : whoMoves ) 
 		character : Character (this == whoMoves && status== Status.NOT_MOVED )
-		craft: ConsumableCraftObject (col == character.getCol() && row == character.getRow())
+		pick: ConsumablePickableObject (col == character.getCol() && row == character.getRow())
 		
     then
-       int powerUp = craft.getBonus()+ character.getStat(StatAbility.LUCK);
-       Logger.getInstance().println(character.getSimbol()+" is crafting... "+craft.getStatToIncrease()+" increment of "+ powerUp);
-       character.increment(craft.getStatToIncrease(), powerUp);
-       craft.setAvailability(craft.getAvailability() - 1); 
+       int powerUp = pick.getBonus()+ character.getStat(StatAbility.LUCK);
+       Logger.getInstance().println(character.getSimbol()+" is crafting... "+pick.getStatToIncrease()+" increment of "+ powerUp);
+       character.increment(pick.getStatToIncrease(), powerUp);
+       pick.setAvailability(pick.getAvailability() - 1); 
               
        character.setStatus(Status.MOVED);
-       update ( craft );        
+       update ( pick );        
        update ( character );
 
  end
@@ -200,18 +200,18 @@ rule "MOVE UP-RIGHT"
  salience action.getPriority()
     when
     	Settings( gameOver == false )
-		action : CraftAction( keep == 1, whoMoves : whoMoves ) 
+		action : PickAction( keep == 1, whoMoves : whoMoves ) 
 		character : Character (this == whoMoves && status== Status.NOT_MOVED )
-		craft: WeaponCraftObject (col == character.getCol() && row == character.getRow())
+		pick: WeaponPickableObject (col == character.getCol() && row == character.getRow())
 		
     then
-       Logger.getInstance().println(character.getSimbol()+" is crafting... "+" he have found a "+craft.getWeapon().getWeaponName()+" and decided to keep it!");
+       Logger.getInstance().println(character.getSimbol()+" is crafting... "+" he have found a "+pick.getWeapon().getWeaponName()+" and decided to keep it!");
        
-       character.setWeapon(craft.getWeapon());
-       craft.setAvailability(craft.getAvailability() - 1);        
+       character.setWeapon(pick.getWeapon());
+       pick.setAvailability(pick.getAvailability() - 1);        
        character.setStatus(Status.MOVED);
        
-       update ( craft );        
+       update ( pick );        
        update ( character );
 
  end
@@ -221,12 +221,12 @@ rule "MOVE UP-RIGHT"
  salience action.getPriority()
     when
     	Settings( gameOver == false )
-		action : CraftAction( keep == 0, whoMoves : whoMoves ) 
+		action : PickAction( keep == 0, whoMoves : whoMoves ) 
 		character : Character (this == whoMoves && status== Status.NOT_MOVED )
-		craft: CraftObject (col == character.getCol() && row == character.getRow())
+		pick: PickableObject (col == character.getCol() && row == character.getRow())
 		
     then
-	   Logger.getInstance().println(character.getSimbol() + " is crafting... but nah, he do not keep the craft");              
+	   Logger.getInstance().println(character.getSimbol() + " is crafting... but nah, he do not keep the pick");              
        character.setStatus(Status.MOVED);
        update ( character );
 
@@ -235,9 +235,9 @@ rule "MOVE UP-RIGHT"
  rule "REMOVE CRAFT"
 salience 100000
     when	
-		craft: CraftObject ( availability <= 0 )	
+		pick: PickableObject ( availability <= 0 )	
     then  	
-    	retract( craft );
+    	retract( pick );
  	end
  
  //====================COMBACT RULES=============================

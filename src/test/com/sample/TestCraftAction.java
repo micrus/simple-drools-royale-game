@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 
-class TestCraftAction {
+class TestPickAction {
 
 	private Hero hero;
 	private Weapon sword;
@@ -13,7 +13,7 @@ class TestCraftAction {
 	private Statistic heroActualStat;
 
 	private int heroKeep;
-	private CraftAction heroCraftAction;
+	private PickAction heroPickAction;
 
 	private NPC npc;
 	private Weapon gun;
@@ -21,7 +21,7 @@ class TestCraftAction {
 
 	private int npcKeep;
 	private int npcPriority;
-	private CraftAction npcCraftAction;
+	private PickAction npcPickAction;
 
 	@BeforeEach
 	void setUp() {
@@ -31,33 +31,33 @@ class TestCraftAction {
 		this.heroActualStat = new Statistic(this.heroBaseStat);
 		this.hero = new Hero(4, 4, this.sword, this.heroActualStat);
 		this.heroKeep = 1;
-		this.heroCraftAction = new CraftAction(this.hero, this.heroKeep);
+		this.heroPickAction = new PickAction(this.hero, this.heroKeep);
 
 		this.gun = new Weapon("gun", 12, 7);
 		this.npcBaseStat = new Statistic(150, 20, 10, 9, 7, 8, 6, 8, 7);
 		this.npc = new NPC("npc", 2, 5, gun, this.npcBaseStat);
 		this.npcPriority = 3;
-		this.npcCraftAction = new CraftAction(this.npc, this.npcKeep, this.npcPriority);
+		this.npcPickAction = new PickAction(this.npc, this.npcKeep, this.npcPriority);
 	}
 
 	@RepeatedTest(value = 20)
-	void testCraftActionConstructor() {
+	void testPickActionConstructor() {
 		// Test primo costruttore
-		this.heroCraftAction.getAction().equals(Moves.CRAFT);
-		this.heroCraftAction.getWhoMoves().equals(this.hero);
-		assertTrue(this.heroCraftAction
-				.getPriority() >= this.heroCraftAction.getWhoMoves().getStat(StatAbility.SPEED) * 100 + 0
-				&& this.heroCraftAction
-						.getPriority() <= this.heroCraftAction.getWhoMoves().getStat(StatAbility.SPEED) * 100 + 10);
+		this.heroPickAction.getAction().equals(Moves.CRAFT);
+		this.heroPickAction.getWhoMoves().equals(this.hero);
+		assertTrue(this.heroPickAction
+				.getPriority() >= this.heroPickAction.getWhoMoves().getStat(StatAbility.SPEED) * 100 + 0
+				&& this.heroPickAction
+						.getPriority() <= this.heroPickAction.getWhoMoves().getStat(StatAbility.SPEED) * 100 + 10);
 
 		// Test secondo costruttore
-		this.npcCraftAction.getAction().equals(Moves.CRAFT);
-		this.npcCraftAction.getWhoMoves().equals(this.npc);
-		assertTrue(this.npcCraftAction
-				.getPriority() >= (this.npcCraftAction.getWhoMoves().getStat(StatAbility.SPEED) * 100 + 0)
+		this.npcPickAction.getAction().equals(Moves.CRAFT);
+		this.npcPickAction.getWhoMoves().equals(this.npc);
+		assertTrue(this.npcPickAction
+				.getPriority() >= (this.npcPickAction.getWhoMoves().getStat(StatAbility.SPEED) * 100 + 0)
 						+ this.npcPriority
-				&& this.npcCraftAction
-						.getPriority() <= (this.npcCraftAction.getWhoMoves().getStat(StatAbility.SPEED) * 100 + 10)
+				&& this.npcPickAction
+						.getPriority() <= (this.npcPickAction.getWhoMoves().getStat(StatAbility.SPEED) * 100 + 10)
 								+ this.npcPriority);
 	}
 

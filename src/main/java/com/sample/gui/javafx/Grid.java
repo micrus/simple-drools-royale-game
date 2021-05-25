@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import com.sample.CraftObject;
+import com.sample.PickableObject;
 import com.sample.Hero;
 import com.sample.LocatedOnMap;
 import com.sample.NPC;
@@ -87,7 +87,7 @@ public class Grid extends Pane implements Observer {
     	});
     	setEntityLocation(entityPointer, entity.getCol(), entity.getRow());
     	this.getChildren().add(entityPointer);
-    	if (entity instanceof CraftObject) {
+    	if (entity instanceof PickableObject) {
     		entityPointer.toBack();
     	}
     	entity.setOnMap(true);

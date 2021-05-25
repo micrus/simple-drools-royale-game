@@ -1,15 +1,15 @@
 package com.sample;
 
-public class CraftAction extends PlayerAction{
+public class PickAction extends PlayerAction{
 	
 	private int keep;
 	
-	public CraftAction(Character whoMoves, int keep) {
+	public PickAction(Character whoMoves, int keep) {
 		super(Moves.CRAFT, whoMoves);
 		this.keep = keep;
 	}
 
-	public CraftAction(Character whoMoves, int keep, int priority){
+	public PickAction(Character whoMoves, int keep, int priority){
 		super(Moves.CRAFT, whoMoves, priority);
 		this.keep = keep;
 

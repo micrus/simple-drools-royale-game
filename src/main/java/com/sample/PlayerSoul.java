@@ -1,6 +1,6 @@
 package com.sample;
 
-public class PlayerSoul extends CraftObject{
+public class PlayerSoul extends PickableObject{
 
 	int lifeBonus;
 	

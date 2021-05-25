@@ -14,7 +14,7 @@ import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.FactHandle;
 
-import com.sample.ConsumableCraftObject;
+import com.sample.ConsumablePickableObject;
 import com.sample.Gui;
 import com.sample.GuiConsole;
 import com.sample.Hero;
@@ -54,7 +54,7 @@ class TestIntentionsDrl {
 	 * 
 	 * - Movimenti obbligatori (hero all'interno di raggio di visione, movimento verso hero)
 	 * - Hero + soul -> soul non hero
-	 * - Hero + craft -> attaccare hero piuttosto che craft
+	 * - Hero + pick -> attaccare hero piuttosto che pick
 	 * - Testare combattimento in cui riesce
 	 * - Testare combattimento in cui NON riesce
 	 * - Altri casi limiti? Muro di fronte, eccc... 
@@ -165,7 +165,7 @@ class TestIntentionsDrl {
 	
 	@Test
 	@Disabled
-	void testNPCCraftsObject() {
+	void testNPCPicksObject() {
 		
 		heroWeapon = new Weapon("base sword", 10, 6);
 		heroBaseStat = new Statistic(100, 10, 10, 10, 8, 15, 10, 7, 6);
@@ -176,8 +176,8 @@ class TestIntentionsDrl {
 		String name = "glasses";
 		StatAbility statToIncrease = StatAbility.VIEW;
 		int bonus = 2;
-		ConsumableCraftObject craft =new ConsumableCraftObject(name, 1,2,statToIncrease,bonus,1);
-		session.insert(craft);
+		ConsumablePickableObject pick =new ConsumablePickableObject(name, 1,2,statToIncrease,bonus,1);
+		session.insert(pick);
 		
 		npcWeapon = new Weapon("gun", 12, 7);
 		npcBaseStat = new Statistic(150, 20, 10, 9, 7, 8, 6, 8, 7);

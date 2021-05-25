@@ -29,19 +29,19 @@ public class DroolsTest {
         	
         	int dimension = 12;
         	int npcNumber = 3;
-        	int weaponCraftNumber = 4;
-        	int consumableCraftNumber = 2;
+        	int weaponPickNumber = 4;
+        	int consumablePickNumber = 2;
         	
         	Settings setting = new Settings(0, dimension);
-        	Initializer init = new Initializer(dimension, npcNumber, weaponCraftNumber, consumableCraftNumber);
+        	Initializer init = new Initializer(dimension, npcNumber, weaponPickNumber, consumablePickNumber);
 
         	Position heroPos = init.getPosition();
         	Hero hero = new Hero(heroPos.getCol(), heroPos.getRow(), init.getWeapon(), new Statistic(150));
         	
         	
         	init.getNpcs().forEach(npc -> { kSession.insert(npc); System.out.println(npc.toString());});
-        	init.getConsumableCrafts().forEach(cc -> kSession.insert(cc));
-        	init.getWeaponCrafts().forEach(wc -> kSession.insert(wc));
+        	init.getConsumablePicks().forEach(cc -> kSession.insert(cc));
+        	init.getWeaponPicks().forEach(wc -> kSession.insert(wc));
             kSession.insert(setting);
             kSession.insert(hero);
             

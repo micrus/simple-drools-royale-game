@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Random;
 
 import com.sample.Character;
-import com.sample.CraftObject;
+import com.sample.PickableObject;
 import com.sample.Hero;
 
 import javafx.application.Platform;
@@ -56,8 +56,8 @@ public class GameView {
     	} else if (entity instanceof NPC) {
     		int rand = new Random().nextInt(10);
     		imgPath = imgPath.concat("npc"+rand+"/");
-    	} else if (entity instanceof CraftObject) {
-    		imgPath = imgPath.concat("craft/");
+    	} else if (entity instanceof PickableObject) {
+    		imgPath = imgPath.concat("pick/");
     	} else if (entity instanceof Wall) {
     		imgPath = imgPath.concat("wall/");
     	} else {

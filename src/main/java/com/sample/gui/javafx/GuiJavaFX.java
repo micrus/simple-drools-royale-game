@@ -3,7 +3,7 @@ package com.sample.gui.javafx;
 import java.io.IOException;
 import java.util.Collection;
 
-import com.sample.CraftObject;
+import com.sample.PickableObject;
 import com.sample.Gui;
 import com.sample.GuiConsole;
 import com.sample.Hero;

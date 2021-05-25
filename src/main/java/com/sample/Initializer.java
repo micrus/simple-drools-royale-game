@@ -7,8 +7,8 @@ import java.util.Random;
 public class Initializer {
 	private LinkedList<NPC> npcs = new LinkedList<NPC>();
 	private LinkedList<Weapon> weapons = new LinkedList<Weapon>();
-	private LinkedList<ConsumableCraftObject> consumableCrafts = new LinkedList<ConsumableCraftObject>();
-	private LinkedList<WeaponCraftObject> weaponCrafts = new LinkedList<WeaponCraftObject>();
+	private LinkedList<ConsumablePickableObject> consumablePicks = new LinkedList<ConsumablePickableObject>();
+	private LinkedList<WeaponPickableObject> weaponPicks = new LinkedList<WeaponPickableObject>();
 	private LinkedList<Position> availablePosition = new LinkedList<Position>();
 
 	public Initializer(int dimension, int npcNumber, int wcNumber, int ccNumber) {
@@ -16,8 +16,8 @@ public class Initializer {
 		fillAvailablePositions(dimension);
 
 		initNpcs(npcNumber);
-		initWeaponCrafts(wcNumber);
-		initConsumableCrafts(ccNumber);
+		initWeaponPicks(wcNumber);
+		initConsumablePicks(ccNumber);
 
 	}
 
@@ -33,32 +33,32 @@ public class Initializer {
 		return weapons.removeFirst();
 	}
 
-	public LinkedList<ConsumableCraftObject> getConsumableCrafts() {
-		return consumableCrafts;
+	public LinkedList<ConsumablePickableObject> getConsumablePicks() {
+		return consumablePicks;
 	}
 
-	public LinkedList<WeaponCraftObject> getWeaponCrafts() {
-		return weaponCrafts;
+	public LinkedList<WeaponPickableObject> getWeaponPicks() {
+		return weaponPicks;
 	}
 
 	public Position getPosition() {
 		return availablePosition.removeFirst();
 	}
 
-	private void initConsumableCrafts(int ccNumber) {
+	private void initConsumablePicks(int ccNumber) {
 		for (int i = 0; i < ccNumber; i++) {
 			Random gen = new Random();
 			Position pos = this.availablePosition.removeFirst();
-			this.consumableCrafts.add(new ConsumableCraftObject("Great Elixyr", pos.getCol(), pos.getRow(),
+			this.consumablePicks.add(new ConsumablePickableObject("Great Elixyr", pos.getCol(), pos.getRow(),
 					StatAbility.LIFE, gen.nextInt(30), 1));
 		}
 	}
 
-	private void initWeaponCrafts(int wcNumber) {
+	private void initWeaponPicks(int wcNumber) {
 		for (int i = 0; i < wcNumber; i++) {
 			Weapon weapon = this.weapons.removeFirst();
 			Position pos = this.availablePosition.removeFirst();
-			this.weaponCrafts.add(new WeaponCraftObject(weapon, pos.getCol(), pos.getRow(), 1));
+			this.weaponPicks.add(new WeaponPickableObject(weapon, pos.getCol(), pos.getRow(), 1));
 		}
 
 	}

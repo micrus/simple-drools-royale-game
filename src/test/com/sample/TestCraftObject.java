@@ -5,38 +5,38 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class TestCraftObject {
+class TestPickableObject {
 
-	private CraftObject craft;
+	private PickableObject pick;
 
 	@BeforeEach
 	void setUp() {
 
-		craft = new CraftObject(3, 2, 2);
+		pick = new PickableObject(3, 2, 2);
 
 	}
 
 	@Test
-	void testCraftObjectConstructor() {
+	void testPickableObjectConstructor() {
 
-		assertEquals(3, craft.getCol());
-		assertEquals(2, craft.getRow());
-		assertEquals(2, craft.getAvailability());
-		assertEquals(false, craft.isFixed());
+		assertEquals(3, pick.getCol());
+		assertEquals(2, pick.getRow());
+		assertEquals(2, pick.getAvailability());
+		assertEquals(false, pick.isFixed());
 
-		assertEquals("°", craft.getSimbol());
-		assertEquals(1, craft.getRemovable());
-		assertEquals(1, craft.getSteppable());
+		assertEquals("°", pick.getSimbol());
+		assertEquals(1, pick.getRemovable());
+		assertEquals(1, pick.getSteppable());
 
 	}
 
 	@Test
-	void testCraftObjectToString() {
+	void testPickableObjectToString() {
 
-		String craftObjectExpectedString = "CraftObject [availability=2, "
+		String PickableObjectExpectedString = "PickableObject [availability=2, "
 				+ "simbol=°, col=3, row=2, removable=1, steppable=1]";
 
-		assertEquals(craftObjectExpectedString, craft.toString());
+		assertEquals(PickableObjectExpectedString, pick.toString());
 
 	}
 
