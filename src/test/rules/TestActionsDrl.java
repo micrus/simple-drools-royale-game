@@ -43,7 +43,7 @@ class TestActionsDrl {
 	KieSession session = null;
 	ByteArrayInputStream input;
 
-	Weapon sword;
+	Weapon weapon;
 	Statistic baseStat;
 	Statistic actualStat;
 	Hero hero;
@@ -76,10 +76,10 @@ class TestActionsDrl {
 	@Test
 	void testMovement() throws IOException {
 
-		sword = new Weapon("base sword", 10, 6);
+		weapon = new Weapon("base sword", 10, 6);
 		baseStat = new Statistic(100, 10, 10, 10, 8, 15, 5, 7, 6);
 		actualStat = new Statistic(baseStat);
-		hero = new Hero(2, 2, sword, actualStat);
+		hero = new Hero(2, 2, weapon, actualStat);
 
 		FactHandle handleHero = session.insert(hero);
 
@@ -104,10 +104,10 @@ class TestActionsDrl {
 	@Test
 	void testPutTrap() throws IOException {
 
-		sword = new Weapon("base sword", 10, 6);
+		weapon = new Weapon("base sword", 10, 6);
 		baseStat = new Statistic(100, 10, 10, 10, 8, 15, 5, 7, 6);
 		actualStat = new Statistic(baseStat);
-		hero = new Hero(2, 2, sword, actualStat);
+		hero = new Hero(2, 2, weapon, actualStat);
 
 		Trap trap = new Trap(4, 1, hero);
 
@@ -134,10 +134,10 @@ class TestActionsDrl {
 	@Disabled
 	void testTakeConsumableCraft() throws IOException {
 
-		sword = new Weapon("base sword", 10, 6);
+		weapon = new Weapon("base sword", 10, 6);
 		baseStat = new Statistic(100, 10, 10, 10, 8, 15, 10, 7, 6);
 		actualStat = new Statistic(baseStat);
-		hero = new Hero(3, 1, sword, actualStat);
+		hero = new Hero(3, 1, weapon, actualStat);
 		FactHandle handleHero = session.insert(hero);
 
 		String name = "glasses";
@@ -174,10 +174,10 @@ class TestActionsDrl {
 	@Test
 	void testTakeWeaponCraft() throws IOException {
 
-		sword = new Weapon("base sword", 10, 6);
+		weapon = new Weapon("base sword", 10, 6);
 		baseStat = new Statistic(100, 10, 10, 10, 8, 15, 10, 7, 6);
 		actualStat = new Statistic(baseStat);
-		hero = new Hero(3, 2, sword, actualStat);
+		hero = new Hero(3, 2, weapon, actualStat);
 		FactHandle handleHero = session.insert(hero);
 
 		Weapon knife = new Weapon("knife", 7, 5);

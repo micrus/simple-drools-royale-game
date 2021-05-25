@@ -20,16 +20,8 @@ class TestKnowledgeSessionHelper {
 	}
 	
 	@Test
-	@Disabled
-	// TODO: Creare una session stateless di prova?
-	void testCreationOfAStatelessSession() {
-		sessionStateless = KnowledgeSessionHelper.getStatelessKnowledgeSession(kContainer, "ksession-rules");		
-	}
-	
-	@Test
 	void testCreationOfAStatefulSession() {
 		sessionStateful = KnowledgeSessionHelper.getStatefulKnowledgeSession(kContainer, "ksession-rules");		
-	}
-	 
+	}	 
 
 }
