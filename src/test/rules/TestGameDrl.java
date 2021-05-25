@@ -102,13 +102,15 @@ class TestGameDrl {
 		hero = new Hero(3, 2, heroWeapon, actualStat);
 		FactHandle handleHero = session.insert(hero);
 		
-		hero.setActualStat(new Statistic(0, 10, 10, 10, 8, 15, 10, 7, 6));
-		session.update(handleHero, hero);
+		//hero.setActualStat(new Statistic(0, 10, 10, 10, 8, 15, 10, 7, 6));
+		hero.die();
+		session.update(handleHero, hero);		
 		assertEquals(0, hero.getStat(StatAbility.LIFE));
 		settings = (Settings) session.getObjects(new ClassObjectFilter(Settings.class)).iterator().next();
 		elementsOnMap = (Collection<LocatedOnMap>) session.getObjects(new ClassObjectFilter(LocatedOnMap.class));
-		gui.showMap(elementsOnMap, settings);	
+		gui.showMap(elementsOnMap, settings);
 		session.fireAllRules();
+		
 	}
 	
 	@Test

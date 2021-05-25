@@ -25,26 +25,4 @@ public class KnowledgeSessionHelper {
 		return statefulSession;
 	}
 
-//	public static KieSession testSpecificDrl(Object context, KieContainer kieContainer, String ruleName) {
-//		
-//		URL resource = context.getClass().getResource(ruleName);
-//		if (resource == null) {
-//			throw new IllegalArgumentException("ruleName '" + ruleName + "' does not resolve to a resource");
-//		}
-//
-//		File ruleFile = new File(resource.getPath());
-//        KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
-//		kieFileSystem.write(ResourceFactory.newFileResource(ruleFile).setResourceType(ResourceType.DRL));
-//		
-//		KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem);
-//		kieBuilder.buildAll();
-//		
-//		if (kieBuilder.getResults().hasMessages(Message.Level.ERROR)) {
-//			throw new RuntimeException("Build Errors:\n" + kieBuilder.getResults().toString());
-//		}
-//		
-//		KieSession statefulSession = kieContainer.newKieSession();
-//		return statefulSession;
-//	}	
-
 }

@@ -6,8 +6,8 @@ public class ConsumableCraftObject extends CraftObject{
 	StatAbility statToIncrease;
 	int bonus;
 	
-	public ConsumableCraftObject(String name, int col, int row, StatAbility stat, int bonus, int avaiability) {
-		super(col, row, avaiability);
+	public ConsumableCraftObject(String name, int col, int row, StatAbility stat, int bonus, int availability) {
+		super(col, row, availability);
 		this.statToIncrease = stat;
 		this.bonus = bonus;
 		this.name = name;

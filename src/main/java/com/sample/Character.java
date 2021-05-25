@@ -38,7 +38,7 @@ public abstract class Character extends LocatedOnMap {
 	}
 	
 	public void levelUp() {
-
+		
 		Stream.of(StatAbility.values()).forEach(ability -> {
 			int bonus = (int)(Math.random()*2);
 			this.baseStat.setStat(ability, this.baseStat.getStat(ability)+bonus);

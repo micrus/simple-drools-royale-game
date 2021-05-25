@@ -179,16 +179,16 @@ rule "MOVE UP-RIGHT"
 
  end
  
-  rule "STEP ON A SOUL"
+ rule "STEP ON A SOUL"
  salience 200000
  	when
  		Settings( gameOver == false )
- 		soul: PlayerSoul( avaiability > 0 ,row_s: row, col_s: col)
+ 		soul: PlayerSoul( availability > 0 ,row_s: row, col_s: col)
  		character : Character (col == col_s && row == row_s)
  	then
  		character.increment(StatAbility.LIFE, soul.getLifeBonus());
  		character.levelUp();
- 		soul.setAvaiability(soul.getAvaiability() - 1 );
+ 		soul.setAvailability(soul.getAvailability() - 1 );
  		Logger.getInstance().println(character.getSimbol()+" catch the soul of a tired warrior! Level up!");
  		update (soul);
  		update (character);
