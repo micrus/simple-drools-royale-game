@@ -22,6 +22,10 @@ public class Logger {
 		Logger.gui = gui;
 	}
 	
+	public int chooseToKeep() {
+ 		return gui.chooseToKeep();
+ 	}
+	
 	public static Logger getInstance() {
 		if (instance == null) {
 			instance = new Logger();
