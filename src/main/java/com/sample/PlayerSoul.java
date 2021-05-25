@@ -5,8 +5,8 @@ public class PlayerSoul extends CraftObject{
 	int lifeBonus;
 	
 	
-	public PlayerSoul(int col, int row, int avaiability, int lifeBonus) {
-		super(col, row, avaiability);
+	public PlayerSoul(int col, int row, int availability, int lifeBonus) {
+		super(col, row, availability);
 		this.lifeBonus = lifeBonus;	
 	}
 

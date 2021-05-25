@@ -3,12 +3,13 @@ package com.sample;
 import java.util.Collection;
 
 import org.drools.core.ClassObjectFilter;
-import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
+import utils.KnowledgeSessionHelper;
 import com.sample.Initializer.Position;
 import com.sample.gui.javafx.GuiJavaFX;
+
 
 /**
  * This is a sample class to launch a rule.
@@ -17,20 +18,18 @@ public class DroolsTest {
 
     public static final void main(String[] args) {
         try {
-            // load up the knowledge base
-	        KieServices ks = KieServices.Factory.get();
-    	    KieContainer kContainer = ks.getKieClasspathContainer();
-        	KieSession kSession = kContainer.newKieSession("ksession-rules");
-
-
+        	
+            KieContainer kContainer = KnowledgeSessionHelper.createRuleBase();
+        	KieSession kSession = KnowledgeSessionHelper.getStatefulKnowledgeSession(kContainer, "ksession-rules"); 
 
         	//=====================SETUP ==============================
+        	
         	Gui gui = new GuiJavaFX();
         	Logger.getInstance().setGui(gui);
         	
-        	int dimension = 7;
+        	int dimension = 12;
         	int npcNumber = 3;
-        	int weaponCraftNumber = 2;
+        	int weaponCraftNumber = 4;
         	int consumableCraftNumber = 2;
         	
         	Settings setting = new Settings(0, dimension);
@@ -40,19 +39,25 @@ public class DroolsTest {
         	Hero hero = new Hero(heroPos.getCol(), heroPos.getRow(), init.getWeapon(), new Statistic(150));
         	
         	
-        	init.getNpcs().forEach(npc -> kSession.insert(npc));
+        	init.getNpcs().forEach(npc -> { kSession.insert(npc); System.out.println(npc.toString());});
         	init.getConsumableCrafts().forEach(cc -> kSession.insert(cc));
         	init.getWeaponCrafts().forEach(wc -> kSession.insert(wc));
             kSession.insert(setting);
             kSession.insert(hero);
             
             System.out.println(hero.toString());
+            
             //=====================ACT=================================
             boolean run = true;
             while (run ) {
-            	Settings settings =  (Settings) kSession.getObjects(new ClassObjectFilter(Settings.class)).iterator().next();
-                Collection<LocatedOnMap> mapBeing = (Collection<LocatedOnMap>) kSession.getObjects(new ClassObjectFilter(LocatedOnMap.class));
-                gui.showMap(mapBeing, settings);
+            	
+            	@SuppressWarnings("restriction")
+				Settings settings =  (Settings) kSession.getObjects(new ClassObjectFilter(Settings.class)).iterator().next();
+                
+            	@SuppressWarnings({ "unchecked", "restriction" })
+				Collection<LocatedOnMap> mapBeing = (Collection<LocatedOnMap>) kSession.getObjects(new ClassObjectFilter(LocatedOnMap.class));
+                
+            	gui.showMap(mapBeing, settings);
                 
             	Moves action= gui.getAction();
             	if(action != Moves.BAD_MOVE) {
@@ -66,9 +71,13 @@ public class DroolsTest {
             }    
             
             //The game is finished
-        	Settings settings =  (Settings) kSession.getObjects(new ClassObjectFilter(Settings.class)).iterator().next();
-            Collection<LocatedOnMap> mapBeing = (Collection<LocatedOnMap>) kSession.getObjects(new ClassObjectFilter(LocatedOnMap.class));
-            gui.showMap(mapBeing, settings);
+        	@SuppressWarnings("restriction")
+			Settings settings =  (Settings) kSession.getObjects(new ClassObjectFilter(Settings.class)).iterator().next();
+           
+        	@SuppressWarnings({ "unchecked", "restriction" })
+			Collection<LocatedOnMap> mapBeing = (Collection<LocatedOnMap>) kSession.getObjects(new ClassObjectFilter(LocatedOnMap.class));
+            
+        	gui.showMap(mapBeing, settings);
 
             
         } catch (Throwable t) {

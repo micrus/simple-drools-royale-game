@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class Statistic{
+public class Statistic {
 	private Map<StatAbility, Integer> stat;
-	
+
 	public Statistic(int life, int atk, int dex, int def, int elu, int speed, int view, int shrewdness, int luck) {
 		super();
 		this.stat = new HashMap<StatAbility, Integer>();
@@ -25,34 +25,13 @@ public class Statistic{
 	/*
 	 * Randomly generate statistic 
 	 * */
-	/*public Statistic(int overallValue) {
-		Random gen = new Random();
-		double atk = gen.nextInt(50)+20;
-		double def = gen.nextInt(50)+20;
-		double dex = gen.nextInt(50)+20;
-		double elu = gen.nextInt(50)+20;
-		double spd = gen.nextInt(30)+10;
-		double viw = gen.nextInt(3)+1;
-		double shr = gen.nextInt(20)+10;
-		double lck = gen.nextInt(20)+10;
-		double sum = atk+def+dex+elu+spd+viw+shr+lck;	
-		
-		this.stat = new HashMap<StatAbility, Integer>();
-		stat.put(StatAbility.LIFE, overallValue);
-		stat.put(StatAbility.ATTACK, (int)Math.ceil(atk*overallValue/sum));
-		stat.put(StatAbility.DEXTERITY,(int)Math.ceil(dex*overallValue/sum));
-		stat.put(StatAbility.DEFENCE, (int)Math.ceil(def*overallValue/sum));
-		stat.put(StatAbility.ELUSION, (int)Math.ceil(elu*overallValue/sum));
-		stat.put(StatAbility.SPEED, (int)Math.ceil(spd*overallValue/sum));
-		stat.put(StatAbility.VIEW, (int)Math.ceil(viw*overallValue/sum));
-		stat.put(StatAbility.SHREWDNESS, (int)Math.ceil(shr*overallValue/sum));
-		stat.put(StatAbility.LUCK, (int)Math.ceil(lck*overallValue/sum));
-	}*/
+	
 	
 	public Statistic(int overallValue) {
 		Random gen = new Random();
 		int viw = gen.nextInt(3)+1;
 		overallValue -= viw;
+	
 
 		Integer[] rnd = new Integer[8];
 		
@@ -82,7 +61,6 @@ public class Statistic{
 		stat.put(StatAbility.LUCK, statValue[6]);
 	}
 	
-	
 	public Statistic(Statistic stats) {
 		super();
 		this.stat = new HashMap<StatAbility, Integer>();
@@ -101,17 +79,19 @@ public class Statistic{
 	public int getStat(StatAbility ability) {
 		return this.stat.get(ability);
 	}
-	
+
 	public void setStat(StatAbility ability, int newValue) {
 		this.stat.put(ability, newValue);
 	}
 
 	@Override
 	public String toString() {
-		return "Statistic [stat=" + stat + "]";
+		return "Statistic [stat={LIFE=" + this.getStat(StatAbility.LIFE) + ", " + "ATTACK="
+				+ this.getStat(StatAbility.ATTACK) + ", " + "DEXTERITY=" + this.getStat(StatAbility.DEXTERITY) + ", "
+				+ "DEFENCE=" + this.getStat(StatAbility.DEFENCE) + ", " + "ELUSION=" + this.getStat(StatAbility.ELUSION)
+				+ ", " + "SPEED=" + this.getStat(StatAbility.SPEED) + ", " + "VIEW=" + this.getStat(StatAbility.VIEW)
+				+ ", " + "SHREWDNESS=" + this.getStat(StatAbility.SHREWDNESS) + ", " + "LUCK="
+				+ this.getStat(StatAbility.LUCK) + "}]";
 	}
-	
-	
-	
-}
 
+}

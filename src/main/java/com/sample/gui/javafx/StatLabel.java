@@ -11,6 +11,7 @@ public class StatLabel extends Label {
 
 	public StatLabel(StatAbility statAbility) {
 		super();
+		this.value = -999;
 		this.setPadding(new Insets(0, 8, 0, 0));
 		this.statAbility = statAbility;
 	}

@@ -19,12 +19,11 @@ public abstract class Character extends LocatedOnMap {
 		this.weapon = weapon;
 		this.fixed = false;
 	}
-	
 
 	public void increment(StatAbility ability, int increment) {
 
 		int newValue = actualStat.getStat(ability) + increment;
-		
+
 		if (newValue <= baseStat.getStat(ability)) {
 			actualStat.setStat(ability, newValue);
 		} else {
@@ -33,54 +32,58 @@ public abstract class Character extends LocatedOnMap {
 		this.notifyObservers(UpdateType.UPDATE);
 		this.checkDeath();
 	}
-	
+
 	public int getStat(StatAbility ability) {
 		return this.actualStat.getStat(ability);
 	}
 	
 	public void levelUp() {
-
+		
 		Stream.of(StatAbility.values()).forEach(ability -> {
 			int bonus = (int)(Math.random()*2);
 			this.baseStat.setStat(ability, this.baseStat.getStat(ability)+bonus);
 			this.increment(ability, bonus);
 		});
 	}
-	
-	
+
 	public void moveLeft() {
 		this.row--;
 		this.notifyObservers(UpdateType.MOVE);
 	}
-	
+
 	public void moveRight() {
 		this.row++;
 		this.notifyObservers(UpdateType.MOVE);
 	}
-	
+
 	public void moveUp() {
 		this.col--;
 		this.notifyObservers(UpdateType.MOVE);
 	}
+
 	public void moveDown() {
 		this.col++;
 		this.notifyObservers(UpdateType.MOVE);
 	}
+
 	public void moveDownRight() {
 		this.col++;
 		this.row++;
 		this.notifyObservers(UpdateType.MOVE);
 	}
+
 	public void moveDownLeft() {
 		this.col++;
 		this.row--;
 		this.notifyObservers(UpdateType.MOVE);
 	}
+
 	public void moveUpRight() {
 		this.col--;
 		this.row++;
 		this.notifyObservers(UpdateType.MOVE);
 	}
+
 	public void moveUpLeft() {
 		this.col--;
 		this.row--;
@@ -91,8 +94,7 @@ public abstract class Character extends LocatedOnMap {
 		this.actualStat.setStat(StatAbility.LIFE, 0);
 		this.notifyObservers(UpdateType.UPDATE);
 
-	}
-	
+	}	
 
 	public Statistic getBaseStat() {
 		return baseStat;
@@ -121,7 +123,6 @@ public abstract class Character extends LocatedOnMap {
 //		this.notifyObservers(UpdateType.UPDATE);
 	}
 
-
 	public Weapon getWeapon() {
 		return weapon;
 	}
@@ -130,23 +131,10 @@ public abstract class Character extends LocatedOnMap {
 		this.weapon = weapon;
 		this.notifyObservers(UpdateType.UPDATE);
 	}
-	
+
 	private void checkDeath() {
 		if (this.actualStat.getStat(StatAbility.LIFE) <= 0) {
 			this.notifyObservers(UpdateType.DELETED);
 		}
 	}
-	
-	
-	
-	// getDamage(){
-	// laciodado + modificatori} -> quanti danni faccio
-	
-	// takeDamage(int damage)
-	// {lacio dado elusione se lo supero danno 0 altrimenti calcolo danno effettivo}-> quanti danni prendo effettivi	
-	
-	/*
-	 * A attacca B
-	 * A tira dado per colpire -> getDamage
-	 */
 }

@@ -3,11 +3,11 @@ package com.sample;
 
 public abstract class LocatedOnMap extends Observable {
 
-	String simbol;
-	int col;
-	int row;
-	int removable;
-	int steppable;
+	protected String simbol;
+	protected int col;
+	protected int row;
+	protected int removable;
+	protected int steppable;
 	
 	boolean fixed;
 	boolean onMap = false;

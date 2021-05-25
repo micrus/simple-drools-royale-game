@@ -3,15 +3,15 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class FightAction extends PlayerAction{
 
-	Character defender;
-	int randomD20;
-	int randomWeapon;
+	private Character defender;
+	private int randomD20;
+	private int randomWeapon;
 	
 	public FightAction(Character whoMoves, Character defender, int priority) {
 		super(Moves.FIGHT, whoMoves, priority);
 		this.defender = defender;
 		this.randomD20 = ThreadLocalRandom.current().nextInt(0, 21);
-		this.randomWeapon = ThreadLocalRandom.current().nextInt(0, whoMoves.getWeapon().modifier + 1);
+		this.randomWeapon = ThreadLocalRandom.current().nextInt(0, whoMoves.getWeapon().getModifier() + 1);
 	}
 
 	public Character getDefender() {
@@ -37,24 +37,23 @@ public class FightAction extends PlayerAction{
 	public void setRandomWeapon(int randomWeapon) {
 		this.randomWeapon = randomWeapon;
 	}
-
 	
 	public int offenderTryAttackValue() {
-		return this.whoMoves.getStat(StatAbility.DEXTERITY)+this.randomD20;
+		return this.getWhoMoves().getStat(StatAbility.DEXTERITY)+this.randomD20;
 	}
 	
 	public int defenderTryEludeValue() {
-		return this.defender.getStat(StatAbility.DEFENCE) + defender.getStat(StatAbility.ELUSION);
+		return this.getDefender().getStat(StatAbility.DEFENCE) + this.getDefender().getStat(StatAbility.ELUSION);
 	}
 	
 	public int offenderDamageValue() {
-		return this.whoMoves.getStat(StatAbility.ATTACK)+whoMoves.getWeapon().getBaseDamage()+this.randomWeapon;
+		return this.getWhoMoves().getStat(StatAbility.ATTACK) + this.getWhoMoves().getWeapon().getBaseDamage()+this.randomWeapon;
 	}
 	
 	@Override
 	public String toString() {
-		return "FightAction [defender=" + defender + ", randomD20=" + randomD20 + ", randomWeapon=" + randomWeapon
-				+ ", action=" + action + ", whoMoves=" + whoMoves + ", priority=" + priority + "]";
+		return "FightAction [defender=" + this.defender + ", randomD20=" + this.randomD20 + ", randomWeapon=" + this.randomWeapon
+				+ ", action=" + this.getAction() + ", whoMoves=" + this.getWhoMoves() + ", priority=" + this.getPriority() + "]";
 	}
 	
 	

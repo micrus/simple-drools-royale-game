@@ -2,8 +2,8 @@ package com.sample;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Trap extends CraftObject{
-	Character positioner;
-	int malus;
+	private Character positioner;
+	private int malus;
 	
 	public Trap(int col, int row, Character positioner) {
 		super(col, row, 1);
