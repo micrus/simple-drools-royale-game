@@ -79,7 +79,9 @@ public class GameView {
    
 
 	public void appendMessageOnConsole(String msg) {
-		this.console.appendMessage(msg);
+		Platform.runLater(() -> {
+			this.console.appendMessage(msg);
+		});
 	}
 	
 }
