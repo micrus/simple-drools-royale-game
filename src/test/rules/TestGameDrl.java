@@ -63,28 +63,6 @@ class TestGameDrl {
 		System.out.println("---- END OF THE TEST ----");
 	}		
 	
-	//TODO: da completare!
-	@Test
-	@Disabled
-	void testRemovePortionOfTheMap() {
-		heroWeapon = new Weapon("base sword", 10, 6);
-		baseStat = new Statistic(100, 10, 10, 10, 8, 15, 10, 7, 6);
-		actualStat = new Statistic(baseStat);
-		hero = new Hero(3, 3, heroWeapon, actualStat);
-		FactHandle handleHero = session.insert(hero);
-		
-		Weapon npcWeapon = new Weapon("gun", 12, 7);
-		Statistic baseStat = new Statistic(150, 20, 10, 9, 7, 8, 6, 8, 7);
-		NPC npc = new NPC("npc", 1, 1, npcWeapon, baseStat);
-		FactHandle handleNPC = session.insert(npc);
-		
-		settings = (Settings) session.getObjects(new ClassObjectFilter(Settings.class)).iterator().next();
-		elementsOnMap = (Collection<LocatedOnMap>) session.getObjects(new ClassObjectFilter(LocatedOnMap.class));
-		gui.showMap(elementsOnMap, settings);	
-		session.fireAllRules();
-		
-	}
-	
 	@Test
 	void testRemoveDiedPG() {
 		testLoseGameBecauseYouDie();
@@ -102,7 +80,6 @@ class TestGameDrl {
 		hero = new Hero(3, 2, heroWeapon, actualStat);
 		FactHandle handleHero = session.insert(hero);
 		
-		//hero.setActualStat(new Statistic(0, 10, 10, 10, 8, 15, 10, 7, 6));
 		hero.die();
 		session.update(handleHero, hero);		
 		assertEquals(0, hero.getStat(StatAbility.LIFE));

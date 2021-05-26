@@ -49,18 +49,6 @@ class TestIntentionsDrl {
 	Settings settings;
 	Collection<LocatedOnMap> elementsOnMap;
 	
-	/*
-	 * Test rimanenti:
-	 * 
-	 * - Movimenti obbligatori (hero all'interno di raggio di visione, movimento verso hero)
-	 * - Hero + soul -> soul non hero
-	 * - Hero + pick -> attaccare hero piuttosto che pick
-	 * - Testare combattimento in cui riesce
-	 * - Testare combattimento in cui NON riesce
-	 * - Altri casi limiti? Muro di fronte, eccc... 
-	 * 
-	 */
-
 
 	@BeforeEach
 	void setUp() throws Exception {		
@@ -82,7 +70,6 @@ class TestIntentionsDrl {
 	}
 
 	@Test
-	@Disabled
 	void testNPCMovement() {
 		
 		heroWeapon = new Weapon("base sword", 10, 6);
@@ -136,9 +123,7 @@ class TestIntentionsDrl {
 		
 	}
 	
-	//Nel caso in cui l'NPC si trovi vicino all'hero, lo attacca
 	@Test
-	@Disabled
 	void testNPCFightsAgainstHero() {
 		heroWeapon = new Weapon("base sword", 10, 6);
 		heroBaseStat = new Statistic(100, 10, 10, 10, 8, 15, 10, 7, 6);
@@ -164,7 +149,6 @@ class TestIntentionsDrl {
 	}
 	
 	@Test
-	@Disabled
 	void testNPCPicksObject() {
 		
 		heroWeapon = new Weapon("base sword", 10, 6);
