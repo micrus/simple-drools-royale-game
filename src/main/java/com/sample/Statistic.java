@@ -29,7 +29,7 @@ public class Statistic {
 	
 	public Statistic(int overallValue) {
 		Random gen = new Random();
-		int viw = gen.nextInt(3)+1;
+		int viw = gen.nextInt(4)+1;
 		overallValue -= viw;
 	
 
