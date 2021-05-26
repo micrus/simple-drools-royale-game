@@ -67,7 +67,7 @@ public class Initializer {
 		for (int i = 0; i < number; i++) {
 			Weapon weapon = this.weapons.removeFirst();
 			Position pos = this.availablePosition.removeFirst();
-			this.npcs.add(new NPC("PC" + (i + 1), pos.getCol(), pos.getRow(), weapon, new Statistic(100)));
+			this.npcs.add(new NPC("NPC_" + (i + 1), pos.getCol(), pos.getRow(), weapon, new Statistic(100)));
 		}
 	}
 

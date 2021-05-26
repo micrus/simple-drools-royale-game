@@ -4,7 +4,7 @@ import com.sample.gui.javafx.*;
 
 public class AppConfiguration {
 	
-	private final boolean debug = false;
+	private final boolean debug = true;
 	
 	private static volatile AppConfiguration instance;
 	private int rows;

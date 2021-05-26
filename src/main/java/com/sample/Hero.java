@@ -3,7 +3,7 @@ package com.sample;
 public class Hero extends Character{
 
 public Hero(int col, int row, Weapon weapon, Statistic stat) {
-	super("X", col, row, weapon, stat);
+	super("Hero", col, row, weapon, stat);
 }
 
 @Override
