@@ -3,13 +3,17 @@ package com.sample.gui.javafx;
 import com.sample.LocatedOnMap;
 import com.sample.NPC;
 import com.sample.Wall;
+import com.sample.WeaponPickableObject;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 import com.sample.Character;
+import com.sample.ConsumablePickableObject;
 import com.sample.PickableObject;
+import com.sample.PlayerSoul;
+import com.sample.Trap;
 import com.sample.Hero;
 
 import javafx.application.Platform;
@@ -56,10 +60,18 @@ public class GameView {
     	} else if (entity instanceof NPC) {
     		int rand = new Random().nextInt(10);
     		imgPath = imgPath.concat("npc"+rand+"/");
-    	} else if (entity instanceof PickableObject) {
-    		imgPath = imgPath.concat("pick/");
     	} else if (entity instanceof Wall) {
     		imgPath = imgPath.concat("wall/");
+    	} else if (entity instanceof Trap) {
+    		imgPath = imgPath.concat("trap/");
+    	} else if (entity instanceof WeaponPickableObject) {
+    		imgPath = imgPath.concat("weapon/");
+    	} else if (entity instanceof ConsumablePickableObject) {
+    		imgPath = imgPath.concat("consumable/");
+    	} else if (entity instanceof PlayerSoul) {
+    		imgPath = imgPath.concat("soul/");
+    	} else if (entity instanceof PickableObject) {
+    		imgPath = imgPath.concat("pick/");
     	} else {
     		imgPath = imgPath.concat("unhandled/");
     	}
@@ -80,7 +92,7 @@ public class GameView {
 
 	public void appendMessageOnConsole(String msg) {
 		Platform.runLater(() -> {
-			this.console.appendMessage(msg);
+		this.console.appendMessage(msg);
 		});
 	}
 	

@@ -47,7 +47,7 @@ public class JavaFXApplication extends Application {
     
     private Stack<KeyCode> keyPressed = new Stack<KeyCode>();;
 
-    private String imageURL = "https://opengameart.org/sites/default/files/tileable_grass.png";
+    private String imageURL = "file:assets/map_darker.png";
 
     @Override
     public void start(Stage primaryStage) throws Exception{
