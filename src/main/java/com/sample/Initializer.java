@@ -111,7 +111,7 @@ public class Initializer {
 		this.weapons.add(new Weapon("Dragonchucks", gen.nextInt(10) + 1, gen.nextInt(30) + 1));
 		this.weapons.add(new Weapon("Heliomasher", gen.nextInt(10) + 1, gen.nextInt(30) + 1));
 		this.weapons.add(new Weapon("Sealimiter", gen.nextInt(10) + 1, gen.nextInt(30) + 1));
-		this.weapons.add(new Weapon("Micrus tired soul", gen.nextInt(100) + 1, gen.nextInt(100) + 1));
+		this.weapons.add(new Weapon("Programmer tired soul", gen.nextInt(100) + 1, gen.nextInt(100) + 1));
 
 		Collections.shuffle(this.weapons);
 
