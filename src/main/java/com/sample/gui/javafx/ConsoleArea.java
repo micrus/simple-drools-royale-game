@@ -14,6 +14,7 @@ public class ConsoleArea extends TextArea {
 	
 	public ConsoleArea() {
 		this.setDisable(true);
+		this.setStyle("-fx-opacity: 1; -fx-font-size: 1.1em;");
 	}
 
 	public void appendMessage(String msg) {
